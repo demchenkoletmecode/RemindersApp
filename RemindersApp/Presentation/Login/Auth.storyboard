@@ -24,6 +24,7 @@
                                         <attributes>
                                             <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <font key="NSFont" size="29" name="PTSans-Bold"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
@@ -37,28 +38,22 @@ your reminders in a cloud</string>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k1u-9E-07X">
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k1u-9E-07X">
                                 <rect key="frame" x="40" y="354.66666666666669" width="310" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" textContentType="username"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xLa-pW-hEE">
-                                <rect key="frame" x="40" y="410.66666666666669" width="310" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" textContentType="password"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
+                                <connections>
+                                    <action selector="emailChanged:" destination="Y6W-OH-hqX" eventType="editingChanged" id="ezy-3O-8k2"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7BI-zb-ijw">
                                 <rect key="frame" x="153" y="514.66666666666663" width="84" height="36"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Sign In">
-                                            <attributes>
-                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                <font key="NSFont" size="19" name="Helvetica"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
+                                <buttonConfiguration key="configuration" style="plain" title="Sign In">
+                                    <backgroundConfiguration key="background">
+                                        <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                    </backgroundConfiguration>
+                                    <fontDescription key="titleFontDescription" name="Helvetica" family="Helvetica" pointSize="19"/>
                                     <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
@@ -75,6 +70,34 @@ your reminders in a cloud</string>
                                     <action selector="laterClick:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="8UD-RB-ZMq"/>
                                 </connections>
                             </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error email" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R7q-4l-bIy">
+                                <rect key="frame" x="44" y="394.66666666666669" width="302" height="15.666666666666686"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" systemColor="systemRedColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error password " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="INA-6P-Xjq">
+                                <rect key="frame" x="44" y="454" width="302" height="15.666666666666686"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" systemColor="systemRedColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xLa-pW-hEE">
+                                <rect key="frame" x="40" y="414" width="310" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
+                                <connections>
+                                    <action selector="passwordChanged:" destination="Y6W-OH-hqX" eventType="editingChanged" id="Xtx-vx-pGp"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sd3-ix-BPM">
+                                <rect key="frame" x="40" y="775" width="310" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Don't have an account? Register now"/>
+                                <connections>
+                                    <action selector="signUpClick:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="neE-lL-v2R"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -84,24 +107,36 @@ your reminders in a cloud</string>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="BNy-b0-pia" secondAttribute="trailing" constant="141" id="3G2-sa-uv3"/>
                             <constraint firstItem="7BI-zb-ijw" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="153" id="3wE-qc-UWD"/>
                             <constraint firstItem="Afm-mW-SlL" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="105" id="75T-Fj-G6n"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="R7q-4l-bIy" secondAttribute="trailing" constant="44" id="D7A-dI-lZr"/>
                             <constraint firstItem="k1u-9E-07X" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="40" id="DR0-nO-2YI"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="k1u-9E-07X" secondAttribute="trailing" constant="40" id="EbZ-0F-qtG"/>
                             <constraint firstItem="k1u-9E-07X" firstAttribute="top" secondItem="Afm-mW-SlL" secondAttribute="bottom" constant="135" id="Fsb-j0-TvQ"/>
+                            <constraint firstItem="Sd3-ix-BPM" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="JCt-sw-Pgh"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="7BI-zb-ijw" secondAttribute="trailing" constant="153" id="JvP-ie-Xpg"/>
-                            <constraint firstItem="xLa-pW-hEE" firstAttribute="top" secondItem="k1u-9E-07X" secondAttribute="bottom" constant="22" id="LFm-n3-jH4"/>
+                            <constraint firstItem="xLa-pW-hEE" firstAttribute="top" secondItem="k1u-9E-07X" secondAttribute="bottom" constant="25.333333333333314" id="LFm-n3-jH4"/>
                             <constraint firstItem="Afm-mW-SlL" firstAttribute="top" secondItem="BNy-b0-pia" secondAttribute="bottom" constant="16" id="Ofm-1N-hcY"/>
                             <constraint firstItem="BNy-b0-pia" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="158" id="QZe-Yh-Awi"/>
+                            <constraint firstItem="INA-6P-Xjq" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="44" id="Ztz-xW-aXJ"/>
+                            <constraint firstItem="INA-6P-Xjq" firstAttribute="top" secondItem="xLa-pW-hEE" secondAttribute="bottom" constant="6" id="gPP-Yu-DhF"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="xLa-pW-hEE" secondAttribute="trailing" constant="40" id="gnS-xI-feU"/>
-                            <constraint firstItem="7BI-zb-ijw" firstAttribute="top" secondItem="xLa-pW-hEE" secondAttribute="bottom" constant="70" id="jF4-ux-bn4"/>
+                            <constraint firstItem="R7q-4l-bIy" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="44" id="j3D-IE-gdo"/>
+                            <constraint firstItem="7BI-zb-ijw" firstAttribute="top" secondItem="xLa-pW-hEE" secondAttribute="bottom" constant="66.666666666666629" id="jF4-ux-bn4"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="INA-6P-Xjq" secondAttribute="trailing" constant="44" id="mTm-vn-6LY"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Sd3-ix-BPM" secondAttribute="trailing" constant="40" id="pNU-c1-JkZ"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Afm-mW-SlL" secondAttribute="trailing" constant="81" id="q4X-nj-MWd"/>
                             <constraint firstItem="BNy-b0-pia" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="82" id="qWT-Jq-cMf"/>
+                            <constraint firstItem="Sd3-ix-BPM" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="40" id="rTv-HP-mje"/>
+                            <constraint firstItem="R7q-4l-bIy" firstAttribute="top" secondItem="k1u-9E-07X" secondAttribute="bottom" constant="6" id="uRW-fp-teC"/>
                             <constraint firstItem="Jcp-ve-7Dh" firstAttribute="top" secondItem="7BI-zb-ijw" secondAttribute="bottom" constant="6" id="wec-ab-Ek0"/>
                             <constraint firstItem="xLa-pW-hEE" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="40" id="xhB-Yl-Hlq"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="emailTextField" destination="k1u-9E-07X" id="yeh-Uu-e6N"/>
+                        <outlet property="errorEmailLbl" destination="R7q-4l-bIy" id="a1C-aj-3po"/>
+                        <outlet property="errorPasswordLbl" destination="INA-6P-Xjq" id="YR1-Ix-o1J"/>
                         <outlet property="passwordTextField" destination="xLa-pW-hEE" id="Xub-MP-Wwl"/>
-                        <outlet property="usernameTextField" destination="k1u-9E-07X" id="LOt-zk-sM8"/>
+                        <outlet property="signInBtn" destination="7BI-zb-ijw" id="yaR-Oj-3Fi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -112,6 +147,12 @@ your reminders in a cloud</string>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -7,9 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5524B59428EC344F007354DB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5524B59328EC344F007354DB /* GoogleService-Info.plist */; };
+		5524B59728EC3837007354DB /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5524B59628EC3837007354DB /* FirebaseAnalytics */; };
+		5524B59928EC3837007354DB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5524B59828EC3837007354DB /* FirebaseAuth */; };
+		5524B59B28EC3837007354DB /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 5524B59A28EC3837007354DB /* FirebaseDatabase */; };
+		5524B59D28EC454F007354DB /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5524B59C28EC454F007354DB /* SignUp.storyboard */; };
+		5524B59F28EC470C007354DB /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5524B59E28EC470C007354DB /* SignUpViewController.swift */; };
+		5524B5A228EC48D3007354DB /* ValidateEmailAndPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5524B5A128EC48D3007354DB /* ValidateEmailAndPassword.swift */; };
+		5524B5A428EC539B007354DB /* CheckUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5524B5A328EC539B007354DB /* CheckUser.swift */; };
 		5581C87628EAD1C900728C40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5581C87528EAD1C900728C40 /* AppDelegate.swift */; };
 		5581C87828EAD1C900728C40 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5581C87728EAD1C900728C40 /* SceneDelegate.swift */; };
-		5581C87A28EAD1C900728C40 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5581C87928EAD1C900728C40 /* ViewController.swift */; };
+		5581C87A28EAD1C900728C40 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5581C87928EAD1C900728C40 /* MainViewController.swift */; };
 		5581C87D28EAD1C900728C40 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5581C87B28EAD1C900728C40 /* Main.storyboard */; };
 		5581C88028EAD1C900728C40 /* RemindersApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5581C87E28EAD1C900728C40 /* RemindersApp.xcdatamodeld */; };
 		5581C88228EAD1CB00728C40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5581C88128EAD1CB00728C40 /* Assets.xcassets */; };
@@ -19,10 +27,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5524B59328EC344F007354DB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5524B59C28EC454F007354DB /* SignUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
+		5524B59E28EC470C007354DB /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		5524B5A128EC48D3007354DB /* ValidateEmailAndPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateEmailAndPassword.swift; sourceTree = "<group>"; };
+		5524B5A328EC539B007354DB /* CheckUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckUser.swift; sourceTree = "<group>"; };
 		5581C87228EAD1C900728C40 /* RemindersApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RemindersApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5581C87528EAD1C900728C40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5581C87728EAD1C900728C40 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		5581C87928EAD1C900728C40 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5581C87928EAD1C900728C40 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		5581C87C28EAD1C900728C40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5581C87F28EAD1C900728C40 /* RemindersApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RemindersApp.xcdatamodel; sourceTree = "<group>"; };
 		5581C88128EAD1CB00728C40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -37,12 +50,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5524B59B28EC3837007354DB /* FirebaseDatabase in Frameworks */,
+				5524B59728EC3837007354DB /* FirebaseAnalytics in Frameworks */,
+				5524B59928EC3837007354DB /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5524B5A028EC4898007354DB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5524B5A128EC48D3007354DB /* ValidateEmailAndPassword.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		5581C86928EAD1C900728C40 = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +110,9 @@
 		5581C89128EAF31400728C40 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				5524B5A028EC4898007354DB /* Extensions */,
+				5524B59328EC344F007354DB /* GoogleService-Info.plist */,
+				5524B5A328EC539B007354DB /* CheckUser.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -119,6 +146,8 @@
 			children = (
 				5581C88C28EAD2CA00728C40 /* Auth.storyboard */,
 				5581C88E28EAE21F00728C40 /* AuthViewController.swift */,
+				5524B59C28EC454F007354DB /* SignUp.storyboard */,
+				5524B59E28EC470C007354DB /* SignUpViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -126,7 +155,7 @@
 		5581C89628EAF3B200728C40 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				5581C87928EAD1C900728C40 /* ViewController.swift */,
+				5581C87928EAD1C900728C40 /* MainViewController.swift */,
 				5581C87B28EAD1C900728C40 /* Main.storyboard */,
 			);
 			path = Home;
@@ -148,6 +177,11 @@
 			dependencies = (
 			);
 			name = RemindersApp;
+			packageProductDependencies = (
+				5524B59628EC3837007354DB /* FirebaseAnalytics */,
+				5524B59828EC3837007354DB /* FirebaseAuth */,
+				5524B59A28EC3837007354DB /* FirebaseDatabase */,
+			);
 			productName = RemindersApp;
 			productReference = 5581C87228EAD1C900728C40 /* RemindersApp.app */;
 			productType = "com.apple.product-type.application";
@@ -176,6 +210,9 @@
 				Base,
 			);
 			mainGroup = 5581C86928EAD1C900728C40;
+			packageReferences = (
+				5524B59528EC3837007354DB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 5581C87328EAD1C900728C40 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -192,6 +229,8 @@
 			files = (
 				5581C88D28EAD2CA00728C40 /* Auth.storyboard in Resources */,
 				5581C88528EAD1CB00728C40 /* LaunchScreen.storyboard in Resources */,
+				5524B59D28EC454F007354DB /* SignUp.storyboard in Resources */,
+				5524B59428EC344F007354DB /* GoogleService-Info.plist in Resources */,
 				5581C88228EAD1CB00728C40 /* Assets.xcassets in Resources */,
 				5581C87D28EAD1C900728C40 /* Main.storyboard in Resources */,
 			);
@@ -204,11 +243,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5581C87A28EAD1C900728C40 /* ViewController.swift in Sources */,
+				5524B59F28EC470C007354DB /* SignUpViewController.swift in Sources */,
+				5581C87A28EAD1C900728C40 /* MainViewController.swift in Sources */,
 				5581C87628EAD1C900728C40 /* AppDelegate.swift in Sources */,
 				5581C88F28EAE21F00728C40 /* AuthViewController.swift in Sources */,
 				5581C87828EAD1C900728C40 /* SceneDelegate.swift in Sources */,
+				5524B5A228EC48D3007354DB /* ValidateEmailAndPassword.swift in Sources */,
 				5581C88028EAD1C900728C40 /* RemindersApp.xcdatamodeld in Sources */,
+				5524B5A428EC539B007354DB /* CheckUser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,6 +468,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5524B59528EC3837007354DB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5524B59628EC3837007354DB /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5524B59528EC3837007354DB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		5524B59828EC3837007354DB /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5524B59528EC3837007354DB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		5524B59A28EC3837007354DB /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5524B59528EC3837007354DB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		5581C87E28EAD1C900728C40 /* RemindersApp.xcdatamodeld */ = {
