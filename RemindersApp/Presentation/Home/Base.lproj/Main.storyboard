@@ -16,42 +16,13 @@
                     <view key="view" contentMode="scaleToFill" id="a5Z-2v-MKL">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iYR-fn-t1W">
-                                <rect key="frame" x="152" y="405" width="61" height="35"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="login"/>
-                                <connections>
-                                    <action selector="segueButtonPressed:" destination="u0o-Am-kKa" eventType="touchUpInside" id="Drp-lf-rcq"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="4ne-qa-Iqb"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="4ne-qa-Iqb" firstAttribute="trailing" secondItem="iYR-fn-t1W" secondAttribute="trailing" constant="177" id="DIy-Ss-tXm"/>
-                            <constraint firstItem="iYR-fn-t1W" firstAttribute="top" secondItem="4ne-qa-Iqb" secondAttribute="top" constant="358" id="E5F-4h-yPm"/>
-                            <constraint firstItem="4ne-qa-Iqb" firstAttribute="bottom" secondItem="iYR-fn-t1W" secondAttribute="bottom" constant="370" id="QuI-Oa-cbq"/>
-                            <constraint firstItem="iYR-fn-t1W" firstAttribute="leading" secondItem="4ne-qa-Iqb" secondAttribute="leading" constant="152" id="Y0v-uZ-9F9"/>
-                        </constraints>
                     </view>
-                    <connections>
-                        <segue destination="117-Jd-0yb" kind="show" identifier="goToAuthStoryboard" id="XVu-eh-DYm"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w8A-nH-rVd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="248" y="-87"/>
-        </scene>
-        <!--AuthVC-->
-        <scene sceneID="iDd-RB-NhY">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Auth" referencedIdentifier="AuthVC" id="117-Jd-0yb" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="Jhj-O5-qZ2"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gV0-Q2-y02" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="906" y="-87"/>
         </scene>
     </scenes>
     <resources>

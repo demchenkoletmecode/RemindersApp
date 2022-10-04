@@ -16,6 +16,7 @@ class AuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+       
     }
     
     @IBAction func signInClick(_ sender: UIButton) {
