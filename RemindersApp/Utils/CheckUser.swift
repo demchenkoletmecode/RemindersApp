@@ -9,10 +9,10 @@ import Foundation
 import Firebase
 import FirebaseAuth
 
-func isAuthorized() -> Bool {
-    if Auth.auth().currentUser != nil {
-        return true
-    } else {
-        return false
-    }
+static var isAuthorized: Bool {
+   if currentUser != nil {
+         return true
+     } else {
+         return false
+     }
 }

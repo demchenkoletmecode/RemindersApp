@@ -14,7 +14,8 @@
 		5524B59D28EC454F007354DB /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5524B59C28EC454F007354DB /* SignUp.storyboard */; };
 		5524B59F28EC470C007354DB /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5524B59E28EC470C007354DB /* SignUpViewController.swift */; };
 		5524B5A228EC48D3007354DB /* ValidateEmailAndPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5524B5A128EC48D3007354DB /* ValidateEmailAndPassword.swift */; };
-		5524B5A428EC539B007354DB /* CheckUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5524B5A328EC539B007354DB /* CheckUser.swift */; };
+		5568851A28EFFB83004F211E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5568851928EFFB83004F211E /* User.swift */; };
+		5568851C28F00514004F211E /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5568851B28F00514004F211E /* AppContext.swift */; };
 		5581C87628EAD1C900728C40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5581C87528EAD1C900728C40 /* AppDelegate.swift */; };
 		5581C87828EAD1C900728C40 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5581C87728EAD1C900728C40 /* SceneDelegate.swift */; };
 		5581C87A28EAD1C900728C40 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5581C87928EAD1C900728C40 /* MainViewController.swift */; };
@@ -22,8 +23,11 @@
 		5581C88028EAD1C900728C40 /* RemindersApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5581C87E28EAD1C900728C40 /* RemindersApp.xcdatamodeld */; };
 		5581C88228EAD1CB00728C40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5581C88128EAD1CB00728C40 /* Assets.xcassets */; };
 		5581C88528EAD1CB00728C40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5581C88328EAD1CB00728C40 /* LaunchScreen.storyboard */; };
-		5581C88D28EAD2CA00728C40 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5581C88C28EAD2CA00728C40 /* Auth.storyboard */; };
-		5581C88F28EAE21F00728C40 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5581C88E28EAE21F00728C40 /* AuthViewController.swift */; };
+		5581C88D28EAD2CA00728C40 /* SignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5581C88C28EAD2CA00728C40 /* SignIn.storyboard */; };
+		5581C88F28EAE21F00728C40 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5581C88E28EAE21F00728C40 /* SignInViewController.swift */; };
+		558A379928EED94900801DAE /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558A379828EED94900801DAE /* AuthPresenter.swift */; };
+		558A379D28EED9E000801DAE /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558A379C28EED9E000801DAE /* MainPresenter.swift */; };
+		558A37A628EEFD6000801DAE /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558A37A528EEFD6000801DAE /* AuthService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +35,8 @@
 		5524B59C28EC454F007354DB /* SignUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
 		5524B59E28EC470C007354DB /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		5524B5A128EC48D3007354DB /* ValidateEmailAndPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateEmailAndPassword.swift; sourceTree = "<group>"; };
-		5524B5A328EC539B007354DB /* CheckUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckUser.swift; sourceTree = "<group>"; };
+		5568851928EFFB83004F211E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		5568851B28F00514004F211E /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
 		5581C87228EAD1C900728C40 /* RemindersApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RemindersApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5581C87528EAD1C900728C40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5581C87728EAD1C900728C40 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,8 +46,11 @@
 		5581C88128EAD1CB00728C40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5581C88428EAD1CB00728C40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5581C88628EAD1CB00728C40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5581C88C28EAD2CA00728C40 /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
-		5581C88E28EAE21F00728C40 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		5581C88C28EAD2CA00728C40 /* SignIn.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignIn.storyboard; sourceTree = "<group>"; };
+		5581C88E28EAE21F00728C40 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		558A379828EED94900801DAE /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
+		558A379C28EED9E000801DAE /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
+		558A37A528EEFD6000801DAE /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,7 +120,7 @@
 			children = (
 				5524B5A028EC4898007354DB /* Extensions */,
 				5524B59328EC344F007354DB /* GoogleService-Info.plist */,
-				5524B5A328EC539B007354DB /* CheckUser.swift */,
+				5568851B28F00514004F211E /* AppContext.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -120,7 +128,9 @@
 		5581C89228EAF32D00728C40 /* Business Logic */ = {
 			isa = PBXGroup;
 			children = (
-				5581C87E28EAD1C900728C40 /* RemindersApp.xcdatamodeld */,
+				558A37A428EEFD1400801DAE /* Services */,
+				558A37A328EEFD0900801DAE /* Network */,
+				558A37A228EEFCFA00801DAE /* Database */,
 			);
 			path = "Business Logic";
 			sourceTree = "<group>";
@@ -137,6 +147,7 @@
 		5581C89428EAF35800728C40 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5568851928EFFB83004F211E /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -144,10 +155,8 @@
 		5581C89528EAF36F00728C40 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				5581C88C28EAD2CA00728C40 /* Auth.storyboard */,
-				5581C88E28EAE21F00728C40 /* AuthViewController.swift */,
-				5524B59C28EC454F007354DB /* SignUp.storyboard */,
-				5524B59E28EC470C007354DB /* SignUpViewController.swift */,
+				558A379F28EEFA5700801DAE /* Presenter */,
+				558A379E28EEFA4B00801DAE /* Views */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -155,10 +164,69 @@
 		5581C89628EAF3B200728C40 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				558A37A128EEFA9E00801DAE /* Presenter */,
+				558A37A028EEFA9600801DAE /* Views */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		558A379E28EEFA4B00801DAE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5581C88C28EAD2CA00728C40 /* SignIn.storyboard */,
+				5581C88E28EAE21F00728C40 /* SignInViewController.swift */,
+				5524B59C28EC454F007354DB /* SignUp.storyboard */,
+				5524B59E28EC470C007354DB /* SignUpViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		558A379F28EEFA5700801DAE /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				558A379828EED94900801DAE /* AuthPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		558A37A028EEFA9600801DAE /* Views */ = {
+			isa = PBXGroup;
+			children = (
 				5581C87928EAD1C900728C40 /* MainViewController.swift */,
 				5581C87B28EAD1C900728C40 /* Main.storyboard */,
 			);
-			path = Home;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		558A37A128EEFA9E00801DAE /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				558A379C28EED9E000801DAE /* MainPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		558A37A228EEFCFA00801DAE /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				5581C87E28EAD1C900728C40 /* RemindersApp.xcdatamodeld */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		558A37A328EEFD0900801DAE /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		558A37A428EEFD1400801DAE /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				558A37A528EEFD6000801DAE /* AuthService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,7 +295,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5581C88D28EAD2CA00728C40 /* Auth.storyboard in Resources */,
+				5581C88D28EAD2CA00728C40 /* SignIn.storyboard in Resources */,
 				5581C88528EAD1CB00728C40 /* LaunchScreen.storyboard in Resources */,
 				5524B59D28EC454F007354DB /* SignUp.storyboard in Resources */,
 				5524B59428EC344F007354DB /* GoogleService-Info.plist in Resources */,
@@ -244,13 +312,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				5524B59F28EC470C007354DB /* SignUpViewController.swift in Sources */,
+				5568851C28F00514004F211E /* AppContext.swift in Sources */,
 				5581C87A28EAD1C900728C40 /* MainViewController.swift in Sources */,
 				5581C87628EAD1C900728C40 /* AppDelegate.swift in Sources */,
-				5581C88F28EAE21F00728C40 /* AuthViewController.swift in Sources */,
+				5581C88F28EAE21F00728C40 /* SignInViewController.swift in Sources */,
+				558A379928EED94900801DAE /* AuthPresenter.swift in Sources */,
 				5581C87828EAD1C900728C40 /* SceneDelegate.swift in Sources */,
+				558A37A628EEFD6000801DAE /* AuthService.swift in Sources */,
 				5524B5A228EC48D3007354DB /* ValidateEmailAndPassword.swift in Sources */,
+				5568851A28EFFB83004F211E /* User.swift in Sources */,
 				5581C88028EAD1C900728C40 /* RemindersApp.xcdatamodeld in Sources */,
-				5524B5A428EC539B007354DB /* CheckUser.swift in Sources */,
+				558A379D28EED9E000801DAE /* MainPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

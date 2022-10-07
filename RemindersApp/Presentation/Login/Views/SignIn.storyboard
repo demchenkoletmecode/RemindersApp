@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Auth View Controller-->
+        <!--Sign In View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController storyboardIdentifier="AuthVC" id="Y6W-OH-hqX" customClass="AuthViewController" customModule="RemindersApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignInVC" id="Y6W-OH-hqX" customClass="SignInViewController" customModule="RemindersApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -95,7 +95,7 @@ your reminders in a cloud</string>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Don't have an account? Register now"/>
                                 <connections>
-                                    <action selector="signUpClick:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="neE-lL-v2R"/>
+                                    <action selector="goToSignUpClick:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="59d-Lx-B9f"/>
                                 </connections>
                             </button>
                         </subviews>

@@ -50,7 +50,7 @@ your reminders in a cloud</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                 <connections>
-                                    <action selector="passwordChanged:" destination="Y6W-OH-hqX" eventType="editingDidEnd" id="0Sf-gu-1Ed"/>
+                                    <action selector="passwordChanged:" destination="Y6W-OH-hqX" eventType="editingChanged" id="qBH-8s-Yzq"/>
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z4B-gh-slh">
@@ -58,7 +58,7 @@ your reminders in a cloud</string>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Already have an account? Sign In now"/>
                                 <connections>
-                                    <action selector="signIn:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Ta6-Ce-gZp"/>
+                                    <action selector="goToSignInClick:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="QHd-NK-y03"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RSZ-bI-u7N">
