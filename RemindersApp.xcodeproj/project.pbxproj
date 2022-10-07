@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5524B59428EC344F007354DB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5524B59328EC344F007354DB /* GoogleService-Info.plist */; };
 		5524B59728EC3837007354DB /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5524B59628EC3837007354DB /* FirebaseAnalytics */; };
 		5524B59928EC3837007354DB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5524B59828EC3837007354DB /* FirebaseAuth */; };
 		5524B59B28EC3837007354DB /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 5524B59A28EC3837007354DB /* FirebaseDatabase */; };
 		5524B59D28EC454F007354DB /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5524B59C28EC454F007354DB /* SignUp.storyboard */; };
 		5524B59F28EC470C007354DB /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5524B59E28EC470C007354DB /* SignUpViewController.swift */; };
 		5524B5A228EC48D3007354DB /* ValidateEmailAndPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5524B5A128EC48D3007354DB /* ValidateEmailAndPassword.swift */; };
+		5554352328F061D9008ED8DB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5554352228F061D9008ED8DB /* GoogleService-Info.plist */; };
 		5568851A28EFFB83004F211E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5568851928EFFB83004F211E /* User.swift */; };
 		5568851C28F00514004F211E /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5568851B28F00514004F211E /* AppContext.swift */; };
 		5581C87628EAD1C900728C40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5581C87528EAD1C900728C40 /* AppDelegate.swift */; };
@@ -31,10 +31,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5524B59328EC344F007354DB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5524B59C28EC454F007354DB /* SignUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
 		5524B59E28EC470C007354DB /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		5524B5A128EC48D3007354DB /* ValidateEmailAndPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateEmailAndPassword.swift; sourceTree = "<group>"; };
+		5554352228F061D9008ED8DB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5568851928EFFB83004F211E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5568851B28F00514004F211E /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
 		5581C87228EAD1C900728C40 /* RemindersApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RemindersApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,6 +73,14 @@
 				5524B5A128EC48D3007354DB /* ValidateEmailAndPassword.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		5554352128F061BF008ED8DB /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				5554352228F061D9008ED8DB /* GoogleService-Info.plist */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		5581C86928EAD1C900728C40 = {
@@ -118,8 +126,8 @@
 		5581C89128EAF31400728C40 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				5554352128F061BF008ED8DB /* Constants */,
 				5524B5A028EC4898007354DB /* Extensions */,
-				5524B59328EC344F007354DB /* GoogleService-Info.plist */,
 				5568851B28F00514004F211E /* AppContext.swift */,
 			);
 			path = Utils;
@@ -298,9 +306,9 @@
 				5581C88D28EAD2CA00728C40 /* SignIn.storyboard in Resources */,
 				5581C88528EAD1CB00728C40 /* LaunchScreen.storyboard in Resources */,
 				5524B59D28EC454F007354DB /* SignUp.storyboard in Resources */,
-				5524B59428EC344F007354DB /* GoogleService-Info.plist in Resources */,
 				5581C88228EAD1CB00728C40 /* Assets.xcassets in Resources */,
 				5581C87D28EAD1C900728C40 /* Main.storyboard in Resources */,
+				5554352328F061D9008ED8DB /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

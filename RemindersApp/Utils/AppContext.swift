@@ -12,5 +12,5 @@ let appContext = AppContext()
 class AppContext {
     fileprivate init() {}
 
-    let authentication = AuthService()
+    lazy var authentication = AuthService()
 }

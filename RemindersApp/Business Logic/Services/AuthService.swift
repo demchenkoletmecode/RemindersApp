@@ -24,11 +24,7 @@ protocol AuthServiceProtocol {
 class AuthService: AuthServiceProtocol {
     
     static var isAuthorized: Bool {
-        if Auth.auth().currentUser != nil {
-             return true
-         } else {
-             return false
-         }
+        return Auth.auth().currentUser != nil
     }
     
     func createAccount(_ email: String, _ password: String, completion: @escaping (Result<User, Error?>) -> Void) {

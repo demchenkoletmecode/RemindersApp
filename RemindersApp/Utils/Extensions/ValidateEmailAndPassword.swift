@@ -16,12 +16,6 @@ extension String {
         return emailPred.evaluate(with: self)
     }
     
-    var isPasswordHasEightCharacter: Bool {
-        let passWordRegEx = "^.{8,}$"
-        let passwordTest = NSPredicate(format: "SELF MATCHES %@", passWordRegEx)
-        return passwordTest.evaluate(with: self)
-    }
-    
     var isPasswordHasNumberAndCharacter: Bool {
         let passRegEx = "^(?=.*[a-z])(?=.*[0-9]).{8,}$"
         let passwordTest = NSPredicate(format: "SELF MATCHES %@", passRegEx)

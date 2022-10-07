@@ -65,10 +65,10 @@ class AuthPresenter {
                     self.view.emailError = "Invalide Email!"
                     self.view.isBtnEnabled = false
                 }
-                if !password.isPasswordHasEightCharacter {
+                if password.count < 8 {
                     self.view.passwordError = "Password should have at least 8 characters!"
                     self.view.isBtnEnabled = false
-                } else if email.isValidEmail && password.isPasswordHasEightCharacter {
+                } else if email.isValidEmail && password.count >= 8 {
                     if !password.isPasswordHasNumberAndCharacter {
                         self.view.passwordError = "Password should have at least 1 number and 1 character!"
                         self.view.isBtnEnabled = false
@@ -93,17 +93,13 @@ class AuthPresenter {
         
         let isCorrect = validateEmailAndPassword(email, password)
     
-        //self.view.showSignInEmailError(message: self.view.emailError)
-        //self.view.showSignInPasswordError(message: self.view.passwordError)
-    
         if isCorrect {
-            authService.login(email, password) { result in
+            authService.login(email, password) { [weak self] result in
                 switch result {
                 case .success(let user):
-                    self.view.move(to: .mainWithUser)
+                    self?.view.move(to: .mainWithUser)
                 case .failure(let error):
-                    self.view.passwordError = error?.localizedDescription ?? "Some error occurred"
-                    //self.view.showSignInPasswordError(message: error?.localizedDescription ?? "Some error occurred")
+                    self?.view.passwordError = error?.localizedDescription ?? "Some error occurred"
                 }
             }
         }
@@ -114,17 +110,14 @@ class AuthPresenter {
         let password = view.password
 
         let isCorrect = validateEmailAndPassword(email, password)
-        //self.view.showSignUpEmailError(message: self.view.emailError)
-        //self.view.showSignUpPasswordError(message: self.view.passwordError)
 
         if isCorrect {
-            authService.createAccount(view.email, view.password) { result in
+            authService.createAccount(view.email, view.password) { [weak self] result in
                 switch result {
                 case .success(let user):
-                    self.view.move(to: .mainWithUser)
+                    self?.view.move(to: .mainWithUser)
                 case .failure(let error):
-                    self.view.passwordError = error?.localizedDescription ?? "Some error occurred"
-                    //self.view.showSignUpPasswordError(message: error?.localizedDescription ?? "Some error occurred")
+                    self?.view.passwordError = error?.localizedDescription ?? "Some error occurred"
                 }
             }
         }
