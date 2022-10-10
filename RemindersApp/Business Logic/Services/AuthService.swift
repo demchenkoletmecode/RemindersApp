@@ -32,7 +32,7 @@ class AuthService: AuthServiceProtocol {
             if let user = result?.user, error == nil {
                 completion(.success(User(user)))
             } else {
-                print("Error \(error?.localizedDescription)")
+                print("Error \(error?.localizedDescription ?? "something with creating account")")
                 completion(.failure(error))
             }
         }
@@ -44,7 +44,7 @@ class AuthService: AuthServiceProtocol {
             if let user = result?.user, error == nil {
                 completion(.success(User(user)))
             } else {
-                print("Error \(error?.localizedDescription)")
+                print("Error \(error?.localizedDescription ?? "something with login")")
                 completion(.failure(error))
             }
         }

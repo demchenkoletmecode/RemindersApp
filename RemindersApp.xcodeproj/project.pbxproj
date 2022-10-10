@@ -28,6 +28,8 @@
 		558A379928EED94900801DAE /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558A379828EED94900801DAE /* AuthPresenter.swift */; };
 		558A379D28EED9E000801DAE /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558A379C28EED9E000801DAE /* MainPresenter.swift */; };
 		558A37A628EEFD6000801DAE /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558A37A528EEFD6000801DAE /* AuthService.swift */; };
+		55EFAA4F28F3FE60004171F0 /* ReminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EFAA4E28F3FE5F004171F0 /* ReminderTableViewCell.swift */; };
+		55EFAA5128F40EA3004171F0 /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EFAA5028F40EA3004171F0 /* Reminder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +53,8 @@
 		558A379828EED94900801DAE /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
 		558A379C28EED9E000801DAE /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		558A37A528EEFD6000801DAE /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		55EFAA4E28F3FE5F004171F0 /* ReminderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderTableViewCell.swift; sourceTree = "<group>"; };
+		55EFAA5028F40EA3004171F0 /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				5568851928EFFB83004F211E /* User.swift */,
+				55EFAA5028F40EA3004171F0 /* Reminder.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -202,6 +207,7 @@
 			children = (
 				5581C87928EAD1C900728C40 /* MainViewController.swift */,
 				5581C87B28EAD1C900728C40 /* Main.storyboard */,
+				55EFAA4E28F3FE5F004171F0 /* ReminderTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -321,6 +327,7 @@
 			files = (
 				5524B59F28EC470C007354DB /* SignUpViewController.swift in Sources */,
 				5568851C28F00514004F211E /* AppContext.swift in Sources */,
+				55EFAA4F28F3FE60004171F0 /* ReminderTableViewCell.swift in Sources */,
 				5581C87A28EAD1C900728C40 /* MainViewController.swift in Sources */,
 				5581C87628EAD1C900728C40 /* AppDelegate.swift in Sources */,
 				5581C88F28EAE21F00728C40 /* SignInViewController.swift in Sources */,
@@ -331,6 +338,7 @@
 				5568851A28EFFB83004F211E /* User.swift in Sources */,
 				5581C88028EAD1C900728C40 /* RemindersApp.xcdatamodeld in Sources */,
 				558A379D28EED9E000801DAE /* MainPresenter.swift in Sources */,
+				55EFAA5128F40EA3004171F0 /* Reminder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
