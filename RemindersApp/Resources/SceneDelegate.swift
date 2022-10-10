@@ -11,19 +11,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let scene = (scene as? UIWindowScene) else { return }
-           window = UIWindow(windowScene: scene)
-           let storyboard = UIStoryboard(name: "Auth", bundle: nil)
-           let controller = storyboard.instantiateViewController(withIdentifier: "AuthVC") as! AuthViewController
-           //embed in UINavigationController
-           let navController = UINavigationController(rootViewController: controller)
-           window?.rootViewController = navController
-           window?.makeKeyAndVisible()
+        window = UIWindow(windowScene: scene)
+        openTheDesiredController(isLater: false, isAuthorized: false)
+    }
+    
+    func openTheDesiredController(isLater: Bool, isAuthorized: Bool) {
+        if isLater || isAuthorized {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let controller = storyboard.instantiateViewController(withIdentifier: "MainVC") as! MainViewController
+            let navController = UINavigationController(rootViewController: controller)
+            window?.rootViewController = navController
+            window?.makeKeyAndVisible()
+        } else {
+            let storyboard = UIStoryboard(name: "SignIn", bundle: nil)
+            let controller = storyboard.instantiateViewController(withIdentifier: "SignInVC") as! SignInViewController
+            let navController = UINavigationController(rootViewController: controller)
+            window?.rootViewController = navController
+            window?.makeKeyAndVisible()
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
