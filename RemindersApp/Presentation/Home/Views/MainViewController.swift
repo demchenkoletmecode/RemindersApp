@@ -17,6 +17,8 @@ class MainViewController: UIViewController {
     private var presenter: MainPresenter!
     private var sections: [SectionReminders] = []
     
+    //private var stackView = UIStackView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,6 +31,8 @@ class MainViewController: UIViewController {
         presenter = MainPresenter(view: self)
         presenter.getReminders()
     }
+    
+ 
     
     @objc private func signInSignOutClick() {
         presenter.tapOnSignInSignOut()
@@ -56,11 +60,34 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReminderCell") as! ReminderTableViewCell
-        cell.nameLbl.text = sections[indexPath.section].reminders?[indexPath.row].name
-        cell.checkBox.isSelected = sections[indexPath.section].reminders?[indexPath.row].isDone ?? false
-        cell.timeDateLbl.text = sections[indexPath.section].reminders?[indexPath.row].timeDate
-        cell.periodicityLbl.text = sections[indexPath.section].reminders?[indexPath.row].periodicity
+        
+        let name = sections[indexPath.section].reminders?[indexPath.row].name
+        let isSelected = sections[indexPath.section].reminders?[indexPath.row].isDone ?? false
+        let timeDate = sections[indexPath.section].reminders?[indexPath.row].timeDate
+        let periodicity = sections[indexPath.section].reminders?[indexPath.row].periodicity
+        
+        cell.nameLbl.text = name
+        cell.checkBox.isSelected = isSelected
+        cell.timeDateLbl.text = timeDate
+        cell.periodicityLbl.text = periodicity
         cell.checkBox.addTarget(self, action: #selector(checkMarkButtonClicked(sender:)), for: .touchUpInside)
+        
+        cell.stackView.removeArrangedSubview(cell.periodicityLbl)
+        cell.stackView.removeArrangedSubview(cell.timeDateLbl)
+        
+        if periodicity == nil, timeDate != nil {
+            cell.stackView.addArrangedSubview(cell.timeDateLbl)
+            cell.timeDateLbl.font = UIFont.boldSystemFont(ofSize: 26)
+        } else if timeDate == nil, periodicity != nil {
+            cell.stackView.addArrangedSubview(cell.periodicityLbl)
+            cell.periodicityLbl.font = UIFont.boldSystemFont(ofSize: 24)
+        } else {
+            cell.stackView.addArrangedSubview(cell.timeDateLbl)
+            cell.stackView.addArrangedSubview(cell.periodicityLbl)
+            cell.timeDateLbl.font = UIFont.boldSystemFont(ofSize: 20)
+            cell.periodicityLbl.font = UIFont.boldSystemFont(ofSize: 20)
+        }
+        
         return cell
     }
     

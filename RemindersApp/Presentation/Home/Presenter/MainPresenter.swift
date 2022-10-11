@@ -29,7 +29,8 @@ class MainPresenter {
     
     func getReminders() {
         let todayReminders = [Reminder(name: "Eat a cake", isDone: false, timeDate: "9:00"),
-                    Reminder(name: "Do exercise", isDone: true, timeDate: "12:30", periodicity: "daily")]
+                    Reminder(name: "Do exercise", isDone: true, timeDate: "12:30", periodicity: "daily"),
+                              Reminder(name: "Feed the cat", isDone: true, periodicity: "daily")]
         
         let weekReminders = [Reminder(name: "Go for swimming", isDone: false, timeDate: "Oct 23", periodicity: "every day"),
                     Reminder(name: "Help my brother", isDone: true, timeDate: "Oct 25"),
@@ -37,7 +38,8 @@ class MainPresenter {
         
         let monthReminders = [Reminder(name: "Make a project", isDone: false, timeDate: "Now 4", periodicity: "every day")]
         
-        let laterReminders = [Reminder(name: "Do something", isDone: false)]
+        let laterReminders = [Reminder(name: "Do something", isDone: false),
+                              Reminder(name: "Do other thing", isDone: true, periodicity: "once a week")]
         
         let data = [SectionReminders(section: Section.today.rawValue, reminders: todayReminders),
                             SectionReminders(section: Section.week.rawValue, reminders: weekReminders),
@@ -48,7 +50,7 @@ class MainPresenter {
     }
     
     func didTapReminder(reminder: Reminder) {
-        print("reminder \(reminder.name)")
+        print("reminder \(reminder.name) periodicity \(reminder.periodicity)")
     }
     
     func tapOnSignInSignOut() {

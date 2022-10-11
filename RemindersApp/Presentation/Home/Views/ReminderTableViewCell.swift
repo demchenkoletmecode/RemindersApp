@@ -13,5 +13,5 @@ class ReminderTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var timeDateLbl: UILabel!
     @IBOutlet weak var periodicityLbl: UILabel!
-  
+    @IBOutlet weak var stackView: UIStackView!
 }
