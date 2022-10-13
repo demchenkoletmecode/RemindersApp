@@ -82,9 +82,6 @@
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" systemColor="systemGray6Color"/>
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
-            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="checkBox" destination="jTd-lD-2OU" id="IJ8-Ym-yFu"/>
                 <outlet property="nameLbl" destination="vfV-MC-y9O" id="dfi-IO-fDN"/>
