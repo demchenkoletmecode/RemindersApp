@@ -7,9 +7,9 @@
 
 import Foundation
 
-enum SectionType {
+enum SectionType: Int {
     
-    case today
+    case today = 0
     case week
     case month
     case later
@@ -27,24 +27,19 @@ enum SectionType {
         }
     }
     
-    var sectionNumber: Int {
-        switch self {
-        case .today:
-            return 1
-        case .week:
-            return 2
-        case .month:
-            return 3
-        case .later:
-            return 4
-        }
-    }
-    
 }
 
 struct SectionReminders {
     
     let type: SectionType
     var rows: [ReminderRow]
+    
+}
+
+extension SectionType: Comparable {
+    
+    static func < (lhs: SectionType, rhs: SectionType) -> Bool {
+        lhs.rawValue < rhs.rawValue
+    }
     
 }

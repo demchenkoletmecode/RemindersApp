@@ -143,7 +143,7 @@ private extension MainPresenter {
             }
         }
         
-        dataSource.sort { $0.type.sectionNumber < $1.type.sectionNumber }
+        dataSource.sort { $0.type < $1.type }
         
         self.view?.presentReminders(reminders: dataSource)
     }

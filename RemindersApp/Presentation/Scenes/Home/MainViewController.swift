@@ -1,8 +1,8 @@
 //
-//  ViewController.swift
+//  TestViewController.swift
 //  RemindersApp
 //
-//  Created by Andrey on 03.10.2022.
+//  Created by Андрей on 13.10.2022.
 //
 
 import UIKit
@@ -10,8 +10,8 @@ import Firebase
 import FirebaseAuth
 
 class MainViewController: UIViewController {
-    
-    @IBOutlet private weak var tableView: UITableView!
+
+    @IBOutlet weak var tableView: UITableView!
     
     private let authService = appContext.authentication
     private var presenter: MainPresenter!
@@ -47,7 +47,7 @@ class MainViewController: UIViewController {
     
 }
 
-extension MainViewController: UITableViewDataSource, UITableViewDelegate, ReminderCellProtocol {
+extension MainViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections[section].rows.count
@@ -81,13 +81,6 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate, Remind
           cell.layer.mask = maskLayer
     }
     
-    func checkBoxClick(_ cell: ReminderTableViewCell) {
-        if let indexPath = tableView.indexPath(for: cell) {
-            var reminder = sections[indexPath.section].rows[indexPath.row]
-            reminder.changeAccomplishment()
-        }
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.didTapReminder(reminder: (sections[indexPath.section].rows[indexPath.row]))
     }
@@ -104,6 +97,17 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate, Remind
 
         view.nameLbl.attributedText = NSAttributedString(string: sections[section].type.displayString, attributes: strokeTextAttributes)
         return view
+    }
+    
+}
+
+extension MainViewController: ReminderCellProtocol {
+    
+    func checkBoxClick(_ cell: ReminderTableViewCell) {
+        if let indexPath = tableView.indexPath(for: cell) {
+            var reminder = sections[indexPath.section].rows[indexPath.row]
+            reminder.changeAccomplishment()
+        }
     }
     
 }
@@ -139,3 +143,4 @@ extension MainViewController: MainViewProtocol {
     }
     
 }
+
