@@ -7,33 +7,21 @@
 
 import Foundation
 
-class Reminder {
+struct Reminder {
+    let id = UUID().uuidString
     var name: String
     var isDone: Bool
-    var timeDate: String?
+    var timeDate: Date?
     var periodicity: String?
     
-    init(name: String, isDone: Bool, timeDate: String? = nil, periodicity: String? = nil) {
+    init(name: String,
+         isDone: Bool,
+         timeDate: Date? = nil,
+         periodicity: String? = nil) {
         self.name = name
         self.isDone = isDone
         self.timeDate = timeDate
         self.periodicity = periodicity
     }
-}
-
-class SectionReminders {
-    var section: String?
-    var reminders: [Reminder]?
     
-    init(section: String, reminders: [Reminder]) {
-        self.section = section
-        self.reminders = reminders
-    }
-}
-
-enum Section: String {
-    case today = "Today"
-    case week = "This week"
-    case month = "This month"
-    case later = "Later"
 }

@@ -11,13 +11,13 @@ import FirebaseAuth
 
 class SignInViewController: UIViewController {
 
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var errorEmailLbl: UILabel!
-    @IBOutlet weak var errorPasswordLbl: UILabel!
-    @IBOutlet weak var signInBtn: UIButton!
+    @IBOutlet private weak var emailTextField: UITextField!
+    @IBOutlet private weak var passwordTextField: UITextField!
+    @IBOutlet private weak var errorEmailLbl: UILabel!
+    @IBOutlet private weak var errorPasswordLbl: UILabel!
+    @IBOutlet private weak var signInBtn: UIButton!
     
-    var presenter: AuthPresenter!
+    private var presenter: AuthPresenter!
     
     override func viewDidLoad() {
         super.viewDidLoad()

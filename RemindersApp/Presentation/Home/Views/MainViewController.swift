@@ -11,13 +11,11 @@ import FirebaseAuth
 
 class MainViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!
     
     private let authService = appContext.authentication
     private var presenter: MainPresenter!
     private var sections: [SectionReminders] = []
-    
-    //private var stackView = UIStackView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,12 +25,12 @@ class MainViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.register(UINib.init(nibName: "ReminderCell", bundle: .main), forCellReuseIdentifier: "ReminderCell")
+        tableView.register(UINib(nibName: "ReminderSectionHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "CustomHeader")
         
         presenter = MainPresenter(view: self)
         presenter.getReminders()
     }
-    
- 
     
     @objc private func signInSignOutClick() {
         presenter.tapOnSignInSignOut()
@@ -49,9 +47,10 @@ class MainViewController: UIViewController {
     
 }
 
-extension MainViewController: UITableViewDataSource, UITableViewDelegate {
+extension MainViewController: UITableViewDataSource, UITableViewDelegate, ReminderCellProtocol {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].reminders?.count ?? 0
+        return sections[section].rows.count
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -60,55 +59,41 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReminderCell") as! ReminderTableViewCell
-        
-        let name = sections[indexPath.section].reminders?[indexPath.row].name
-        let isSelected = sections[indexPath.section].reminders?[indexPath.row].isDone ?? false
-        let timeDate = sections[indexPath.section].reminders?[indexPath.row].timeDate
-        let periodicity = sections[indexPath.section].reminders?[indexPath.row].periodicity
-        
-        cell.nameLbl.text = name
-        cell.checkBox.isSelected = isSelected
-        cell.timeDateLbl.text = timeDate
-        cell.periodicityLbl.text = periodicity
-        cell.checkBox.addTarget(self, action: #selector(checkMarkButtonClicked(sender:)), for: .touchUpInside)
-        
-        cell.stackView.removeArrangedSubview(cell.periodicityLbl)
-        cell.stackView.removeArrangedSubview(cell.timeDateLbl)
-        
-        if periodicity == nil, timeDate != nil {
-            cell.stackView.addArrangedSubview(cell.timeDateLbl)
-            cell.timeDateLbl.font = UIFont.boldSystemFont(ofSize: 26)
-        } else if timeDate == nil, periodicity != nil {
-            cell.stackView.addArrangedSubview(cell.periodicityLbl)
-            cell.periodicityLbl.font = UIFont.boldSystemFont(ofSize: 24)
-        } else {
-            cell.stackView.addArrangedSubview(cell.timeDateLbl)
-            cell.stackView.addArrangedSubview(cell.periodicityLbl)
-            cell.timeDateLbl.font = UIFont.boldSystemFont(ofSize: 20)
-            cell.periodicityLbl.font = UIFont.boldSystemFont(ofSize: 20)
-        }
+
+        cell.checkBoxDelegate = self
+  
+        cell.setViews(cellModel: sections[indexPath.section].rows[indexPath.row])
         
         return cell
     }
     
-    @objc func checkMarkButtonClicked(sender: UIButton) {
-        sender.isSelected = !sender.isSelected
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 85.0
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let verticalPadding: CGFloat = 10
+
+          let maskLayer = CALayer()
+          maskLayer.cornerRadius = 10
+          maskLayer.backgroundColor = UIColor.black.cgColor
+          maskLayer.frame = CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y, width: cell.bounds.width, height: cell.bounds.height).insetBy(dx: 0, dy: verticalPadding/2)
+          cell.layer.mask = maskLayer
+    }
+    
+    func checkBoxClick(_ cell: ReminderTableViewCell) {
+        if let indexPath = tableView.indexPath(for: cell) {
+            var reminder = sections[indexPath.section].rows[indexPath.row]
+            reminder.changeAccomplishment()
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.didTapReminder(reminder: (sections[indexPath.section].reminders?[indexPath.row])!)
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sections[section].section
+        presenter.didTapReminder(reminder: (sections[indexPath.section].rows[indexPath.row]))
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 60))
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "CustomHeader") as! ReminderSectionHeader
         
         let strokeTextAttributes = [
             NSAttributedString.Key.strokeColor : UIColor.gray,
@@ -116,11 +101,8 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
             NSAttributedString.Key.strokeWidth : -4.0,
             NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 26)]
             as [NSAttributedString.Key : Any]
-        
-        let lbl = UILabel(frame: CGRect(x: 16, y: -30, width: view.frame.width - 16, height: 80))
-        lbl.attributedText = NSAttributedString(string: sections[section].section ?? "", attributes: strokeTextAttributes)
-        
-        view.addSubview(lbl)
+
+        view.nameLbl.attributedText = NSAttributedString(string: sections[section].type.displayString, attributes: strokeTextAttributes)
         return view
     }
     
@@ -157,4 +139,3 @@ extension MainViewController: MainViewProtocol {
     }
     
 }
-
