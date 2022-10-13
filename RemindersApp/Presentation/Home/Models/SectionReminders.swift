@@ -27,7 +27,18 @@ enum SectionType {
         }
     }
     
-    //var displayNumber
+    var sectionNumber: Int {
+        switch self {
+        case .today:
+            return 1
+        case .week:
+            return 2
+        case .month:
+            return 3
+        case .later:
+            return 4
+        }
+    }
     
 }
 
