@@ -22,9 +22,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func openTheDesiredController(isLater: Bool, isAuthorized: Bool) {
         if isLater || isAuthorized {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let controller = storyboard.instantiateViewController(withIdentifier: "MainVC") as! MainViewController
-            let navController = UINavigationController(rootViewController: controller)
+            let vc = MainViewController(nibName: "MainViewController", bundle: nil)
+            let navController = UINavigationController(rootViewController: vc)
             window?.rootViewController = navController
             window?.makeKeyAndVisible()
         } else {

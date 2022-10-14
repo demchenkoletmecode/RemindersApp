@@ -96,7 +96,7 @@ class AuthPresenter {
         if isCorrect {
             authService.login(email, password) { [weak self] result in
                 switch result {
-                case .success(let user):
+                case .success(_):
                     self?.view.move(to: .mainWithUser)
                 case .failure(let error):
                     self?.view.passwordError = error?.localizedDescription ?? "Some error occurred"
@@ -114,7 +114,7 @@ class AuthPresenter {
         if isCorrect {
             authService.createAccount(view.email, view.password) { [weak self] result in
                 switch result {
-                case .success(let user):
+                case .success(_):
                     self?.view.move(to: .mainWithUser)
                 case .failure(let error):
                     self?.view.passwordError = error?.localizedDescription ?? "Some error occurred"

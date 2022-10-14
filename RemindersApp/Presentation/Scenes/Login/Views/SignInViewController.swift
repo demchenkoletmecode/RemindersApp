@@ -1,30 +1,34 @@
 //
-//  SignUpViewController.swift
+//  AuthViewController.swift
 //  RemindersApp
 //
-//  Created by Andrey on 04.10.2022.
+//  Created by Andrey on 03.10.2022.
 //
 
 import UIKit
 import Firebase
 import FirebaseAuth
 
-class SignUpViewController: UIViewController {
+class SignInViewController: UIViewController {
 
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var errorEmailLbl: UILabel!
-    @IBOutlet weak var errorPasswordLbl: UILabel!
-    @IBOutlet weak var signUpBtn: UIButton!
+    @IBOutlet private weak var emailTextField: UITextField!
+    @IBOutlet private weak var passwordTextField: UITextField!
+    @IBOutlet private weak var errorEmailLbl: UILabel!
+    @IBOutlet private weak var errorPasswordLbl: UILabel!
+    @IBOutlet private weak var signInBtn: UIButton!
     
-    var presenter: AuthPresenter!
-
+    private var presenter: AuthPresenter!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter = AuthPresenter(view: self, authService: appContext.authentication)
         presenter.show()
     }
-
+    
+    @IBAction func signInClick(_ sender: UIButton) {
+        presenter.tapLoginButton()
+    }
+    
     @IBAction func emailChanged(_ sender: Any) {
         presenter.passwOrEmailChanged()
     }
@@ -33,17 +37,17 @@ class SignUpViewController: UIViewController {
         presenter.passwOrEmailChanged()
     }
     
-    @IBAction func signUpClick(_ sender: Any) {
-        presenter.tapSignUpButton()
+    @IBAction func laterClick(_ sender: UIButton) {
+        presenter.tapLaterButton()
     }
-    
-    @IBAction func goToSignInClick(_ sender: Any) {
-        presenter.tapGoToSignIn()
+
+    @IBAction func goToSignUpClick(_ sender: Any) {
+        presenter.tapGoToSignUp()
     }
     
 }
 
-extension SignUpViewController: AuthViewProtocol {
+extension SignInViewController: AuthViewProtocol {
     
     var email: String {
         return emailTextField.text ?? ""
@@ -78,7 +82,7 @@ extension SignUpViewController: AuthViewProtocol {
             return true
         }
         set {
-            signUpBtn.isEnabled = newValue
+            signInBtn.isEnabled = newValue
         }
     }
     
@@ -88,15 +92,17 @@ extension SignUpViewController: AuthViewProtocol {
             if let scene = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
                 scene.openTheDesiredController(isLater: false, isAuthorized: true)
             }
-        case .mainWithoutUser: break
-        case .goToSignUp: break
-        case .goToSignIn:
-            let signInStoryboard = UIStoryboard(name: "SignIn", bundle: nil)
-            let vc = signInStoryboard.instantiateViewController(withIdentifier: "SignInVC")
+        case .mainWithoutUser:
+            if let scene = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+                scene.openTheDesiredController(isLater: true, isAuthorized: false)
+            }
+        case .goToSignUp:
+            let signUpStoryboard = UIStoryboard(name: "SignUp", bundle: nil)
+            let vc = signUpStoryboard.instantiateViewController(withIdentifier: "SignUpVC")
             vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: true)
+        case .goToSignIn: break
         }
-
     }
-    
+
 }
