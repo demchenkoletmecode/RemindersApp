@@ -104,43 +104,21 @@ private extension MainPresenter {
     
     func prepareDataSource() {
         reminders.forEach { reminder in
+            let sectionType: SectionType
             if let date = reminder.timeDate {
                 if date.isToday {
-                    if let sectionIndex = dataSource.todayIndex {
-                        appendItem(.today, sectionIndex, reminder)
-                    } else {
-                        appendRow(.today, reminder)
-                    }
+                    sectionType = .today
                 } else if date.isWeek {
-                    if let sectionIndex = dataSource.weekIndex {
-                        appendItem(.week, sectionIndex, reminder)
-                    }
-                    else {
-                        appendRow(.week, reminder)
-                    }
+                    sectionType = .week
                 } else if date.isMonth {
-                    if let sectionIndex = dataSource.monthIndex {
-                        appendItem(.month, sectionIndex, reminder)
-                    }
-                    else {
-                        appendRow(.month, reminder)
-                    }
+                    sectionType = .month
                 } else {
-                    if let sectionIndex = dataSource.laterIndex {
-                        appendItem(.later, sectionIndex, reminder)
-                    }
-                    else {
-                        appendRow(.later, reminder)
-                    }
+                    sectionType = .later
                 }
             } else {
-                if let sectionIndex = dataSource.laterIndex {
-                    appendItem(.later, sectionIndex, reminder)
-                }
-                else {
-                    appendRow(.later, reminder)
-                }
+                sectionType = .later
             }
+            appendItem(sectionType: sectionType, reminder: reminder)
         }
         
         dataSource.sort { $0.type < $1.type }
@@ -148,16 +126,19 @@ private extension MainPresenter {
         self.view?.presentReminders(reminders: dataSource)
     }
     
-    func appendRow(_ type: SectionType, _ reminder: Reminder) {
-        let dateString: String?
-        dateString = (type == .today) ? reminder.timeDate?.timeFormat : reminder.timeDate?.dateFormat
-        dataSource.append(.init(type: type, rows: [.init(name: reminder.name, isChecked: reminder.isDone, dateString: dateString, periodicityString: reminder.periodicity, objectId: reminder.id)]))
-    }
-    
-    func appendItem(_ type: SectionType, _ sectionIndex: Array<SectionReminders>.Index, _ reminder: Reminder) {
-        let dateString: String?
-        dateString = (type == .today) ? reminder.timeDate?.timeFormat : reminder.timeDate?.dateFormat
-        dataSource[sectionIndex].rows.append(.init(name: reminder.name, isChecked: reminder.isDone, dateString: dateString, periodicityString: reminder.periodicity, objectId: reminder.id))
+    func appendItem(sectionType: SectionType, reminder: Reminder) {
+        let dateString = sectionType == .today ? reminder.timeDate?.timeFormat : reminder.timeDate?.dateFormat
+        let rowItem = ReminderRow(name: reminder.name,
+                                  isChecked: reminder.isDone,
+                                  dateString: dateString,
+                                  periodicityString: reminder.periodicity,
+                                  objectId: reminder.id)
+        if let sectionIndex = dataSource.firstIndex(where: { $0.type == sectionType }) {
+            dataSource[sectionIndex].rows.append(rowItem)
+        } else {
+            let section = SectionReminders(type: sectionType, rows: [rowItem])
+            dataSource.append(section)
+        }
     }
     
 }
