@@ -40,7 +40,7 @@ class CreateEditReminderViewController: UIViewController {
         let txtLbl = UILabel()
         txtLbl.text = "Enter name!"
         txtLbl.isHidden = true
-        txtLbl.textColor = .red
+        txtLbl.textColor = UIColor.systemRed
         txtLbl.font = UIFont.boldSystemFont(ofSize: 14)
         return txtLbl
     }()
@@ -176,20 +176,31 @@ class CreateEditReminderViewController: UIViewController {
     }()
     
     lazy var notesTxtView: UITextView = {
-        let txtLbl = UITextView()
-        txtLbl.heightAnchor.constraint(equalToConstant: textViewMaxHeight).isActive = true
-        txtLbl.sizeToFit()
-        txtLbl.isScrollEnabled = true
-        txtLbl.layer.borderColor = UIColor.lightGray.cgColor
-        txtLbl.layer.borderWidth = 1
-        txtLbl.layer.cornerRadius = 8
-        txtLbl.translatesAutoresizingMaskIntoConstraints = false
-        txtLbl.textColor = .black
-        txtLbl.delegate = self
-        txtLbl.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        txtLbl.contentInsetAdjustmentBehavior = .automatic
-        txtLbl.font = UIFont.systemFont(ofSize: 16)
+        let txtView = UITextView()
+        txtView.heightAnchor.constraint(equalToConstant: textViewMaxHeight).isActive = true
+        txtView.sizeToFit()
+        txtView.isScrollEnabled = true
+        txtView.layer.borderColor = UIColor.lightGray.cgColor
+        txtView.layer.borderWidth = 1
+        txtView.layer.cornerRadius = 8
+        txtView.translatesAutoresizingMaskIntoConstraints = false
+        txtView.textColor = .black
+        txtView.delegate = self
+        txtView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        txtView.contentInsetAdjustmentBehavior = .automatic
+        txtView.font = UIFont.systemFont(ofSize: 16)
      
+        return txtView
+    }()
+    
+    lazy var placeholderNotesLbl: UILabel = {
+        let txtLbl = UILabel()
+        txtLbl.text = "Enter notes"
+        txtLbl.font = UIFont.systemFont(ofSize: textSize)
+        txtLbl.sizeToFit()
+        txtLbl.textColor = UIColor.lightGray
+        txtLbl.frame.origin = CGPoint(x: 13, y: (notesTxtView.font?.pointSize)! / 2)
+        txtLbl.isHidden = !notesTxtView.text.isEmpty
         return txtLbl
     }()
     
@@ -214,6 +225,8 @@ class CreateEditReminderViewController: UIViewController {
             datePicker.preferredDatePickerStyle = .wheels
             timePicker.preferredDatePickerStyle = .wheels
         }
+        
+        notesTxtView.addSubview(placeholderNotesLbl)
         
         view.backgroundColor = .white
         view.clipsToBounds = true
@@ -286,7 +299,7 @@ class CreateEditReminderViewController: UIViewController {
     
     @objc func handleTimePicker(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.dateFormat = "HH : mm"
         selectedTimeTxtField.text = dateFormatter.string(from: sender.date)
     }
     
@@ -363,6 +376,8 @@ extension CreateEditReminderViewController: UITextViewDelegate, UIPickerViewDele
         let isOversize = notesTxtView.contentSize.height > textViewMaxHeight
         notesTxtView.isScrollEnabled = isOversize
         notesTxtView.frame.size.height = textView.contentSize.height
+        
+        placeholderNotesLbl.isHidden = !notesTxtView.text.isEmpty
     }
 }
 
