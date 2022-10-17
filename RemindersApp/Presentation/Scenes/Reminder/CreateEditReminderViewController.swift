@@ -208,6 +208,8 @@ class CreateEditReminderViewController: UIViewController {
     var selectedPeriod: String?
     
     private var presenter: CreateEditPresenter!
+    private var localDate: Date?
+    private var localTime: Date?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -292,12 +294,14 @@ class CreateEditReminderViewController: UIViewController {
     }
     
     @objc func handleDatePicker(sender: UIDatePicker) {
+        localDate = sender.date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM d"
         selectedDateTxtField.text = dateFormatter.string(from: sender.date)
     }
     
     @objc func handleTimePicker(sender: UIDatePicker) {
+        localTime = sender.date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH : mm"
         selectedTimeTxtField.text = dateFormatter.string(from: sender.date)
@@ -398,8 +402,8 @@ extension CreateEditReminderViewController: CreateEditProtocol {
         }
     }
     
-    var date: String {
-        return selectedDateTxtField.text ?? ""
+    var date: Date? {
+        return localDate
     }
     
     var isTimeSelected: Bool {
@@ -411,8 +415,8 @@ extension CreateEditReminderViewController: CreateEditProtocol {
         }
     }
     
-    var time: String {
-        return selectedTimeTxtField.text ?? ""
+    var time: Date? {
+        return localTime
     }
     
     var nameError: String {
@@ -429,11 +433,20 @@ extension CreateEditReminderViewController: CreateEditProtocol {
         }
     }
     
+    var periodicity: String? {
+        return selectedPeriod
+    }
+    
+    var notes: String? {
+        return notesTxtView.text
+    }
+    
     func presentReminder(reminder: Reminder?) {
         
     }
     
-    func save() {
+    func save(reminder: Reminder?) {
+        print("reminder date = \(reminder?.timeDate)")
         navigationController?.popViewController(animated: true)
     }
     
