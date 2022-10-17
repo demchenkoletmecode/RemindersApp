@@ -87,8 +87,9 @@ class MainPresenter {
         prepareDataSource()
     }
     
-    func didTapReminder(reminder: ReminderRow?) {
-        print("reminder \(reminder?.name ?? "nil")")
+    func didTapReminder(reminderId: String) {
+        print("reminder id = \(reminderId)")
+        self.view?.move(to: .detailsRemainder)
     }
     
     func tapOnSignInSignOut() {
@@ -97,6 +98,10 @@ class MainPresenter {
         } else {
             self.view?.move(to: .goToSignIn)
         }
+    }
+    
+    func tapAddReminder() {
+        self.view?.move(to: .createReminder)
     }
 }
 

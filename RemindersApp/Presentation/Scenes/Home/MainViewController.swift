@@ -36,8 +36,12 @@ class MainViewController: UIViewController {
         presenter.tapOnSignInSignOut()
     }
     
+    @objc private func addReminder() {
+        presenter.tapAddReminder()
+    }
+    
     private func configureBarItems() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: .add, style: .done, target: self, action: nil)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: .add, style: .done, target: self, action: #selector(addReminder))
         if AuthService.isAuthorized {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .done, target: self, action: #selector(signInSignOutClick))
         } else {
@@ -82,7 +86,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.didTapReminder(reminder: (sections[indexPath.section].rows[indexPath.row]))
+        presenter.didTapReminder(reminderId: (sections[indexPath.section].rows[indexPath.row].objectId))
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -129,8 +133,16 @@ extension MainViewController: MainViewProtocol {
             let vc = signInStoryboard.instantiateViewController(withIdentifier: "SignInVC")
             vc.modalPresentationStyle = .overFullScreen
             self.present(vc, animated: true)
-        case .createReminder: break
-        case .detailsRemainder: break
+        case .createReminder:
+            let createReminderViewController = CreateEditReminderViewController()
+            createReminderViewController.modalPresentationStyle = .overFullScreen
+            navigationController?.pushViewController(createReminderViewController, animated: true)
+            
+        case .detailsRemainder:
+            let createViewController = CreateEditReminderViewController()
+            createViewController.reminderId = "id"
+            createViewController.modalPresentationStyle = .overFullScreen
+            navigationController?.pushViewController(createViewController, animated: true)
         }
     }
     
