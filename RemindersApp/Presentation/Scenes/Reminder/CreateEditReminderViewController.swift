@@ -7,20 +7,29 @@
 
 import UIKit
 
+protocol CreateEditReminderDelegate: AnyObject {
+    
+    func saveReminder()
+    
+}
+
 class CreateEditReminderViewController: UIViewController {
     
     private let textViewMaxHeight: CGFloat = 110.0
     private let textSize: CGFloat = 20.0
     
-    lazy var scrollView: UIScrollView = {
+    weak var delegate: CreateEditReminderDelegate?
+    
+    private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.addSubview(stackView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.showsVerticalScrollIndicator = false
         return scrollView
     }()
     
-    lazy var stackView: UIStackView = {
+    private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 12
         stackView.distribution = .equalSpacing
@@ -28,7 +37,7 @@ class CreateEditReminderViewController: UIViewController {
         return stackView
     }()
     
-    lazy var nameLbl: UILabel = {
+    private lazy var nameLbl: UILabel = {
         let txtLbl = UILabel()
         txtLbl.text = "Reminder name"
         txtLbl.textColor = .black
@@ -36,7 +45,7 @@ class CreateEditReminderViewController: UIViewController {
         return txtLbl
     }()
     
-    lazy var nameErrorLbl: UILabel = {
+    private lazy var nameErrorLbl: UILabel = {
         let txtLbl = UILabel()
         txtLbl.text = "Enter name!"
         txtLbl.isHidden = true
@@ -45,7 +54,7 @@ class CreateEditReminderViewController: UIViewController {
         return txtLbl
     }()
     
-    lazy var nameTxtField: UITextFieldWithPadding = {
+    private lazy var nameTxtField: UITextFieldWithPadding = {
         let txtField = UITextFieldWithPadding()
         txtField.placeholder = "Enter name"
         txtField.layer.borderWidth = 1
@@ -55,7 +64,7 @@ class CreateEditReminderViewController: UIViewController {
         return txtField
     }()
     
-    lazy var remindAtLbl: UILabel = {
+    private lazy var remindAtLbl: UILabel = {
         let txtLbl = UILabel()
         txtLbl.textColor = .black
         txtLbl.text = "Remind at"
@@ -63,15 +72,16 @@ class CreateEditReminderViewController: UIViewController {
         return txtLbl
     }()
     
-    lazy var dateStackView: UIStackView = {
+    private lazy var dateStackView: UIStackView = {
         let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.spacing = 30
         stackView.distribution = .equalSpacing
         return stackView
     }()
     
-    lazy var dateLbl: UILabel = {
+    private lazy var dateLbl: UILabel = {
         let txtLbl = UILabel()
         txtLbl.textColor = .black
         txtLbl.text = "Date"
@@ -79,33 +89,32 @@ class CreateEditReminderViewController: UIViewController {
         return txtLbl
     }()
     
-    lazy var dateSwitch: UISwitch = {
+    private lazy var dateSwitch: UISwitch = {
         let dateSw = UISwitch()
-        dateSw.setOn(false, animated: true)
+        dateSw.setOn(true, animated: true)
         return dateSw
     }()
     
-    lazy var selectedDateTxtField: UITextFieldWithPadding = {
+    private lazy var selectedDateTxtField: UITextFieldWithPadding = {
         let txtField = UITextFieldWithPadding()
         txtField.textColor = .black
         txtField.layer.borderColor = UIColor.lightGray.cgColor
         txtField.layer.borderWidth = 1
         txtField.layer.cornerRadius = 8
-        txtField.text = "Select date"
-        txtField.isHidden = true
+        txtField.placeholder = "Select date"
         txtField.font = UIFont.systemFont(ofSize: textSize)
         return txtField
     }()
     
-    lazy var timeStackView: UIStackView = {
+    private lazy var timeStackView: UIStackView = {
         let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.spacing = 30
-        stackView.isHidden = true
         return stackView
     }()
     
-    lazy var timeLbl: UILabel = {
+    private lazy var timeLbl: UILabel = {
         let txtLbl = UILabel()
         txtLbl.textColor = .black
         txtLbl.text = "Time"
@@ -113,46 +122,43 @@ class CreateEditReminderViewController: UIViewController {
         return txtLbl
     }()
     
-    lazy var timeSwitch: UISwitch = {
+    private lazy var timeSwitch: UISwitch = {
         let dateSw = UISwitch()
-        dateSw.setOn(false, animated: true)
+        dateSw.setOn(true, animated: true)
         return dateSw
     }()
     
-    lazy var selectedTimeTxtField: UITextFieldWithPadding = {
+    private lazy var selectedTimeTxtField: UITextFieldWithPadding = {
         let txtField = UITextFieldWithPadding()
         txtField.textColor = .black
         txtField.layer.borderColor = UIColor.lightGray.cgColor
         txtField.layer.borderWidth = 1
         txtField.layer.cornerRadius = 8
-        txtField.text = "Select time"
-        txtField.isHidden = true
+        txtField.placeholder = "Select time"
         txtField.font = UIFont.systemFont(ofSize: textSize)
         return txtField
     }()
     
-    lazy var repeatLbl: UILabel = {
+    private lazy var repeatLbl: UILabel = {
         let txtLbl = UILabel()
         txtLbl.textColor = .black
         txtLbl.text = "Repeat at"
-        txtLbl.isHidden = true
         txtLbl.font = UIFont.boldSystemFont(ofSize: textSize)
         return txtLbl
     }()
     
-    lazy var repeatTxtField: UITextFieldWithPadding = {
+    private lazy var repeatTxtField: UITextFieldWithPadding = {
         let txtField = UITextFieldWithPadding()
         txtField.textColor = .black
         txtField.layer.borderColor = UIColor.lightGray.cgColor
         txtField.layer.borderWidth = 1
         txtField.layer.cornerRadius = 8
-        txtField.text = "Select periodocity"
-        txtField.isHidden = true
+        txtField.placeholder = "Select periodocity"
         txtField.font = UIFont.systemFont(ofSize: textSize)
         return txtField
     }()
     
-    lazy var notesLbl: UILabel = {
+    private lazy var notesLbl: UILabel = {
         let txtLbl = UILabel()
         txtLbl.textColor = .black
         txtLbl.text = "Notes"
@@ -160,23 +166,25 @@ class CreateEditReminderViewController: UIViewController {
         return txtLbl
     }()
     
-    lazy var datePicker: UIDatePicker = {
+    private lazy var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
+        datePicker.minimumDate = Date()
         datePicker.timeZone = TimeZone.current
         return datePicker
     }()
     
-    lazy var timePicker: UIDatePicker = {
+    private lazy var timePicker: UIDatePicker = {
         let timePicker = UIDatePicker()
         timePicker.datePickerMode = .time
+        timePicker.minimumDate = Date()
         timePicker.timeZone = TimeZone.current
         
         return timePicker
     }()
     
-    lazy var notesTxtView: UITextView = {
-        let txtView = UITextView()
+    private lazy var notesTxtView: UITextViewWithPlaceholder = {
+        let txtView = UITextViewWithPlaceholder()
         txtView.heightAnchor.constraint(equalToConstant: textViewMaxHeight).isActive = true
         txtView.sizeToFit()
         txtView.isScrollEnabled = true
@@ -185,7 +193,8 @@ class CreateEditReminderViewController: UIViewController {
         txtView.layer.cornerRadius = 8
         txtView.translatesAutoresizingMaskIntoConstraints = false
         txtView.textColor = .black
-        txtView.delegate = self
+        txtView.placeholderText = "Enter notes"
+        
         txtView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         txtView.contentInsetAdjustmentBehavior = .automatic
         txtView.font = UIFont.systemFont(ofSize: 16)
@@ -193,23 +202,12 @@ class CreateEditReminderViewController: UIViewController {
         return txtView
     }()
     
-    lazy var placeholderNotesLbl: UILabel = {
-        let txtLbl = UILabel()
-        txtLbl.text = "Enter notes"
-        txtLbl.font = UIFont.systemFont(ofSize: textSize)
-        txtLbl.sizeToFit()
-        txtLbl.textColor = UIColor.lightGray
-        txtLbl.frame.origin = CGPoint(x: 13, y: (notesTxtView.font?.pointSize)! / 2)
-        txtLbl.isHidden = !notesTxtView.text.isEmpty
-        return txtLbl
-    }()
-    
     var reminderId: String?
-    var selectedPeriod: String?
+    private var selectedPeriod: String?
     
     private var presenter: CreateEditPresenter!
-    private var localDate: Date?
-    private var localTime: Date?
+    
+    //private let contex = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -228,28 +226,10 @@ class CreateEditReminderViewController: UIViewController {
             timePicker.preferredDatePickerStyle = .wheels
         }
         
-        notesTxtView.addSubview(placeholderNotesLbl)
-        
         view.backgroundColor = .white
         view.clipsToBounds = true
-        
         view.addSubview(scrollView)
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        var scrollViewAnchors = [NSLayoutConstraint]()
-        scrollViewAnchors.append(scrollView.topAnchor.constraint(equalTo: view.topAnchor))
-        scrollViewAnchors.append(scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor))
-        scrollViewAnchors.append(scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor))
-        scrollViewAnchors.append(scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor))
-        NSLayoutConstraint.activate(scrollViewAnchors)
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        var stackViewAnchors = [NSLayoutConstraint]()
-        stackViewAnchors.append(stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 40))
-        stackViewAnchors.append(stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -20))
-        stackViewAnchors.append(stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20))
-        stackViewAnchors.append(stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20))
-        stackViewAnchors.append(stackView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 40))
-        NSLayoutConstraint.activate(stackViewAnchors)
+        scrollView.addSubview(stackView)
         
         dateStackView.addArrangedSubview(dateLbl)
         dateStackView.addArrangedSubview(dateSwitch)
@@ -268,12 +248,38 @@ class CreateEditReminderViewController: UIViewController {
         stackView.addArrangedSubview(repeatTxtField)
         stackView.addArrangedSubview(notesLbl)
         stackView.addArrangedSubview(notesTxtView)
+        
+        let frameGuideScrollView = scrollView.frameLayoutGuide
+        let contentGuideScrollView = scrollView.contentLayoutGuide
+        
+        NSLayoutConstraint.activate([
+          frameGuideScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+          frameGuideScrollView.topAnchor.constraint(equalTo: view.topAnchor),
+          frameGuideScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+          frameGuideScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+          stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 40),
+          stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -20),
+          stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
+          stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20),
+          stackView.widthAnchor.constraint(equalToConstant: view.frame.width - 40),
+          contentGuideScrollView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+          contentGuideScrollView.topAnchor.constraint(equalTo: stackView.topAnchor),
+          contentGuideScrollView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+          contentGuideScrollView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
+          contentGuideScrollView.widthAnchor.constraint(equalTo: stackView.widthAnchor)
+        ])
     }
-    
+        
     private func configureBarItems() {
         title = "Create Reminder"
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelClick))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(createEditClick))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel",
+                                                                style: .plain,
+                                                                target: self,
+                                                                action: #selector(cancelClick))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save",
+                                                                 style: .done,
+                                                                 target: self,
+                                                                 action: #selector(createEditClick))
     }
     
     private func configureDateTime() {
@@ -281,12 +287,28 @@ class CreateEditReminderViewController: UIViewController {
         selectedTimeTxtField.inputView = timePicker
         datePicker.addTarget(self, action: #selector(handleDatePicker(sender:)), for: .valueChanged)
         timePicker.addTarget(self, action: #selector(handleTimePicker(sender:)), for: .valueChanged)
-        let doneDateButton = UIBarButtonItem.init(title: "Done", style: .done, target: self, action: #selector(self.datePickerDone))
-        let doneTimeButton = UIBarButtonItem.init(title: "Done", style: .done, target: self, action: #selector(self.timePickerDone))
+        
+        let doneDateButton = UIBarButtonItem.init(title: "Done",
+                                                  style: .done,
+                                                  target: self,
+                                                  action: #selector(self.datePickerDone))
+        let doneTimeButton = UIBarButtonItem.init(title: "Done",
+                                                  style: .done,
+                                                  target: self,
+                                                  action: #selector(self.timePickerDone))
+        
         let toolBarDate = UIToolbar.init(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 44))
-        toolBarDate.setItems([UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), doneDateButton], animated: true)
+        
+        toolBarDate.setItems([UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+                              doneDateButton],
+                             animated: true)
+        
         let toolBarTime = UIToolbar.init(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 44))
-        toolBarTime.setItems([UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), doneTimeButton], animated: true)
+        
+        toolBarTime.setItems([UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+                              doneTimeButton],
+                             animated: true)
+        
         selectedDateTxtField.inputAccessoryView = toolBarDate
         selectedTimeTxtField.inputAccessoryView = toolBarTime
         dateSwitch.addTarget(self, action: #selector(dateSwitchChanged), for: .valueChanged)
@@ -294,17 +316,11 @@ class CreateEditReminderViewController: UIViewController {
     }
     
     @objc func handleDatePicker(sender: UIDatePicker) {
-        localDate = sender.date
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM d"
-        selectedDateTxtField.text = dateFormatter.string(from: sender.date)
+        presenter.updateDate(date: sender.date)
     }
     
     @objc func handleTimePicker(sender: UIDatePicker) {
-        localTime = sender.date
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH : mm"
-        selectedTimeTxtField.text = dateFormatter.string(from: sender.date)
+        presenter.updateTime(time: sender.date)
     }
     
     @objc private func dateSwitchChanged() {
@@ -323,13 +339,6 @@ class CreateEditReminderViewController: UIViewController {
         selectedTimeTxtField.resignFirstResponder()
     }
     
-    private func configurePeriodPickerView() {
-        let pickerView = UIPickerView()
-        pickerView.delegate = self
-        repeatTxtField.inputView = pickerView
-        createPeriodPickerView()
-    }
-    
     @objc private func createEditClick() {
         presenter.tapSaveEditReminder()
     }
@@ -339,7 +348,8 @@ class CreateEditReminderViewController: UIViewController {
     }
 }
 
-extension CreateEditReminderViewController: UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+extension CreateEditReminderViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -357,35 +367,33 @@ extension CreateEditReminderViewController: UITextViewDelegate, UIPickerViewDele
         repeatTxtField.text = selectedPeriod
     }
     
-    func createPeriodPickerView() {
+    func configurePeriodPickerView() {
         let pickerView = UIPickerView()
         pickerView.delegate = self
         repeatTxtField.inputView = pickerView
-        dismissPickerView()
+        setupDoneToolbar()
     }
     
-    func dismissPickerView() {
+    func setupDoneToolbar() {
         let toolBar = UIToolbar()
         toolBar.sizeToFit()
-        toolBar.setItems([UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.action))], animated: true)
+        toolBar.setItems([UIBarButtonItem(title: "Done",
+                                          style: .plain,
+                                          target: self,
+                                          action: #selector(self.onDoneTapped))],
+                         animated: true)
         toolBar.isUserInteractionEnabled = true
         repeatTxtField.inputAccessoryView = toolBar
     }
     
-    @objc func action() {
+    @objc private func onDoneTapped() {
         view.endEditing(true)
     }
     
-    func textViewDidChange(_ textView: UITextView) {
-        let isOversize = notesTxtView.contentSize.height > textViewMaxHeight
-        notesTxtView.isScrollEnabled = isOversize
-        notesTxtView.frame.size.height = textView.contentSize.height
-        
-        placeholderNotesLbl.isHidden = !notesTxtView.text.isEmpty
-    }
 }
 
 extension CreateEditReminderViewController: CreateEditProtocol {
+    
     var name: String {
         return nameTxtField.text ?? ""
     }
@@ -399,11 +407,26 @@ extension CreateEditReminderViewController: CreateEditProtocol {
             timeStackView.isHidden = newValue
             repeatLbl.isHidden = newValue
             repeatTxtField.isHidden = newValue
+            if newValue == true {
+                selectedTimeTxtField.isHidden = newValue
+            }
+            else if newValue == false {
+                if timeSwitch.isOn {
+                    selectedTimeTxtField.isHidden = false
+                } else {
+                    selectedTimeTxtField.isHidden = true
+                }
+            }
         }
     }
     
-    var date: Date? {
-        return localDate
+    var date: String? {
+        get {
+            return selectedDateTxtField.text
+        }
+        set {
+            selectedDateTxtField.text = newValue
+        }
     }
     
     var isTimeSelected: Bool {
@@ -415,16 +438,21 @@ extension CreateEditReminderViewController: CreateEditProtocol {
         }
     }
     
-    var time: Date? {
-        return localTime
-    }
-    
-    var nameError: String {
+    var time: String? {
         get {
-            return ""
+            return selectedTimeTxtField.text
         }
         set {
-            if newValue.isEmpty {
+            selectedTimeTxtField.text = newValue
+        }
+    }
+    
+    var nameError: String? {
+        get {
+            return nil
+        }
+        set {
+            if newValue == nil {
                 nameErrorLbl.isHidden = true
             } else {
                 nameErrorLbl.isHidden = false
@@ -445,32 +473,13 @@ extension CreateEditReminderViewController: CreateEditProtocol {
         
     }
     
-    func save(reminder: Reminder?) {
-        print("reminder date = \(reminder?.timeDate)")
+    func save(reminder: Reminder) {        
         navigationController?.popViewController(animated: true)
+        delegate?.saveReminder()
     }
     
-    func update() {
+    func update(reminder: Reminder) {
         
     }
     
-}
-
-class UITextFieldWithPadding: UITextField {
-    var textPadding = UIEdgeInsets(
-           top: 10,
-           left: 10,
-           bottom: 10,
-           right: 10
-       )
-    
-    override func textRect(forBounds bounds: CGRect) -> CGRect {
-            let rect = super.textRect(forBounds: bounds)
-            return rect.inset(by: textPadding)
-        }
-
-        override func editingRect(forBounds bounds: CGRect) -> CGRect {
-            let rect = super.editingRect(forBounds: bounds)
-            return rect.inset(by: textPadding)
-        }
 }

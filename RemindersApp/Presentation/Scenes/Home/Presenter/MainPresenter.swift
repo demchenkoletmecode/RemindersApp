@@ -8,7 +8,7 @@
 import Foundation
 
 enum MainViewNavigation {
-    case detailsRemainder
+    case detailsReminder(String)
     case createReminder
     case logoutUserGoToSignIn
     case goToSignIn
@@ -30,7 +30,7 @@ class MainPresenter {
     }
     
     func getReminders() {
-        
+        reminders.removeAll()
         let calendar = Calendar.current
         var timeComponents1 = DateComponents()
         timeComponents1.month = 10
@@ -84,12 +84,29 @@ class MainPresenter {
         
         self.reminders = todayReminders + weekReminders + monthReminders + laterReminders
         
+        
+    //        var reminderItems = [ReminderItem]()
+    //        do {
+    //            reminderItems = try contex.fetch(ReminderItem.fetchRequest())
+    //        } catch {
+    //            //error
+    //        }
+        
+//        reminderItems.forEach { rem in
+//            self.reminders.append(Reminder(name: rem.name, isDone: rem.isDone, timeDate: rem.timeDate, periodicity: rem.periodicity, notes: rem.notes))
+//        }
+        
         prepareDataSource()
+        self.view?.presentReminders(reminders: dataSource)
+    }
+    
+    func addReminder(item: ReminderItem) {
+        reminders.append(Reminder(name: item.name, isDone: item.isDone, timeDate: item.timeDate, periodicity: item.periodicity, notes: item.notes))
     }
     
     func didTapReminder(reminderId: String) {
         print("reminder id = \(reminderId)")
-        self.view?.move(to: .detailsRemainder)
+        self.view?.move(to: .detailsReminder(reminderId))
     }
     
     func tapOnSignInSignOut() {
@@ -127,12 +144,10 @@ private extension MainPresenter {
         }
         
         dataSource.sort { $0.type < $1.type }
-        
-        self.view?.presentReminders(reminders: dataSource)
     }
     
     func appendItem(sectionType: SectionType, reminder: Reminder) {
-        let dateString = sectionType == .today ? reminder.timeDate?.timeFormat : reminder.timeDate?.dateFormat
+        let dateString = sectionType == .today ? reminder.timeDate?.timeFormatForCell : reminder.timeDate?.dateFormatForCell
         let rowItem = ReminderRow(name: reminder.name,
                                   isChecked: reminder.isDone,
                                   dateString: dateString,

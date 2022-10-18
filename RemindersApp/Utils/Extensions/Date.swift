@@ -9,17 +9,38 @@ import Foundation
 
 extension Date {
     
-    var dateFormat: String {
+    var dateFormatForCell: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM d"
         return dateFormatter.string(from: self)
     }
     
-    var timeFormat: String {
+    var timeFormatForCell: String {
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "HH:mm"
         return timeFormatter.string(from: self)
     }
+    
+    var dateFormat: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd / MM / yyyy"
+        return dateFormatter.string(from: self)
+    }
+    
+    var timeFormat: String {
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH : mm"
+        return timeFormatter.string(from: self)
+    }
+    
+    var dateComponentsFromDate: DateComponents {
+        Calendar.current.dateComponents([.day, .month, .year], from: self)
+    }
+    
+    var timeComponentsFromDate: DateComponents {
+        Calendar.current.dateComponents([.hour, .minute], from: self)
+    }
+    
     var isToday: Bool {
         Calendar.current.isDateInToday(self)
     }
