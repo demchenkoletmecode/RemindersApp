@@ -28,12 +28,13 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="Gwh-az-6f3" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="MRd-Cw-wsi"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Gwh-az-6f3" secondAttribute="trailing" constant="12" id="WHd-rH-GYK"/>
+                <constraint firstItem="Gwh-az-6f3" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Zvn-82-U5o"/>
                 <constraint firstItem="Gwh-az-6f3" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="dKs-X5-qLG"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Gwh-az-6f3" secondAttribute="bottom" id="nJh-0J-ZgW"/>
                 <constraint firstItem="Gwh-az-6f3" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="12" id="soE-By-gf7"/>
             </constraints>
-            <point key="canvasLocation" x="-171" y="-66"/>
+            <point key="canvasLocation" x="-172.30769230769229" y="-66.113744075829388"/>
         </view>
     </objects>
     <resources>

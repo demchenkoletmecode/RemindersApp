@@ -14,9 +14,9 @@
             filePath = "RemindersApp/Presentation/Scenes/Home/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
-            landmarkName = "saveReminder()"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
+            landmarkName = "didSaveReminder()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

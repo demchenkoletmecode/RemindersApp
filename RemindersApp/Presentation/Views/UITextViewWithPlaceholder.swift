@@ -22,8 +22,6 @@ import UIKit
     @IBInspectable var placeholderText: String = ""
     @IBInspectable var placeholderTextColor: UIColor = UIColor(red: 0.78, green: 0.78, blue: 0.80, alpha: 1.0)
     @IBInspectable var placeholderTextFont: UIFont = UIFont.systemFont(ofSize: 20)
-    //@IBInspectable var isSetScrollEnabledAfterCertainHeight: Bool = false
-    //@IBInspectable var heightForEnabledScroll: CGFloat = 110.0
     
     private var showingPlaceholder: Bool = true
     
@@ -41,6 +39,7 @@ import UIKit
             font = UIFont.systemFont(ofSize: 16)
             showingPlaceholder = false
         }
+        
         return super.becomeFirstResponder()
     }
     
@@ -59,4 +58,3 @@ import UIKit
     }
     
 }
-

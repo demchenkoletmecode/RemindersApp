@@ -13,36 +13,12 @@ protocol CreateEditProtocol: AnyObject {
     var date: String? { get set }
     var isTimeSelected: Bool { get set }
     var time: String? { get set }
-    var nameError: String? { get set }
     var periodicity: String? { get }
     var notes: String? { get }
     
     func presentReminder(reminder: Reminder?)
     func save(reminder: Reminder)
-    func update(reminder: Reminder)
-}
-
-enum Periodicity: String {
-    case never
-    case daily
-    case weekly
-    case monthly
-    case yearly
-    
-    var displayValue: String {
-        switch self {
-        case .never:
-            return "Never"
-        case .daily:
-            return "Daily"
-        case .weekly:
-            return "Weekly"
-        case .monthly:
-            return "Monthly"
-        case .yearly:
-            return "Yearly"
-        }
-    }
+    func update(nameError: String?)
 }
 
 class CreateEditPresenter {
@@ -52,49 +28,38 @@ class CreateEditPresenter {
     private var fullDate: Date?
     private let calendar = Calendar.current
     
-    var periodList = [Periodicity.never.displayValue,
-                      Periodicity.daily.displayValue,
-                      Periodicity.weekly.displayValue,
-                      Periodicity.monthly.displayValue,
-                      Periodicity.yearly.displayValue]
+    var periodList = Periodicity.allCases.map {
+        $0.displayValue
+    }
     
     init(view: CreateEditProtocol) {
         self.view = view
     }
     
     func tapSaveEditReminder() {
-        self.view?.nameError = ""
         
         let name = view?.name ?? ""
-        
         if validName(name) {
-            
-//            let newItem = ReminderItem(context: contex)
-//            newItem.id = reminder.id
-//            newItem.name = reminder.name
-//            newItem.isDone = reminder.isDone
-//            newItem.timeDate = reminder.timeDate
-//            newItem.periodicity = reminder.periodicity
-//            newItem.notes = reminder.notes
-//            do {
-//                try contex.save()
-//            } catch {
-//
-//            }
             
             let period = view?.periodicity
             let notes = view?.notes
-            let reminder = Reminder(name: name, isDone: false, timeDate: fullDate, periodicity: period, notes: notes)
+            let reminder = Reminder(name: name,
+                                    isDone: false,
+                                    timeDate: fullDate,
+                                    periodicity: period,
+                                    notes: notes)
             
             self.view?.save(reminder: reminder)
         }
     }
     
     func validName(_ name: String) -> Bool {
+        var nameError: String?
         if name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            self.view?.nameError = "Enter name!"
+            nameError = "Enter name!"
         }
-        return self.view?.nameError != nil
+        view?.update(nameError: nameError)
+        return nameError?.isEmpty != false
     }
     
     func dateSwitchChanged() {

@@ -24,17 +24,6 @@ class ReminderTableViewCell: UITableViewCell {
     let separator = UIView()
     
     func setViews(cellModel: ReminderRow) {
-        separator.backgroundColor = .white
-        contentView.addSubview(separator)
-        let separatorLineHeight: CGFloat = 6
-        
-        separator.frame = CGRect(x: self.contentView.frame.origin.x,
-                                 y: self.contentView.frame.size.height - separatorLineHeight,
-                                 width: self.contentView.frame.size.width,
-                                 height: separatorLineHeight)
-        
-        layer.cornerRadius = 10
-        layer.masksToBounds = true
         
         if cellModel.name.count > 20 {
             nameLbl.font = UIFont.boldSystemFont(ofSize: 18)

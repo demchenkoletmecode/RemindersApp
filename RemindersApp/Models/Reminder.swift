@@ -28,3 +28,26 @@ struct Reminder {
     }
     
 }
+
+enum Periodicity: String, CaseIterable {
+    case never
+    case daily
+    case weekly
+    case monthly
+    case yearly
+    
+    var displayValue: String {
+        switch self {
+        case .never:
+            return "Never"
+        case .daily:
+            return "Daily"
+        case .weekly:
+            return "Weekly"
+        case .monthly:
+            return "Monthly"
+        case .yearly:
+            return "Yearly"
+        }
+    }
+}

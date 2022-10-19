@@ -9,7 +9,7 @@ import UIKit
 
 protocol CreateEditReminderDelegate: AnyObject {
     
-    func saveReminder()
+    func didSaveReminder()
     
 }
 
@@ -76,7 +76,6 @@ class CreateEditReminderViewController: UIViewController {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.spacing = 30
         stackView.distribution = .equalSpacing
         return stackView
     }()
@@ -110,7 +109,6 @@ class CreateEditReminderViewController: UIViewController {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.spacing = 30
         return stackView
     }()
     
@@ -192,12 +190,11 @@ class CreateEditReminderViewController: UIViewController {
         txtView.layer.borderWidth = 1
         txtView.layer.cornerRadius = 8
         txtView.translatesAutoresizingMaskIntoConstraints = false
-        txtView.textColor = .black
+        txtView.textColor = .lightGray
         txtView.placeholderText = "Enter notes"
-        
         txtView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         txtView.contentInsetAdjustmentBehavior = .automatic
-        txtView.font = UIFont.systemFont(ofSize: 16)
+        txtView.font = UIFont.systemFont(ofSize: textSize)
      
         return txtView
     }()
@@ -206,9 +203,7 @@ class CreateEditReminderViewController: UIViewController {
     private var selectedPeriod: String?
     
     private var presenter: CreateEditPresenter!
-    
-    //private let contex = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -218,6 +213,7 @@ class CreateEditReminderViewController: UIViewController {
         configureBarItems()
         configureDateTime()
         configurePeriodPickerView()
+        
     }
     
     private func configureView() {
@@ -249,24 +245,20 @@ class CreateEditReminderViewController: UIViewController {
         stackView.addArrangedSubview(notesLbl)
         stackView.addArrangedSubview(notesTxtView)
         
+        let safeArea = self.view.safeAreaLayoutGuide
         let frameGuideScrollView = scrollView.frameLayoutGuide
         let contentGuideScrollView = scrollView.contentLayoutGuide
         
         NSLayoutConstraint.activate([
-          frameGuideScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-          frameGuideScrollView.topAnchor.constraint(equalTo: view.topAnchor),
-          frameGuideScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+          frameGuideScrollView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
+          frameGuideScrollView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 20),
+          frameGuideScrollView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
           frameGuideScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-          stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 40),
-          stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -20),
-          stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
-          stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20),
-          stackView.widthAnchor.constraint(equalToConstant: view.frame.width - 40),
           contentGuideScrollView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
           contentGuideScrollView.topAnchor.constraint(equalTo: stackView.topAnchor),
           contentGuideScrollView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
           contentGuideScrollView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
-          contentGuideScrollView.widthAnchor.constraint(equalTo: stackView.widthAnchor)
+          frameGuideScrollView.widthAnchor.constraint(equalTo: stackView.widthAnchor)
         ])
     }
         
@@ -407,15 +399,11 @@ extension CreateEditReminderViewController: CreateEditProtocol {
             timeStackView.isHidden = newValue
             repeatLbl.isHidden = newValue
             repeatTxtField.isHidden = newValue
-            if newValue == true {
+            if newValue {
                 selectedTimeTxtField.isHidden = newValue
             }
-            else if newValue == false {
-                if timeSwitch.isOn {
-                    selectedTimeTxtField.isHidden = false
-                } else {
-                    selectedTimeTxtField.isHidden = true
-                }
+            else {
+                selectedTimeTxtField.isHidden = !timeSwitch.isOn
             }
         }
     }
@@ -447,20 +435,6 @@ extension CreateEditReminderViewController: CreateEditProtocol {
         }
     }
     
-    var nameError: String? {
-        get {
-            return nil
-        }
-        set {
-            if newValue == nil {
-                nameErrorLbl.isHidden = true
-            } else {
-                nameErrorLbl.isHidden = false
-                nameErrorLbl.text = newValue
-            }
-        }
-    }
-    
     var periodicity: String? {
         return selectedPeriod
     }
@@ -475,11 +449,17 @@ extension CreateEditReminderViewController: CreateEditProtocol {
     
     func save(reminder: Reminder) {        
         navigationController?.popViewController(animated: true)
-        delegate?.saveReminder()
+        delegate?.didSaveReminder()
     }
     
-    func update(reminder: Reminder) {
-        
+    func update(nameError: String?) {
+        if nameError == nil {
+            nameErrorLbl.isHidden = true
+        } else {
+            nameErrorLbl.isHidden = false
+            nameErrorLbl.text = nameError
+        }
     }
     
 }
+

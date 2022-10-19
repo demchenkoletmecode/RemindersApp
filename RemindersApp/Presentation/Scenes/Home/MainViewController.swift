@@ -46,7 +46,6 @@ class MainViewController: UIViewController {
     
     @objc func refreshData() {
         presenter.getReminders()
-        tableView.reloadData()
     }
     
     private func configureBarItems() {
@@ -93,11 +92,6 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.didTapReminder(reminderId: (sections[indexPath.section].rows[indexPath.row].objectId))
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -149,7 +143,7 @@ extension MainViewController: MainViewProtocol {
             createReminderViewController.delegate = self
             navigationController?.pushViewController(createReminderViewController, animated: true)
             
-        case .detailsReminder(let reminderId):
+        case let .detailsReminder(reminderId):
             let createViewController = CreateEditReminderViewController()
             createViewController.reminderId = reminderId
             navigationController?.pushViewController(createViewController, animated: true)
@@ -168,7 +162,7 @@ extension MainViewController: MainViewProtocol {
 
 extension MainViewController: CreateEditReminderDelegate {
     
-    func saveReminder() {
+    func didSaveReminder() {
         refreshData()
     }
     

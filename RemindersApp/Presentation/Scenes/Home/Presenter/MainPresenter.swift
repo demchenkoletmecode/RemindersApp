@@ -70,38 +70,46 @@ class MainPresenter {
         let date5 = calendar.date(from: dateComponents3)
         let date6 = calendar.date(from: timeComponents3)
         
-        let todayReminders = [Reminder(name: "Eat a cake", isDone: false, timeDate: Date()),
-                    Reminder(name: "Do exercise", isDone: true, timeDate: date1, periodicity: "daily"),
-                              Reminder(name: "Feed the cat", isDone: true, timeDate: date6, periodicity: "daily")]
+        let todayReminders = [Reminder(name: "Eat a cake",
+                                       isDone: false,
+                                       timeDate: Date()),
+                              Reminder(name: "Do exercise",
+                                       isDone: true,
+                                       timeDate: date1,
+                                       periodicity: "daily"),
+                              Reminder(name: "Feed the cat",
+                                       isDone: true,
+                                       timeDate: date6,
+                                       periodicity: "daily")]
         
-        let weekReminders = [Reminder(name: "Go for swimming and don't forget to take a cap", isDone: false, timeDate: date2, periodicity: "every day"),
-                    Reminder(name: "Help my brother", isDone: true, timeDate: date3)]
+        let weekReminders = [Reminder(name: "Go for swimming and don't forget to take a cap",
+                                      isDone: false,
+                                      timeDate: date2,
+                                      periodicity: "every day"),
+                             Reminder(name: "Help my brother",
+                                      isDone: true,
+                                      timeDate: date3)]
         
-        let monthReminders = [Reminder(name: "Make a project", isDone: false, timeDate: date4, periodicity: "every day")]
+        let monthReminders = [Reminder(name: "Make a project",
+                                       isDone: false, timeDate: date4, periodicity: "every day")]
         
         let laterReminders = [Reminder(name: "Do something", isDone: false),
-                              Reminder(name: "Do other thing", isDone: false, timeDate: date5, periodicity: "every month")]
+                              Reminder(name: "Do other thing", isDone: false,
+                                       timeDate: date5,
+                                       periodicity: "every month")]
         
         self.reminders = todayReminders + weekReminders + monthReminders + laterReminders
-        
-        
-    //        var reminderItems = [ReminderItem]()
-    //        do {
-    //            reminderItems = try contex.fetch(ReminderItem.fetchRequest())
-    //        } catch {
-    //            //error
-    //        }
-        
-//        reminderItems.forEach { rem in
-//            self.reminders.append(Reminder(name: rem.name, isDone: rem.isDone, timeDate: rem.timeDate, periodicity: rem.periodicity, notes: rem.notes))
-//        }
         
         prepareDataSource()
         self.view?.presentReminders(reminders: dataSource)
     }
     
     func addReminder(item: ReminderItem) {
-        reminders.append(Reminder(name: item.name, isDone: item.isDone, timeDate: item.timeDate, periodicity: item.periodicity, notes: item.notes))
+        reminders.append(Reminder(name: item.name,
+                                  isDone: item.isDone,
+                                  timeDate: item.timeDate,
+                                  periodicity: item.periodicity,
+                                  notes: item.notes))
     }
     
     func didTapReminder(reminderId: String) {
