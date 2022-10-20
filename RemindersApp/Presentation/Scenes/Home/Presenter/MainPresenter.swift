@@ -109,7 +109,7 @@ class MainPresenter {
         reminders.append(Reminder(name: item.name,
                                   isDone: item.isDone,
                                   timeDate: item.timeDate,
-                                  periodicity: item.periodicity.toPeriodicity,
+                                  periodicity: item.periodicity?.toPeriodicity,
                                   notes: item.notes))
     }
     
