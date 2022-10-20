@@ -8,7 +8,7 @@
 import Foundation
 
 enum MainViewNavigation {
-    case detailsRemainder
+    case detailsReminder(String)
     case createReminder
     case logoutUserGoToSignIn
     case goToSignIn
@@ -30,7 +30,7 @@ class MainPresenter {
     }
     
     func getReminders() {
-        
+        reminders.removeAll()
         let calendar = Calendar.current
         var timeComponents1 = DateComponents()
         timeComponents1.month = 10
@@ -70,25 +70,52 @@ class MainPresenter {
         let date5 = calendar.date(from: dateComponents3)
         let date6 = calendar.date(from: timeComponents3)
         
-        let todayReminders = [Reminder(name: "Eat a cake", isDone: false, timeDate: Date()),
-                    Reminder(name: "Do exercise", isDone: true, timeDate: date1, periodicity: "daily"),
-                              Reminder(name: "Feed the cat", isDone: true, timeDate: date6, periodicity: "daily")]
+        let todayReminders = [Reminder(name: "Eat a cake",
+                                       isDone: false,
+                                       timeDate: Date()),
+                              Reminder(name: "Do exercise",
+                                       isDone: true,
+                                       timeDate: date1,
+                                       periodicity: .daily),
+                              Reminder(name: "Feed the cat",
+                                       isDone: true,
+                                       timeDate: date6,
+                                       periodicity: .daily)]
         
-        let weekReminders = [Reminder(name: "Go for swimming and don't forget to take a cap", isDone: false, timeDate: date2, periodicity: "every day"),
-                    Reminder(name: "Help my brother", isDone: true, timeDate: date3)]
+        let weekReminders = [Reminder(name: "Go for swimming and don't forget to take a cap",
+                                      isDone: false,
+                                      timeDate: date2,
+                                      periodicity: .weekly),
+                             Reminder(name: "Help my brother",
+                                      isDone: true,
+                                      timeDate: date3)]
         
-        let monthReminders = [Reminder(name: "Make a project", isDone: false, timeDate: date4, periodicity: "every day")]
+        let monthReminders = [Reminder(name: "Make a project",
+                                       isDone: false, timeDate: date4, periodicity: .monthly)]
         
         let laterReminders = [Reminder(name: "Do something", isDone: false),
-                              Reminder(name: "Do other thing", isDone: false, timeDate: date5, periodicity: "every month")]
+                              Reminder(name: "Do other thing", isDone: false,
+                                       timeDate: date5,
+                                       periodicity: .yearly)]
         
         self.reminders = todayReminders + weekReminders + monthReminders + laterReminders
         
         prepareDataSource()
+        self.view?.presentReminders(reminders: dataSource)
     }
     
-    func didTapReminder(reminder: ReminderRow?) {
-        print("reminder \(reminder?.name ?? "nil")")
+    func addReminder(item: ReminderItem) {
+        
+        reminders.append(Reminder(name: item.name,
+                                  isDone: item.isDone,
+                                  timeDate: item.timeDate,
+                                  periodicity: item.periodicity?.toPeriodicity,
+                                  notes: item.notes))
+    }
+    
+    func didTapReminder(reminderId: String) {
+        print("reminder id = \(reminderId)")
+        self.view?.move(to: .detailsReminder(reminderId))
     }
     
     func tapOnSignInSignOut() {
@@ -97,6 +124,10 @@ class MainPresenter {
         } else {
             self.view?.move(to: .goToSignIn)
         }
+    }
+    
+    func tapAddReminder() {
+        self.view?.move(to: .createReminder)
     }
 }
 
@@ -122,16 +153,14 @@ private extension MainPresenter {
         }
         
         dataSource.sort { $0.type < $1.type }
-        
-        self.view?.presentReminders(reminders: dataSource)
     }
     
     func appendItem(sectionType: SectionType, reminder: Reminder) {
-        let dateString = sectionType == .today ? reminder.timeDate?.timeFormat : reminder.timeDate?.dateFormat
+        let dateString = sectionType == .today ? reminder.timeDate?.timeFormatForCell : reminder.timeDate?.dateFormatForCell
         let rowItem = ReminderRow(name: reminder.name,
                                   isChecked: reminder.isDone,
                                   dateString: dateString,
-                                  periodicityString: reminder.periodicity,
+                                  periodicityString: reminder.periodicity?.displayValue,
                                   objectId: reminder.id)
         if let sectionIndex = dataSource.firstIndex(where: { $0.type == sectionType }) {
             dataSource[sectionIndex].rows.append(rowItem)

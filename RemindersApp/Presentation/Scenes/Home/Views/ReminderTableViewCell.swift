@@ -21,6 +21,8 @@ class ReminderTableViewCell: UITableViewCell {
     
     weak var checkBoxDelegate: ReminderCellProtocol?
     
+    let separator = UIView()
+    
     func setViews(cellModel: ReminderRow) {
         
         if cellModel.name.count > 20 {

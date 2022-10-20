@@ -1,8 +1,8 @@
 //
-//  ValidateEmailAndPassword.swift
+//  String.swift
 //  RemindersApp
 //
-//  Created by Andrey on 04.10.2022.
+//  Created by Андрей on 20.10.2022.
 //
 
 import Foundation
@@ -21,4 +21,9 @@ extension String {
         let passwordTest = NSPredicate(format: "SELF MATCHES %@", passRegEx)
         return passwordTest.evaluate(with: self)
     }
+    
+    var toPeriodicity: Periodicity? {
+        return Periodicity(rawValue: self)
+    }
+    
 }

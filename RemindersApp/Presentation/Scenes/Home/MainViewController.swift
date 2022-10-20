@@ -17,6 +17,8 @@ class MainViewController: UIViewController {
     private var presenter: MainPresenter!
     private var sections: [SectionReminders] = []
     
+    let contex = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,23 +27,42 @@ class MainViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.separatorStyle = .none
         tableView.register(UINib.init(nibName: "ReminderCell", bundle: .main), forCellReuseIdentifier: "ReminderCell")
         tableView.register(UINib(nibName: "ReminderSectionHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "CustomHeader")
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: NSNotification.Name(rawValue: "newDataNotif"), object: nil)
         
         presenter = MainPresenter(view: self)
-        presenter.getReminders()
+        refreshData()
     }
     
     @objc private func signInSignOutClick() {
         presenter.tapOnSignInSignOut()
     }
     
+    @objc private func addReminder() {
+        presenter.tapAddReminder()
+    }
+    
+    @objc func refreshData() {
+        presenter.getReminders()
+    }
+    
     private func configureBarItems() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: .add, style: .done, target: self, action: nil)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: .add,
+                                                                 style: .done,
+                                                                 target: self,
+                                                                 action: #selector(addReminder))
         if AuthService.isAuthorized {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .done, target: self, action: #selector(signInSignOutClick))
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Sign Out",
+                                                                    style: .done,
+                                                                    target: self,
+                                                                    action: #selector(signInSignOutClick))
         } else {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Sign In", style: .done, target: self, action: #selector(signInSignOutClick))
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Sign In",
+                                                                    style: .done,
+                                                                    target: self,
+                                                                    action: #selector(signInSignOutClick))
         }
     }
     
@@ -59,9 +80,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReminderCell") as! ReminderTableViewCell
-
         cell.checkBoxDelegate = self
-  
         cell.setViews(cellModel: sections[indexPath.section].rows[indexPath.row])
         
         return cell
@@ -71,18 +90,8 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         return UITableView.automaticDimension
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let verticalPadding: CGFloat = 10
-        
-        let maskLayer = CALayer()
-        maskLayer.cornerRadius = 10
-        maskLayer.backgroundColor = UIColor.black.cgColor
-        maskLayer.frame = CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y, width: cell.bounds.width, height: cell.bounds.height).insetBy(dx: 0, dy: verticalPadding / 2)
-        cell.layer.mask = maskLayer
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.didTapReminder(reminder: (sections[indexPath.section].rows[indexPath.row]))
+        presenter.didTapReminder(reminderId: (sections[indexPath.section].rows[indexPath.row].objectId))
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -129,8 +138,17 @@ extension MainViewController: MainViewProtocol {
             let vc = signInStoryboard.instantiateViewController(withIdentifier: "SignInVC")
             vc.modalPresentationStyle = .overFullScreen
             self.present(vc, animated: true)
-        case .createReminder: break
-        case .detailsRemainder: break
+        case .createReminder:
+            let createReminderViewController = CreateEditReminderViewController()
+            createReminderViewController.delegate = self
+            createReminderViewController.title = "Create Reminder"
+            navigationController?.pushViewController(createReminderViewController, animated: true)
+            
+        case let .detailsReminder(reminderId):
+            let createReminderViewController = CreateEditReminderViewController()
+            createReminderViewController.reminderId = reminderId
+            createReminderViewController.title = "Edit Reminder"
+            navigationController?.pushViewController(createReminderViewController, animated: true)
         }
     }
     
@@ -140,6 +158,14 @@ extension MainViewController: MainViewProtocol {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
+    }
+    
+}
+
+extension MainViewController: CreateEditReminderDelegate {
+    
+    func didSaveReminder() {
+        refreshData()
     }
     
 }
