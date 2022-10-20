@@ -160,7 +160,7 @@ private extension MainPresenter {
         let rowItem = ReminderRow(name: reminder.name,
                                   isChecked: reminder.isDone,
                                   dateString: dateString,
-                                  periodicityString: reminder.periodicity?.rawValue,
+                                  periodicityString: reminder.periodicity?.displayValue,
                                   objectId: reminder.id)
         if let sectionIndex = dataSource.firstIndex(where: { $0.type == sectionType }) {
             dataSource[sectionIndex].rows.append(rowItem)
