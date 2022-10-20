@@ -8,53 +8,39 @@
 import Foundation
 import UIKit
 
-@IBDesignable class UITextViewWithPlaceholder: UITextView {
+class UITextViewWithPlaceholder: UITextView {
     
     override var text: String! {
-        get {
-            if showingPlaceholder {
-                return ""
-            } else { return super.text }
+        didSet {
+            onTextChanged()
         }
-        set { super.text = newValue }
     }
     
-    @IBInspectable var placeholderText: String = ""
-    @IBInspectable var placeholderTextColor: UIColor = UIColor(red: 0.78, green: 0.78, blue: 0.80, alpha: 1.0)
-    @IBInspectable var placeholderTextFont: UIFont = UIFont.systemFont(ofSize: 20)
+    var placeholderText: String = "Enter notes"
+    var placeholderTextColor: UIColor = UIColor(red: 0.78, green: 0.78, blue: 0.80, alpha: 1.0)
+    var placeholderTextFont: UIFont = UIFont.systemFont(ofSize: 20)
     
     private var showingPlaceholder: Bool = true
+    private var placeholderLabel : UILabel!
     
-    override func didMoveToWindow() {
-        super.didMoveToWindow()
-        if text.isEmpty {
-            showPlaceholderText()
-        }
+    override init(frame: CGRect, textContainer: NSTextContainer?) {
+        super.init(frame: frame, textContainer: textContainer)
+        placeholderLabel = UILabel()
+        placeholderLabel.text = placeholderText
+        placeholderLabel.font = placeholderTextFont
+        placeholderLabel.sizeToFit()
+        addSubview(placeholderLabel)
+        placeholderLabel.frame.origin = CGPoint(x: 15, y: 8)
+        placeholderLabel.textColor = placeholderTextColor
     }
     
-    override func becomeFirstResponder() -> Bool {
-        if showingPlaceholder {
-            text = nil
-            textColor = nil
-            font = UIFont.systemFont(ofSize: 16)
-            showingPlaceholder = false
-        }
-        
-        return super.becomeFirstResponder()
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
+
     
-    override func resignFirstResponder() -> Bool {
-        if text.isEmpty {
-            showPlaceholderText()
-        }
-        return super.resignFirstResponder()
-    }
-    
-    private func showPlaceholderText() {
-        showingPlaceholder = true
-        textColor = placeholderTextColor
-        font = placeholderTextFont
-        text = placeholderText
+    private func onTextChanged() {
+         placeholderLabel.isHidden = !text.isEmpty
     }
     
 }

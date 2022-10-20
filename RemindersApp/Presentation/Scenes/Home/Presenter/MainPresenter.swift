@@ -76,27 +76,27 @@ class MainPresenter {
                               Reminder(name: "Do exercise",
                                        isDone: true,
                                        timeDate: date1,
-                                       periodicity: "daily"),
+                                       periodicity: .daily),
                               Reminder(name: "Feed the cat",
                                        isDone: true,
                                        timeDate: date6,
-                                       periodicity: "daily")]
+                                       periodicity: .daily)]
         
         let weekReminders = [Reminder(name: "Go for swimming and don't forget to take a cap",
                                       isDone: false,
                                       timeDate: date2,
-                                      periodicity: "every day"),
+                                      periodicity: .weekly),
                              Reminder(name: "Help my brother",
                                       isDone: true,
                                       timeDate: date3)]
         
         let monthReminders = [Reminder(name: "Make a project",
-                                       isDone: false, timeDate: date4, periodicity: "every day")]
+                                       isDone: false, timeDate: date4, periodicity: .monthly)]
         
         let laterReminders = [Reminder(name: "Do something", isDone: false),
                               Reminder(name: "Do other thing", isDone: false,
                                        timeDate: date5,
-                                       periodicity: "every month")]
+                                       periodicity: .yearly)]
         
         self.reminders = todayReminders + weekReminders + monthReminders + laterReminders
         
@@ -105,10 +105,11 @@ class MainPresenter {
     }
     
     func addReminder(item: ReminderItem) {
+        
         reminders.append(Reminder(name: item.name,
                                   isDone: item.isDone,
                                   timeDate: item.timeDate,
-                                  periodicity: item.periodicity,
+                                  periodicity: item.periodicity.toPeriodicity,
                                   notes: item.notes))
     }
     
@@ -159,7 +160,7 @@ private extension MainPresenter {
         let rowItem = ReminderRow(name: reminder.name,
                                   isChecked: reminder.isDone,
                                   dateString: dateString,
-                                  periodicityString: reminder.periodicity,
+                                  periodicityString: reminder.periodicity?.rawValue,
                                   objectId: reminder.id)
         if let sectionIndex = dataSource.firstIndex(where: { $0.type == sectionType }) {
             dataSource[sectionIndex].rows.append(rowItem)

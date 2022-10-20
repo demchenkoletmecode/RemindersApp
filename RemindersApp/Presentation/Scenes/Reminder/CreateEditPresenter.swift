@@ -40,8 +40,7 @@ class CreateEditPresenter {
         
         let name = view?.name ?? ""
         if validName(name) {
-            
-            let period = view?.periodicity
+            let period = view?.periodicity.toPeriodicity
             let notes = view?.notes
             let reminder = Reminder(name: name,
                                     isDone: false,

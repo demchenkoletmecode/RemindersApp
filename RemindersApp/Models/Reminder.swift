@@ -12,13 +12,13 @@ struct Reminder {
     var name: String
     var isDone: Bool
     var timeDate: Date?
-    var periodicity: String?
+    var periodicity: Periodicity?
     var notes: String?
     
     init(name: String,
          isDone: Bool,
          timeDate: Date? = nil,
-         periodicity: String? = nil,
+         periodicity: Periodicity? = nil,
          notes: String? = nil) {
         self.name = name
         self.isDone = isDone

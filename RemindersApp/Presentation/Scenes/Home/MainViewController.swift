@@ -141,12 +141,14 @@ extension MainViewController: MainViewProtocol {
         case .createReminder:
             let createReminderViewController = CreateEditReminderViewController()
             createReminderViewController.delegate = self
+            createReminderViewController.title = "Create Reminder"
             navigationController?.pushViewController(createReminderViewController, animated: true)
             
         case let .detailsReminder(reminderId):
-            let createViewController = CreateEditReminderViewController()
-            createViewController.reminderId = reminderId
-            navigationController?.pushViewController(createViewController, animated: true)
+            let createReminderViewController = CreateEditReminderViewController()
+            createReminderViewController.reminderId = reminderId
+            createReminderViewController.title = "Edit Reminder"
+            navigationController?.pushViewController(createReminderViewController, animated: true)
         }
     }
     

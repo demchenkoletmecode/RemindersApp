@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "CD269209-0BB2-4E01-9CE9-85B29314AD7E"
+            uuid = "2983E835-DA15-463C-A30C-FE853B160CFF"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "RemindersApp/Presentation/Scenes/Home/MainViewController.swift"
+            filePath = "RemindersApp/Presentation/Views/UITextViewWithPlaceholder.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
-            landmarkName = "didSaveReminder()"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "onTextChanged()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

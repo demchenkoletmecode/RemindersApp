@@ -190,11 +190,12 @@ class CreateEditReminderViewController: UIViewController {
         txtView.layer.borderWidth = 1
         txtView.layer.cornerRadius = 8
         txtView.translatesAutoresizingMaskIntoConstraints = false
-        txtView.textColor = .lightGray
+        txtView.textColor = .black
+        txtView.delegate = self
         txtView.placeholderText = "Enter notes"
         txtView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         txtView.contentInsetAdjustmentBehavior = .automatic
-        txtView.font = UIFont.systemFont(ofSize: textSize)
+        txtView.font = UIFont.systemFont(ofSize: 16)
      
         return txtView
     }()
@@ -263,7 +264,6 @@ class CreateEditReminderViewController: UIViewController {
     }
         
     private func configureBarItems() {
-        title = "Create Reminder"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel",
                                                                 style: .plain,
                                                                 target: self,
@@ -453,12 +453,18 @@ extension CreateEditReminderViewController: CreateEditProtocol {
     }
     
     func update(nameError: String?) {
-        if nameError == nil {
-            nameErrorLbl.isHidden = true
-        } else {
-            nameErrorLbl.isHidden = false
-            nameErrorLbl.text = nameError
+        nameErrorLbl.isHidden = nameError?.isEmpty != false
+        if let error = nameError {
+            nameErrorLbl.text = error
         }
+    }
+    
+}
+
+extension CreateEditReminderViewController: UITextViewDelegate {
+    
+    func textViewDidChange(_ textView: UITextView) {
+        notesTxtView.text = textView.text
     }
     
 }
