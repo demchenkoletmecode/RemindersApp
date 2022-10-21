@@ -113,6 +113,8 @@ extension MainViewController: ReminderCellProtocol {
         if let indexPath = tableView.indexPath(for: cell) {
             var reminder = sections[indexPath.section].rows[indexPath.row]
             reminder.changeAccomplishment()
+            presenter.didTapAccomplishment(reminderId: (reminder.objectId))
+            cell.setAccomplishment()
         }
     }
     

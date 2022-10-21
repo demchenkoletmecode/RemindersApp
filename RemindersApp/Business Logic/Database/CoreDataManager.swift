@@ -131,4 +131,27 @@ class CoreDataManager {
             print("An error occurred with updating reminder!")
         }
     }
+    
+    func changeAccomplishment(id: String) {
+        var reminderItem: ReminderItem? = ReminderItem()
+        let fetchReminder: NSFetchRequest<ReminderItem> = ReminderItem.fetchRequest()
+        fetchReminder.predicate = NSPredicate(format: "id = %@", id as String)
+
+         let results = try? context.fetch(fetchReminder)
+
+         if results?.count == 0 {
+            reminderItem = ReminderItem(context: context)
+         } else {
+            reminderItem = results?.first
+         }
+
+        reminderItem?.id = id
+        reminderItem?.isDone = !(reminderItem?.isDone ?? true)
+        do {
+            try context.save()
+        }
+        catch {
+            print("An error occurred with changing accomplishment in reminder!")
+        }
+    }
 }

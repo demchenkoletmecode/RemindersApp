@@ -24,6 +24,7 @@ class MainPresenter {
     weak var view: MainViewProtocol?
     private var reminders: [Reminder] = []
     private var dataSource = [SectionReminders]()
+    private let context = appContext.coreDateManager
     
     init(view: MainViewProtocol) {
         self.view = view
@@ -32,7 +33,7 @@ class MainPresenter {
     func getReminders() {
         reminders.removeAll()
         dataSource.removeAll()
-        reminders = appContext.coreDateManager.fetchReminders()
+        reminders = context.fetchReminders()
         
         prepareDataSource()
         self.view?.presentReminders(reminders: dataSource)
@@ -52,6 +53,10 @@ class MainPresenter {
     
     func tapAddReminder() {
         self.view?.move(to: .createReminder)
+    }
+    
+    func didTapAccomplishment(reminderId: String) {
+        context.changeAccomplishment(id: reminderId)
     }
 }
 

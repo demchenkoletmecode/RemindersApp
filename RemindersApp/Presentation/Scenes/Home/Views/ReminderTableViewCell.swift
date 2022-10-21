@@ -55,12 +55,26 @@ class ReminderTableViewCell: UITableViewCell {
             timeDateLbl.font = UIFont.boldSystemFont(ofSize: 20)
             periodicityLbl.font = UIFont.boldSystemFont(ofSize: 20)
         }
+        
+        setAccomplishment()
     }
     
     @objc private func checkMarkButtonClicked(sender: UIButton) {
         sender.isSelected.toggle()
         if let delegateObject = self.checkBoxDelegate {
             delegateObject.checkBoxClick(self)
+        }
+    }
+    
+    func setAccomplishment() {
+        if checkBox.isSelected {
+            nameLbl.alpha = 0.5
+            timeDateLbl.alpha = 0.5
+            periodicityLbl.alpha = 0.5
+        } else {
+            nameLbl.alpha = 1
+            timeDateLbl.alpha = 1
+            periodicityLbl.alpha = 1
         }
     }
 }
