@@ -5,10 +5,10 @@
 //  Created by Andrey on 06.10.2022.
 //
 
-import Foundation
-import UIKit
 import Firebase
 import FirebaseAuth
+import Foundation
+import UIKit
 
 enum AuthViewNavigation {
     case mainWithUser

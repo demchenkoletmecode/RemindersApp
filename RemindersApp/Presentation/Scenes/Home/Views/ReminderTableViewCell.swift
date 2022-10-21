@@ -59,7 +59,8 @@ class ReminderTableViewCell: UITableViewCell {
         setAccomplishment()
     }
     
-    @objc private func checkMarkButtonClicked(sender: UIButton) {
+    @objc
+    private func checkMarkButtonClicked(sender: UIButton) {
         sender.isSelected.toggle()
         if let delegateObject = self.checkBoxDelegate {
             delegateObject.checkBoxClick(self)

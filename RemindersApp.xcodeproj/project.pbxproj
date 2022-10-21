@@ -43,9 +43,11 @@
 		778844C328FE9AFB006650BA /* UITextViewWithPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778844C228FE9AFB006650BA /* UITextViewWithPlaceholder.swift */; };
 		778ABFCE290128390015AB78 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778ABFCD290128390015AB78 /* String+Ext.swift */; };
 		77CF2AC729015E3E00A8BA92 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CF2AC629015E3E00A8BA92 /* CoreDataManager.swift */; };
+		AB6CED67A3EE53A5AD2C4AEE /* Pods_RemindersApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12751749FC442E8A10CFADC5 /* Pods_RemindersApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		12751749FC442E8A10CFADC5 /* Pods_RemindersApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RemindersApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5524B59C28EC454F007354DB /* SignUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
 		5524B59E28EC470C007354DB /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		5554352228F061D9008ED8DB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -65,6 +67,8 @@
 		558A37A528EEFD6000801DAE /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		55EFAA4E28F3FE5F004171F0 /* ReminderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderTableViewCell.swift; sourceTree = "<group>"; };
 		55EFAA5028F40EA3004171F0 /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
+		58E96A4BC2E2A0C485F0C1A1 /* Pods-RemindersApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RemindersApp.release.xcconfig"; path = "Target Support Files/Pods-RemindersApp/Pods-RemindersApp.release.xcconfig"; sourceTree = "<group>"; };
+		5A09055A056CC9A14799BFD7 /* Pods-RemindersApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RemindersApp.debug.xcconfig"; path = "Target Support Files/Pods-RemindersApp/Pods-RemindersApp.debug.xcconfig"; sourceTree = "<group>"; };
 		772BC0B928FD6F6000426F6C /* ReminderItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ReminderItem+CoreDataClass.swift"; path = "RemindersApp/Business Logic/Database/Model/ReminderItem+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		772BC0BA28FD6F6000426F6C /* ReminderItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ReminderItem+CoreDataProperties.swift"; path = "RemindersApp/Business Logic/Database/Model/ReminderItem+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		7735B52228F6E798000946AD /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
@@ -91,6 +95,7 @@
 				5524B59B28EC3837007354DB /* FirebaseDatabase in Frameworks */,
 				5524B59728EC3837007354DB /* FirebaseAnalytics in Frameworks */,
 				5524B59928EC3837007354DB /* FirebaseAuth in Frameworks */,
+				AB6CED67A3EE53A5AD2C4AEE /* Pods_RemindersApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +124,8 @@
 			children = (
 				5581C87428EAD1C900728C40 /* RemindersApp */,
 				5581C87328EAD1C900728C40 /* Products */,
+				F93755775C8AD51E089A6A8D /* Pods */,
+				87D9BA93E07A0161580D2C4D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -322,6 +329,23 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		87D9BA93E07A0161580D2C4D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				12751749FC442E8A10CFADC5 /* Pods_RemindersApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F93755775C8AD51E089A6A8D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5A09055A056CC9A14799BFD7 /* Pods-RemindersApp.debug.xcconfig */,
+				58E96A4BC2E2A0C485F0C1A1 /* Pods-RemindersApp.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -329,6 +353,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5581C88928EAD1CB00728C40 /* Build configuration list for PBXNativeTarget "RemindersApp" */;
 			buildPhases = (
+				775A40262902AE1600CE1F9E /* SwiftLint */,
+				8239B3DB0D7120F09AE88CB9 /* [CP] Check Pods Manifest.lock */,
 				5581C86E28EAD1C900728C40 /* Sources */,
 				5581C86F28EAD1C900728C40 /* Frameworks */,
 				5581C87028EAD1C900728C40 /* Resources */,
@@ -400,6 +426,49 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		775A40262902AE1600CE1F9E /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		8239B3DB0D7120F09AE88CB9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RemindersApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5581C86E28EAD1C900728C40 /* Sources */ = {
@@ -564,6 +633,7 @@
 		};
 		5581C88A28EAD1CB00728C40 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5A09055A056CC9A14799BFD7 /* Pods-RemindersApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -592,6 +662,7 @@
 		};
 		5581C88B28EAD1CB00728C40 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 58E96A4BC2E2A0C485F0C1A1 /* Pods-RemindersApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

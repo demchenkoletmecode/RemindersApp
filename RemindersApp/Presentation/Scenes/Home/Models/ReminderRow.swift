@@ -19,4 +19,3 @@ struct ReminderRow {
         self.isChecked = !self.isChecked
     }
 }
-

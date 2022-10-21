@@ -17,11 +17,11 @@ class UITextViewWithPlaceholder: UITextView {
     }
     
     var placeholderText: String = "Enter notes"
-    var placeholderTextColor: UIColor = UIColor(red: 0.78, green: 0.78, blue: 0.80, alpha: 1.0)
-    var placeholderTextFont: UIFont = UIFont.systemFont(ofSize: 20)
+    var placeholderTextColor = UIColor(red: 0.78, green: 0.78, blue: 0.80, alpha: 1.0)
+    var placeholderTextFont = UIFont.systemFont(ofSize: 20)
     
-    private var showingPlaceholder: Bool = true
-    private var placeholderLabel : UILabel!
+    private var showingPlaceholder = true
+    private var placeholderLabel: UILabel!
     
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
@@ -38,7 +38,6 @@ class UITextViewWithPlaceholder: UITextView {
         super.init(coder: coder)
     }
 
-    
     private func onTextChanged() {
          placeholderLabel.isHidden = !text.isEmpty
     }

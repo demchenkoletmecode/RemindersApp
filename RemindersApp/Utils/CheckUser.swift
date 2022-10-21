@@ -5,9 +5,9 @@
 //  Created by Andrey on 04.10.2022.
 //
 
-import Foundation
 import Firebase
 import FirebaseAuth
+import Foundation
 
 static var isAuthorized: Bool {
    if currentUser != nil {

@@ -5,8 +5,8 @@
 //  Created by Andrey on 07.10.2022.
 //
 
-import Foundation
 import FirebaseAuth
+import Foundation
 
 struct User {
     let email: String

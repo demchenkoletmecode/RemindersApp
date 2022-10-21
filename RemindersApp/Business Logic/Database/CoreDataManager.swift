@@ -5,16 +5,10 @@
 //  Created by Андрей on 20.10.2022.
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 class CoreDataManager {
-    
-//    private let modelName: String
-//
-//    init(modelName: String) {
-//        self.modelName = modelName
-//    }
     
     lazy var context: NSManagedObjectContext = {
         return self.persistentContainer.viewContext
@@ -22,7 +16,7 @@ class CoreDataManager {
     
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "RemindersApp")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+        container.loadPersistentStores(completionHandler: { _, error in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
@@ -55,8 +49,7 @@ class CoreDataManager {
                                           periodicity: rem.periodicity?.toPeriodicity,
                                           notes: rem.notes))
             }
-        }
-        catch {
+        } catch {
             print("An error occurred with fetching reminders")
         }
         
@@ -64,7 +57,7 @@ class CoreDataManager {
     }
     
     func addReminder(reminder: Reminder) {
-        var reminderItem = ReminderItem(context: context)
+        let reminderItem = ReminderItem(context: context)
         reminderItem.id = reminder.id
         reminderItem.name = reminder.name
         reminderItem.isDone = reminder.isDone
@@ -74,8 +67,7 @@ class CoreDataManager {
         
         do {
             try context.save()
-        }
-        catch {
+        } catch {
             print("An error occurred with saving reminder")
         }
     }
@@ -97,8 +89,7 @@ class CoreDataManager {
                                     periodicity: reminderItem.periodicity?.toPeriodicity,
                                     notes: reminderItem.notes)
             }
-        }
-        catch {
+        } catch {
             print("An error occurred with getting reminder by id")
         }
         return reminder
@@ -109,13 +100,8 @@ class CoreDataManager {
         let fetchReminder: NSFetchRequest<ReminderItem> = ReminderItem.fetchRequest()
         fetchReminder.predicate = NSPredicate(format: "id = %@", id as String)
 
-         let results = try? context.fetch(fetchReminder)
-
-         if results?.count == 0 {
-            reminderItem = ReminderItem(context: context)
-         } else {
-            reminderItem = results?.first
-         }
+        let results = try? context.fetch(fetchReminder)
+        reminderItem = results?.first
 
         reminderItem?.id = id
         reminderItem?.name = reminder.name
@@ -126,8 +112,7 @@ class CoreDataManager {
         
         do {
             try context.save()
-        }
-        catch {
+        } catch {
             print("An error occurred with updating reminder!")
         }
     }
@@ -137,20 +122,14 @@ class CoreDataManager {
         let fetchReminder: NSFetchRequest<ReminderItem> = ReminderItem.fetchRequest()
         fetchReminder.predicate = NSPredicate(format: "id = %@", id as String)
 
-         let results = try? context.fetch(fetchReminder)
-
-         if results?.count == 0 {
-            reminderItem = ReminderItem(context: context)
-         } else {
-            reminderItem = results?.first
-         }
+        let results = try? context.fetch(fetchReminder)
+        reminderItem = results?.first
 
         reminderItem?.id = id
         reminderItem?.isDone = !(reminderItem?.isDone ?? true)
         do {
             try context.save()
-        }
-        catch {
+        } catch {
             print("An error occurred with changing accomplishment in reminder!")
         }
     }

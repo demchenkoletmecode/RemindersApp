@@ -310,35 +310,43 @@ class CreateEditReminderViewController: UIViewController {
         timeSwitch.addTarget(self, action: #selector(timeSwitchChanged), for: .valueChanged)
     }
     
-    @objc func handleDatePicker(sender: UIDatePicker) {
+    @objc
+    func handleDatePicker(sender: UIDatePicker) {
         presenter.updateDate(date: sender.date)
     }
     
-    @objc func handleTimePicker(sender: UIDatePicker) {
+    @objc
+    func handleTimePicker(sender: UIDatePicker) {
         presenter.updateTime(time: sender.date)
     }
     
-    @objc private func dateSwitchChanged() {
+    @objc
+    private func dateSwitchChanged() {
         presenter.dateSwitchChanged()
     }
     
-    @objc private func timeSwitchChanged() {
+    @objc
+    private func timeSwitchChanged() {
         presenter.timeSwitchChanged()
     }
     
-    @objc func datePickerDone() {
+    @objc
+    func datePickerDone() {
         selectedDateTxtField.resignFirstResponder()
     }
     
-    @objc func timePickerDone() {
+    @objc
+    func timePickerDone() {
         selectedTimeTxtField.resignFirstResponder()
     }
     
-    @objc private func createEditClick() {
+    @objc
+    private func createEditClick() {
         presenter.tapSaveEditReminder(reminderId: reminderId)
     }
     
-    @objc private func cancelClick() {
+    @objc
+    private func cancelClick() {
         navigationController?.popViewController(animated: true)
     }
     
@@ -385,7 +393,8 @@ extension CreateEditReminderViewController: UIPickerViewDelegate, UIPickerViewDa
         repeatTxtField.inputAccessoryView = toolBar
     }
     
-    @objc private func onDoneTapped() {
+    @objc
+    private func onDoneTapped() {
         view.endEditing(true)
     }
     
@@ -408,8 +417,7 @@ extension CreateEditReminderViewController: CreateEditProtocol {
             repeatTxtField.isHidden = newValue
             if newValue {
                 selectedTimeTxtField.isHidden = newValue
-            }
-            else {
+            } else {
                 selectedTimeTxtField.isHidden = !timeSwitch.isOn
             }
         }
@@ -479,4 +487,3 @@ extension CreateEditReminderViewController: UITextViewDelegate {
     }
     
 }
-

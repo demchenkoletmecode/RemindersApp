@@ -11,6 +11,10 @@ class ReminderSectionHeader: UITableViewHeaderFooterView {
 
     static let reuseIdentifier = "CustomHeader"
     
-    @IBOutlet weak var nameLbl: UILabel!
+    @IBOutlet private weak var nameLbl: UILabel!
+    
+    func setHeaderText(text: NSAttributedString) {
+        nameLbl.attributedText = text
+    }
     
 }

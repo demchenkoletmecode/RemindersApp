@@ -5,13 +5,13 @@
 //  Created by Андрей on 13.10.2022.
 //
 
-import UIKit
 import Firebase
 import FirebaseAuth
+import UIKit
 
 class MainViewController: UIViewController {
 
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!
     
     private let authService = appContext.authentication
     private var presenter: MainPresenter!
@@ -26,18 +26,22 @@ class MainViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
+        
+        let header = "ReminderSectionHeader"
         tableView.register(UINib.init(nibName: "ReminderCell", bundle: .main), forCellReuseIdentifier: "ReminderCell")
-        tableView.register(UINib(nibName: "ReminderSectionHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "CustomHeader")
+        tableView.register(UINib(nibName: header, bundle: nil), forHeaderFooterViewReuseIdentifier: "CustomHeader")
         
         presenter = MainPresenter(view: self)
         refreshData()
     }
     
-    @objc private func signInSignOutClick() {
+    @objc
+    private func signInSignOutClick() {
         presenter.tapOnSignInSignOut()
     }
     
-    @objc private func addReminder() {
+    @objc
+    private func addReminder() {
         presenter.tapAddReminder()
     }
     
@@ -76,11 +80,11 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ReminderCell") as! ReminderTableViewCell
-        cell.checkBoxDelegate = self
-        cell.setViews(cellModel: sections[indexPath.section].rows[indexPath.row])
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ReminderCell") as? ReminderTableViewCell
+        cell?.checkBoxDelegate = self
+        cell?.setViews(cellModel: sections[indexPath.section].rows[indexPath.row])
         
-        return cell
+        return cell ?? ReminderTableViewCell()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -92,16 +96,18 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "CustomHeader") as! ReminderSectionHeader
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "CustomHeader") as? ReminderSectionHeader
         
         let strokeTextAttributes = [
-            NSAttributedString.Key.strokeColor : UIColor.gray,
-            NSAttributedString.Key.foregroundColor : UIColor.white,
-            NSAttributedString.Key.strokeWidth : -4.0,
-            NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 26)]
-            as [NSAttributedString.Key : Any]
+            NSAttributedString.Key.strokeColor: UIColor.gray,
+            NSAttributedString.Key.foregroundColor: UIColor.white,
+            NSAttributedString.Key.strokeWidth: -4.0,
+            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 26)]
+        as [NSAttributedString.Key: Any]
+        
+        let nameSection = sections[section].type.displayString
 
-        view.nameLbl.attributedText = NSAttributedString(string: sections[section].type.displayString, attributes: strokeTextAttributes)
+        view?.setHeaderText(text: NSAttributedString(string: nameSection, attributes: strokeTextAttributes))
         return view
     }
     
@@ -170,4 +176,3 @@ extension MainViewController: CreateEditReminderDelegate {
     }
     
 }
-

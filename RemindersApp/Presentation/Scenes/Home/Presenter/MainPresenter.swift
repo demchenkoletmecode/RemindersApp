@@ -85,7 +85,9 @@ private extension MainPresenter {
     }
     
     func appendItem(sectionType: SectionType, reminder: Reminder) {
-        let dateString = sectionType == .today ? reminder.timeDate?.timeFormatForCell : reminder.timeDate?.dateFormatForCell
+        let timeForCell = reminder.timeDate?.timeFormatForCell
+        let dateForCell = reminder.timeDate?.dateFormatForCell
+        let dateString = sectionType == .today ? timeForCell : dateForCell
         let rowItem = ReminderRow(name: reminder.name,
                                   isChecked: reminder.isDone,
                                   dateString: dateString,
