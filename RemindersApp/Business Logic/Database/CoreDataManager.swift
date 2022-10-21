@@ -10,11 +10,11 @@ import Foundation
 
 class CoreDataManager {
     
-    lazy var context: NSManagedObjectContext = {
+    private lazy var context: NSManagedObjectContext = {
         return self.persistentContainer.viewContext
     }()
     
-    lazy var persistentContainer: NSPersistentContainer = {
+    private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "RemindersApp")
         container.loadPersistentStores(completionHandler: { _, error in
             if let error = error as NSError? {
@@ -25,7 +25,6 @@ class CoreDataManager {
     }()
     
     func saveContext() {
-        let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
                 try context.save()
@@ -37,17 +36,17 @@ class CoreDataManager {
     }
     
     func fetchReminders() -> [Reminder] {
-        var remindersItems = [ReminderItem]()
         var reminders = [Reminder]()
         do {
+            var remindersItems = [ReminderItem]()
             remindersItems = try context.fetch(ReminderItem.fetchRequest())
-            remindersItems.forEach { rem in
-                reminders.append(Reminder(id: rem.id,
-                                          name: rem.name,
-                                          isDone: rem.isDone,
-                                          timeDate: rem.timeDate,
-                                          periodicity: rem.periodicity?.toPeriodicity,
-                                          notes: rem.notes))
+            reminders = remindersItems.map { rem in
+                Reminder(id: rem.id,
+                         name: rem.name,
+                         isDone: rem.isDone,
+                         timeDate: rem.timeDate,
+                         periodicity: rem.periodicity?.toPeriodicity,
+                         notes: rem.notes)
             }
         } catch {
             print("An error occurred with fetching reminders")
@@ -73,22 +72,21 @@ class CoreDataManager {
     }
     
     func getReminderById(reminderId: String) -> Reminder? {
-        var reminderItem: ReminderItem? = ReminderItem()
         var reminder: Reminder?
         do {
             let request = ReminderItem.fetchRequest() as NSFetchRequest<ReminderItem>
             let pred = NSPredicate(format: "id = %@", reminderId)
             request.predicate = pred
             
-            reminderItem = try context.fetch(request).first
-            if let reminderItem = reminderItem {
-                reminder = Reminder(id: reminderItem.id,
-                                    name: reminderItem.name,
-                                    isDone: reminderItem.isDone,
-                                    timeDate: reminderItem.timeDate,
-                                    periodicity: reminderItem.periodicity?.toPeriodicity,
-                                    notes: reminderItem.notes)
-            }
+            let reminderItem = try context.fetch(request).first ?? ReminderItem(context: context)
+            print("reminderItem === \(reminderItem.id) id = \(reminderItem.name)")
+            
+            reminder = Reminder(id: reminderItem.id,
+                                name: reminderItem.name,
+                                isDone: reminderItem.isDone,
+                                timeDate: reminderItem.timeDate,
+                                periodicity: reminderItem.periodicity?.toPeriodicity,
+                                notes: reminderItem.notes)
         } catch {
             print("An error occurred with getting reminder by id")
         }
@@ -96,19 +94,18 @@ class CoreDataManager {
     }
     
     func editReminder(id: String, reminder: Reminder) {
-        var reminderItem: ReminderItem? = ReminderItem()
         let fetchReminder: NSFetchRequest<ReminderItem> = ReminderItem.fetchRequest()
         fetchReminder.predicate = NSPredicate(format: "id = %@", id as String)
 
         let results = try? context.fetch(fetchReminder)
-        reminderItem = results?.first
+        let reminderItem = results?.first ?? ReminderItem(context: context)
 
-        reminderItem?.id = id
-        reminderItem?.name = reminder.name
-        reminderItem?.isDone = reminder.isDone
-        reminderItem?.periodicity = reminder.periodicity?.displayValue
-        reminderItem?.timeDate = reminder.timeDate
-        reminderItem?.notes = reminder.notes
+        reminderItem.id = id
+        reminderItem.name = reminder.name
+        reminderItem.isDone = reminder.isDone
+        reminderItem.periodicity = reminder.periodicity?.rawValue
+        reminderItem.timeDate = reminder.timeDate
+        reminderItem.notes = reminder.notes
         
         do {
             try context.save()
@@ -118,15 +115,14 @@ class CoreDataManager {
     }
     
     func changeAccomplishment(id: String) {
-        var reminderItem: ReminderItem? = ReminderItem()
         let fetchReminder: NSFetchRequest<ReminderItem> = ReminderItem.fetchRequest()
         fetchReminder.predicate = NSPredicate(format: "id = %@", id as String)
 
         let results = try? context.fetch(fetchReminder)
-        reminderItem = results?.first
+        let reminderItem = results?.first ?? ReminderItem(context: context)
 
-        reminderItem?.id = id
-        reminderItem?.isDone = !(reminderItem?.isDone ?? true)
+        reminderItem.id = id
+        reminderItem.isDone = !reminderItem.isDone
         do {
             try context.save()
         } catch {

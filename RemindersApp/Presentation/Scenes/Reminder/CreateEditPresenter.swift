@@ -13,7 +13,7 @@ protocol CreateEditProtocol: AnyObject {
     var date: String? { get set }
     var isTimeSelected: Bool { get set }
     var time: String? { get set }
-    var periodicity: String? { get }
+    var periodicity: Int? { get }
     var notes: String? { get }
     
     func showReminder(reminder: Reminder?)
@@ -24,10 +24,11 @@ protocol CreateEditProtocol: AnyObject {
 class CreateEditPresenter {
     
     weak var view: CreateEditProtocol?
+    var reminderId: String?
     private var reminder: Reminder?
     private var fullDate: Date?
     private let calendar = Calendar.current
-    private let contextDB = appContext.coreDateManager
+    private let coreDataManager = appContext.coreDateManager
     
     var periodList = Periodicity.allCases.map {
         $0.displayValue
@@ -47,10 +48,10 @@ class CreateEditPresenter {
                                     timeDate: fullDate,
                                     periodicity: period,
                                     notes: notes)
-            if reminderId == nil {
-                contextDB.addReminder(reminder: reminder)
+            if let reminderId = reminderId {
+                coreDataManager.editReminder(id: reminderId, reminder: reminder)
             } else {
-                contextDB.editReminder(id: reminderId!, reminder: reminder)
+                coreDataManager.addReminder(reminder: reminder)
             }
             self.view?.save()
         }
@@ -83,11 +84,8 @@ class CreateEditPresenter {
         fullDate = calendar.date(byAdding: time.timeComponentsFromDate, to: fullDate ?? Date())
     }
     
-    func getReminder(_ reminderId: String) {
-        var reminder: Reminder?
-        reminder = contextDB.getReminderById(reminderId: reminderId)
-        
-        view?.showReminder(reminder: reminder)
+    func getReminder() {
+        view?.showReminder(reminder: coreDataManager.getReminderById(reminderId: reminderId))
     }
     
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 struct Reminder {
-    var id: String
+    let id: String
     var name: String
     var isDone: Bool
     var timeDate: Date?
@@ -32,7 +32,7 @@ struct Reminder {
 }
 
 enum Periodicity: String, CaseIterable {
-    case never
+    case never = 0
     case daily
     case weekly
     case monthly
@@ -52,7 +52,5 @@ enum Periodicity: String, CaseIterable {
             return "Yearly"
         }
     }
-    
-    func toString() -> String { "\(self)" }
 
 }

@@ -200,8 +200,7 @@ class CreateEditReminderViewController: UIViewController {
         return txtView
     }()
     
-    var reminderId: String?
-    private var selectedPeriod: String?
+    private var selectedPeriod: Int?
     
     private var presenter: CreateEditPresenter!
         
@@ -350,6 +349,10 @@ class CreateEditReminderViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    func setReminderId(id: String) {
+        presenter.reminderId = id
+    }
+    
     func presentReminder(reminderId: String) {
         presenter.getReminder(reminderId)
     }
@@ -370,7 +373,7 @@ extension CreateEditReminderViewController: UIPickerViewDelegate, UIPickerViewDa
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedPeriod = presenter.periodList[row]
+        selectedPeriod = row
         repeatTxtField.text = selectedPeriod
     }
     
@@ -450,7 +453,7 @@ extension CreateEditReminderViewController: CreateEditProtocol {
         }
     }
     
-    var periodicity: String? {
+    var periodicity: Int? {
         return selectedPeriod
     }
     

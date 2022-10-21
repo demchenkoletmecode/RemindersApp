@@ -159,7 +159,6 @@ extension MainViewController: MainViewProtocol {
     }
     
     func presentReminders(reminders: [SectionReminders]) {
-        sections.removeAll()
         sections = reminders
         
         DispatchQueue.main.async {
