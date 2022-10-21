@@ -17,8 +17,6 @@ class MainViewController: UIViewController {
     private var presenter: MainPresenter!
     private var sections: [SectionReminders] = []
     
-    let contex = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,7 +28,6 @@ class MainViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.register(UINib.init(nibName: "ReminderCell", bundle: .main), forCellReuseIdentifier: "ReminderCell")
         tableView.register(UINib(nibName: "ReminderSectionHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "CustomHeader")
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: NSNotification.Name(rawValue: "newDataNotif"), object: nil)
         
         presenter = MainPresenter(view: self)
         refreshData()
@@ -44,7 +41,7 @@ class MainViewController: UIViewController {
         presenter.tapAddReminder()
     }
     
-    @objc func refreshData() {
+    private func refreshData() {
         presenter.getReminders()
     }
     
@@ -148,12 +145,14 @@ extension MainViewController: MainViewProtocol {
             let createReminderViewController = CreateEditReminderViewController()
             createReminderViewController.reminderId = reminderId
             createReminderViewController.title = "Edit Reminder"
+            createReminderViewController.delegate = self
             navigationController?.pushViewController(createReminderViewController, animated: true)
         }
     }
     
     func presentReminders(reminders: [SectionReminders]) {
-        self.sections = reminders
+        sections.removeAll()
+        sections = reminders
         
         DispatchQueue.main.async {
             self.tableView.reloadData()

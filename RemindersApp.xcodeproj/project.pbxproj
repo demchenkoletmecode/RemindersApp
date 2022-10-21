@@ -42,6 +42,7 @@
 		778844C128FE9AD3006650BA /* UITextFieldWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778844C028FE9AD3006650BA /* UITextFieldWithPadding.swift */; };
 		778844C328FE9AFB006650BA /* UITextViewWithPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778844C228FE9AFB006650BA /* UITextViewWithPlaceholder.swift */; };
 		778ABFCE290128390015AB78 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778ABFCD290128390015AB78 /* String+Ext.swift */; };
+		77CF2AC729015E3E00A8BA92 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CF2AC629015E3E00A8BA92 /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,8 +65,8 @@
 		558A37A528EEFD6000801DAE /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		55EFAA4E28F3FE5F004171F0 /* ReminderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderTableViewCell.swift; sourceTree = "<group>"; };
 		55EFAA5028F40EA3004171F0 /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
-		772BC0B928FD6F6000426F6C /* ReminderItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReminderItem+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		772BC0BA28FD6F6000426F6C /* ReminderItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReminderItem+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		772BC0B928FD6F6000426F6C /* ReminderItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ReminderItem+CoreDataClass.swift"; path = "RemindersApp/Business Logic/Database/Model/ReminderItem+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		772BC0BA28FD6F6000426F6C /* ReminderItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ReminderItem+CoreDataProperties.swift"; path = "RemindersApp/Business Logic/Database/Model/ReminderItem+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		7735B52228F6E798000946AD /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		7735B52428F6F9C7000946AD /* ReminderSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderSectionHeader.swift; sourceTree = "<group>"; };
 		7735B52A28F70569000946AD /* ReminderSectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReminderSectionHeader.xib; sourceTree = "<group>"; };
@@ -79,6 +80,7 @@
 		778844C028FE9AD3006650BA /* UITextFieldWithPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldWithPadding.swift; sourceTree = "<group>"; };
 		778844C228FE9AFB006650BA /* UITextViewWithPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewWithPlaceholder.swift; sourceTree = "<group>"; };
 		778ABFCD290128390015AB78 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
+		77CF2AC629015E3E00A8BA92 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,9 +254,9 @@
 		558A37A228EEFCFA00801DAE /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				772BC0B928FD6F6000426F6C /* ReminderItem+CoreDataClass.swift */,
-				772BC0BA28FD6F6000426F6C /* ReminderItem+CoreDataProperties.swift */,
+				77CF2AC8290168BE00A8BA92 /* Model */,
 				5581C87E28EAD1C900728C40 /* RemindersApp.xcdatamodeld */,
+				77CF2AC629015E3E00A8BA92 /* CoreDataManager.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -309,6 +311,15 @@
 				778844C228FE9AFB006650BA /* UITextViewWithPlaceholder.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		77CF2AC8290168BE00A8BA92 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				772BC0B928FD6F6000426F6C /* ReminderItem+CoreDataClass.swift */,
+				772BC0BA28FD6F6000426F6C /* ReminderItem+CoreDataProperties.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -409,6 +420,7 @@
 				558A379928EED94900801DAE /* AuthPresenter.swift in Sources */,
 				5581C87828EAD1C900728C40 /* SceneDelegate.swift in Sources */,
 				558A37A628EEFD6000801DAE /* AuthService.swift in Sources */,
+				77CF2AC729015E3E00A8BA92 /* CoreDataManager.swift in Sources */,
 				772BC0BC28FD6F6000426F6C /* ReminderItem+CoreDataProperties.swift in Sources */,
 				778844C328FE9AFB006650BA /* UITextViewWithPlaceholder.swift in Sources */,
 				7741033C28F94274009041F9 /* CreateEditReminderViewController.swift in Sources */,

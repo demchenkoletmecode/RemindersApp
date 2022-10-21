@@ -215,6 +215,9 @@ class CreateEditReminderViewController: UIViewController {
         configureDateTime()
         configurePeriodPickerView()
         
+        if reminderId != nil {
+            presentReminder(reminderId: reminderId!)
+        }
     }
     
     private func configureView() {
@@ -332,11 +335,15 @@ class CreateEditReminderViewController: UIViewController {
     }
     
     @objc private func createEditClick() {
-        presenter.tapSaveEditReminder()
+        presenter.tapSaveEditReminder(reminderId: reminderId)
     }
     
     @objc private func cancelClick() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    func presentReminder(reminderId: String) {
+        presenter.getReminder(reminderId)
     }
 }
 
@@ -385,7 +392,7 @@ extension CreateEditReminderViewController: UIPickerViewDelegate, UIPickerViewDa
 }
 
 extension CreateEditReminderViewController: CreateEditProtocol {
-    
+
     var name: String {
         return nameTxtField.text ?? ""
     }
@@ -443,13 +450,17 @@ extension CreateEditReminderViewController: CreateEditProtocol {
         return notesTxtView.text
     }
     
-    func presentReminder(reminder: Reminder?) {
-        
+    func showReminder(reminder: Reminder?) {
+        nameTxtField.text = reminder?.name
+        selectedDateTxtField.text = reminder?.timeDate?.dateFormat
+        selectedTimeTxtField.text = reminder?.timeDate?.timeFormat
+        repeatTxtField.text = reminder?.periodicity?.displayValue
+        notesTxtView.text = reminder?.notes
     }
     
-    func save(reminder: Reminder) {        
-        navigationController?.popViewController(animated: true)
+    func save() {
         delegate?.didSaveReminder()
+        navigationController?.popViewController(animated: true)
     }
     
     func update(nameError: String?) {

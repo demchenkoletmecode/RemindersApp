@@ -16,8 +16,8 @@ protocol CreateEditProtocol: AnyObject {
     var periodicity: String? { get }
     var notes: String? { get }
     
-    func presentReminder(reminder: Reminder?)
-    func save(reminder: Reminder)
+    func showReminder(reminder: Reminder?)
+    func save()
     func update(nameError: String?)
 }
 
@@ -27,6 +27,7 @@ class CreateEditPresenter {
     private var reminder: Reminder?
     private var fullDate: Date?
     private let calendar = Calendar.current
+    private let contextDB = appContext.coreDateManager
     
     var periodList = Periodicity.allCases.map {
         $0.displayValue
@@ -36,8 +37,7 @@ class CreateEditPresenter {
         self.view = view
     }
     
-    func tapSaveEditReminder() {
-        
+    func tapSaveEditReminder(reminderId: String?) {
         let name = view?.name ?? ""
         if validName(name) {
             let period = view?.periodicity?.toPeriodicity
@@ -47,8 +47,12 @@ class CreateEditPresenter {
                                     timeDate: fullDate,
                                     periodicity: period,
                                     notes: notes)
-            
-            self.view?.save(reminder: reminder)
+            if reminderId == nil {
+                contextDB.addReminder(reminder: reminder)
+            } else {
+                contextDB.editReminder(id: reminderId!, reminder: reminder)
+            }
+            self.view?.save()
         }
     }
     
@@ -77,6 +81,13 @@ class CreateEditPresenter {
     func updateTime(time: Date) {
         view?.time = time.timeFormat
         fullDate = calendar.date(byAdding: time.timeComponentsFromDate, to: fullDate ?? Date())
+    }
+    
+    func getReminder(_ reminderId: String) {
+        var reminder: Reminder?
+        reminder = contextDB.getReminderById(reminderId: reminderId)
+        
+        view?.showReminder(reminder: reminder)
     }
     
 }

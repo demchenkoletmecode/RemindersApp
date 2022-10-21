@@ -8,18 +8,20 @@
 import Foundation
 
 struct Reminder {
-    let id = UUID().uuidString
+    var id: String
     var name: String
     var isDone: Bool
     var timeDate: Date?
     var periodicity: Periodicity?
     var notes: String?
     
-    init(name: String,
+    init(id: String = UUID().uuidString,
+         name: String,
          isDone: Bool,
          timeDate: Date? = nil,
          periodicity: Periodicity? = nil,
          notes: String? = nil) {
+        self.id = id
         self.name = name
         self.isDone = isDone
         self.timeDate = timeDate
@@ -50,4 +52,7 @@ enum Periodicity: String, CaseIterable {
             return "Yearly"
         }
     }
+    
+    func toString() -> String { "\(self)" }
+
 }

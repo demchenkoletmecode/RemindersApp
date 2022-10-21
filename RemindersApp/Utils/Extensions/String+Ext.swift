@@ -23,7 +23,8 @@ extension String {
     }
     
     var toPeriodicity: Periodicity? {
-        return Periodicity(rawValue: self)
+        let period = Periodicity(rawValue: self.lowercased())?.displayValue ?? "never"
+        return Periodicity(rawValue: period.lowercased())
     }
     
 }
