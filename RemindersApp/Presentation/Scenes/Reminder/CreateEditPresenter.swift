@@ -24,7 +24,7 @@ protocol CreateEditProtocol: AnyObject {
 class CreateEditPresenter {
     
     weak var view: CreateEditProtocol?
-    var reminderId: String?
+    private var reminderId: String? = nil
     private var reminder: Reminder?
     private var fullDate: Date?
     private let calendar = Calendar.current
@@ -34,11 +34,16 @@ class CreateEditPresenter {
         $0.displayValue
     }
     
-    init(view: CreateEditProtocol) {
+    init(view: CreateEditProtocol, id: String?) {
         self.view = view
+        self.reminderId = id
     }
     
-    func tapSaveEditReminder(reminderId: String?) {
+    func isEditReminder() -> Bool {
+        return reminderId != nil
+    }
+    
+    func tapSaveEditReminder() {
         let name = view?.name ?? ""
         if validName(name) {
             let period = view?.periodicity?.toPeriodicity
@@ -85,7 +90,9 @@ class CreateEditPresenter {
     }
     
     func getReminder() {
-        view?.showReminder(reminder: coreDataManager.getReminderById(reminderId: reminderId))
+        if let reminderId = reminderId {
+            view?.showReminder(reminder: coreDataManager.getReminderById(reminderId: reminderId))
+        }
     }
     
 }

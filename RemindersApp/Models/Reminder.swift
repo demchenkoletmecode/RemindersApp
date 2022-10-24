@@ -31,7 +31,8 @@ struct Reminder {
     
 }
 
-enum Periodicity: String, CaseIterable {
+enum Periodicity: Int, CaseIterable {
+    
     case never = 0
     case daily
     case weekly
@@ -52,5 +53,7 @@ enum Periodicity: String, CaseIterable {
             return "Yearly"
         }
     }
+    
+    func toString() -> String { "\(self)" }
 
 }

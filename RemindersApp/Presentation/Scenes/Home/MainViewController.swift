@@ -144,17 +144,17 @@ extension MainViewController: MainViewProtocol {
             vc.modalPresentationStyle = .overFullScreen
             self.present(vc, animated: true)
         case .createReminder:
-            let createReminderViewController = CreateEditReminderViewController()
-            createReminderViewController.delegate = self
-            createReminderViewController.title = "Create Reminder"
-            navigationController?.pushViewController(createReminderViewController, animated: true)
+            let vc = CreateEditReminderViewController()
+            vc.delegate = self
+            vc.title = "Create Reminder"
+            navigationController?.pushViewController(vc, animated: true)
             
         case let .detailsReminder(reminderId):
-            let createReminderViewController = CreateEditReminderViewController()
-            createReminderViewController.reminderId = reminderId
-            createReminderViewController.title = "Edit Reminder"
-            createReminderViewController.delegate = self
-            navigationController?.pushViewController(createReminderViewController, animated: true)
+            let vc = CreateEditReminderViewController()
+            vc.delegate = self
+            vc.title = "Edit Reminder"
+            vc.presenter = CreateEditPresenter(view: vc, id: reminderId)
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
     

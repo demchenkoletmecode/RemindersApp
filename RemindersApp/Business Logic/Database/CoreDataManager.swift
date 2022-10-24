@@ -60,7 +60,7 @@ class CoreDataManager {
         reminderItem.id = reminder.id
         reminderItem.name = reminder.name
         reminderItem.isDone = reminder.isDone
-        reminderItem.periodicity = reminder.periodicity?.displayValue
+        reminderItem.periodicity = reminder.periodicity?.toString()
         reminderItem.timeDate = reminder.timeDate
         reminderItem.notes = reminder.notes
         
@@ -79,7 +79,6 @@ class CoreDataManager {
             request.predicate = pred
             
             let reminderItem = try context.fetch(request).first ?? ReminderItem(context: context)
-            print("reminderItem === \(reminderItem.id) id = \(reminderItem.name)")
             
             reminder = Reminder(id: reminderItem.id,
                                 name: reminderItem.name,
@@ -103,7 +102,7 @@ class CoreDataManager {
         reminderItem.id = id
         reminderItem.name = reminder.name
         reminderItem.isDone = reminder.isDone
-        reminderItem.periodicity = reminder.periodicity?.rawValue
+        reminderItem.periodicity = reminder.periodicity?.toString()
         reminderItem.timeDate = reminder.timeDate
         reminderItem.notes = reminder.notes
         

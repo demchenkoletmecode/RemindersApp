@@ -1,8 +1,8 @@
 //
 //  ReminderItem+CoreDataProperties.swift
-//  RemindersApp
+//  
 //
-//  Created by Андрей on 17.10.2022.
+//  Created by Андрей on 21.10.2022.
 //
 //
 
@@ -17,14 +17,10 @@ public extension ReminderItem {
     }
 
     @NSManaged var id: String
-    @NSManaged var name: String
-    @NSManaged var timeDate: Date?
-    @NSManaged var periodicity: String?
     @NSManaged var isDone: Bool
+    @NSManaged var name: String
     @NSManaged var notes: String?
-
-}
-
-extension ReminderItem: Identifiable {
+    @NSManaged var periodicity: String?
+    @NSManaged var timeDate: Date?
 
 }

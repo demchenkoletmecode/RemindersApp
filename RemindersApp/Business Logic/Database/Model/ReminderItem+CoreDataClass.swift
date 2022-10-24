@@ -1,8 +1,8 @@
 //
 //  ReminderItem+CoreDataClass.swift
-//  RemindersApp
+//  
 //
-//  Created by Андрей on 17.10.2022.
+//  Created by Андрей on 21.10.2022.
 //
 //
 

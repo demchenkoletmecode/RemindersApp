@@ -202,20 +202,22 @@ class CreateEditReminderViewController: UIViewController {
     
     private var selectedPeriod: Int?
     
-    private var presenter: CreateEditPresenter!
+    var presenter: CreateEditPresenter?
         
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        presenter = CreateEditPresenter(view: self)
+        if presenter == nil {
+            presenter = CreateEditPresenter(view: self, id: nil)
+        }
     
         configureView()
         configureBarItems()
         configureDateTime()
         configurePeriodPickerView()
         
-        if reminderId != nil {
-            presentReminder(reminderId: reminderId!)
+        if let isEdit = presenter?.isEditReminder(), isEdit {
+            presentReminder()
         }
     }
     
@@ -311,22 +313,22 @@ class CreateEditReminderViewController: UIViewController {
     
     @objc
     func handleDatePicker(sender: UIDatePicker) {
-        presenter.updateDate(date: sender.date)
+        presenter?.updateDate(date: sender.date)
     }
     
     @objc
     func handleTimePicker(sender: UIDatePicker) {
-        presenter.updateTime(time: sender.date)
+        presenter?.updateTime(time: sender.date)
     }
     
     @objc
     private func dateSwitchChanged() {
-        presenter.dateSwitchChanged()
+        presenter?.dateSwitchChanged()
     }
     
     @objc
     private func timeSwitchChanged() {
-        presenter.timeSwitchChanged()
+        presenter?.timeSwitchChanged()
     }
     
     @objc
@@ -341,7 +343,7 @@ class CreateEditReminderViewController: UIViewController {
     
     @objc
     private func createEditClick() {
-        presenter.tapSaveEditReminder(reminderId: reminderId)
+        presenter?.tapSaveEditReminder()
     }
     
     @objc
@@ -349,12 +351,8 @@ class CreateEditReminderViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    func setReminderId(id: String) {
-        presenter.reminderId = id
-    }
-    
-    func presentReminder(reminderId: String) {
-        presenter.getReminder(reminderId)
+    func presentReminder() {
+        presenter?.getReminder()
     }
 }
 
@@ -365,16 +363,16 @@ extension CreateEditReminderViewController: UIPickerViewDelegate, UIPickerViewDa
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return presenter.periodList.count
+        return presenter?.periodList.count ?? 0
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return presenter.periodList[row]
+        return presenter?.periodList[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedPeriod = row
-        repeatTxtField.text = selectedPeriod
+        repeatTxtField.text = presenter?.periodList[row]
     }
     
     func configurePeriodPickerView() {
