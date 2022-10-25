@@ -45,7 +45,7 @@ class CoreDataManager {
                          name: rem.name,
                          isDone: rem.isDone,
                          timeDate: rem.timeDate,
-                         periodicity: rem.periodicity?.toPeriodicity,
+                         periodicity: rem.periodicity.toPeriodicity,
                          notes: rem.notes)
             }
         } catch {
@@ -60,15 +60,10 @@ class CoreDataManager {
         reminderItem.id = reminder.id
         reminderItem.name = reminder.name
         reminderItem.isDone = reminder.isDone
-        reminderItem.periodicity = reminder.periodicity?.displayValue
+        reminderItem.periodicity = Int16(reminder.periodicity?.rawValue ?? -1)
         reminderItem.timeDate = reminder.timeDate
         reminderItem.notes = reminder.notes
-        
-        do {
-            try context.save()
-        } catch {
-            print("An error occurred with saving reminder")
-        }
+        saveContext()
     }
     
     func getReminderById(reminderId: String) -> Reminder? {
@@ -84,7 +79,7 @@ class CoreDataManager {
                                 name: reminderItem.name,
                                 isDone: reminderItem.isDone,
                                 timeDate: reminderItem.timeDate,
-                                periodicity: reminderItem.periodicity?.toPeriodicity,
+                                periodicity: reminderItem.periodicity.toPeriodicity,
                                 notes: reminderItem.notes)
         } catch {
             print("An error occurred with getting reminder by id")
@@ -102,15 +97,10 @@ class CoreDataManager {
         reminderItem.id = id
         reminderItem.name = reminder.name
         reminderItem.isDone = reminder.isDone
-        reminderItem.periodicity = reminder.periodicity?.displayValue
+        reminderItem.periodicity = Int16(reminder.periodicity?.rawValue ?? -1)
         reminderItem.timeDate = reminder.timeDate
         reminderItem.notes = reminder.notes
-        
-        do {
-            try context.save()
-        } catch {
-            print("An error occurred with updating reminder!")
-        }
+        saveContext()
     }
     
     func changeAccomplishment(id: String) {
@@ -122,10 +112,6 @@ class CoreDataManager {
 
         reminderItem.id = id
         reminderItem.isDone = !reminderItem.isDone
-        do {
-            try context.save()
-        } catch {
-            print("An error occurred with changing accomplishment in reminder!")
-        }
+        saveContext()
     }
 }

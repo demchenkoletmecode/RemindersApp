@@ -28,7 +28,7 @@ class MainViewController: UIViewController {
         tableView.separatorStyle = .none
         
         let header = "ReminderSectionHeader"
-        tableView.register(UINib.init(nibName: "ReminderCell", bundle: .main), forCellReuseIdentifier: "ReminderCell")
+        tableView.register(UINib(nibName: "ReminderCell", bundle: .main), forCellReuseIdentifier: "ReminderCell")
         tableView.register(UINib(nibName: header, bundle: nil), forHeaderFooterViewReuseIdentifier: "CustomHeader")
         
         presenter = MainPresenter(view: self)
@@ -80,11 +80,13 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ReminderCell") as? ReminderTableViewCell
-        cell?.checkBoxDelegate = self
-        cell?.setViews(cellModel: sections[indexPath.section].rows[indexPath.row])
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ReminderCell") as? ReminderTableViewCell else {
+           fatalError("Could not dequeue cell of type ReminderTableViewCell")
+        }
+        cell.checkBoxDelegate = self
+        cell.setViews(cellModel: sections[indexPath.section].rows[indexPath.row])
         
-        return cell ?? ReminderTableViewCell()
+        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

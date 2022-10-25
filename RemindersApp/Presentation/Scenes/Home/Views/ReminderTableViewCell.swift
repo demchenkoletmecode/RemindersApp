@@ -40,8 +40,8 @@ class ReminderTableViewCell: UITableViewCell {
         timeDateLbl.text = timeDate
         checkBox.addTarget(self, action: #selector(checkMarkButtonClicked(sender:)), for: .touchUpInside)
         
-        timeDateLbl.isHidden = (timeDate == nil)
-        periodicityLbl.isHidden = (periodicity == nil)
+        timeDateLbl.isHidden = timeDate == nil
+        periodicityLbl.isHidden = periodicity == nil
         
         if periodicity == nil, timeDate != nil {
             timeDateLbl.font = UIFont.boldSystemFont(ofSize: 26)
@@ -64,14 +64,8 @@ class ReminderTableViewCell: UITableViewCell {
     }
     
     func setAccomplishment() {
-        checkBox.isSelected ? (
-            nameLbl.alpha = 0.5,
-            timeDateLbl.alpha = 0.5,
-            periodicityLbl.alpha = 0.5
-        ) : (
-            nameLbl.alpha = 1,
-            timeDateLbl.alpha = 1,
-            periodicityLbl.alpha = 1
-        )
+        nameLbl.alpha = checkBox.isSelected ? 0.5 : 1
+        timeDateLbl.alpha = checkBox.isSelected ? 0.5 : 1
+        periodicityLbl.alpha = checkBox.isSelected ? 0.5 : 1
     }
 }

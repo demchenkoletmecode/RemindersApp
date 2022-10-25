@@ -20,7 +20,7 @@ public extension ReminderItem {
     @NSManaged var isDone: Bool
     @NSManaged var name: String
     @NSManaged var notes: String?
-    @NSManaged var periodicity: String?
+    @NSManaged var periodicity: Int16
     @NSManaged var timeDate: Date?
 
 }

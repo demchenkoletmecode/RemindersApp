@@ -53,7 +53,5 @@ enum Periodicity: Int, CaseIterable {
             return "Yearly"
         }
     }
-    
-    func toString() -> String { "\(self)" }
 
 }

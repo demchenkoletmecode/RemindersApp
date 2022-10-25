@@ -285,22 +285,22 @@ class CreateEditReminderViewController: UIViewController {
         datePicker.addTarget(self, action: #selector(handleDatePicker(sender:)), for: .valueChanged)
         timePicker.addTarget(self, action: #selector(handleTimePicker(sender:)), for: .valueChanged)
         
-        let doneDateButton = UIBarButtonItem.init(title: "Done",
-                                                  style: .done,
-                                                  target: self,
-                                                  action: #selector(self.datePickerDone))
-        let doneTimeButton = UIBarButtonItem.init(title: "Done",
-                                                  style: .done,
-                                                  target: self,
-                                                  action: #selector(self.timePickerDone))
+        let doneDateButton = UIBarButtonItem(title: "Done",
+                                             style: .done,
+                                             target: self,
+                                             action: #selector(self.datePickerDone))
+        let doneTimeButton = UIBarButtonItem(title: "Done",
+                                             style: .done,
+                                             target: self,
+                                             action: #selector(self.timePickerDone))
         
-        let toolBarDate = UIToolbar.init(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 44))
+        let toolBarDate = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 44))
         
         toolBarDate.setItems([UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
                               doneDateButton],
                              animated: true)
         
-        let toolBarTime = UIToolbar.init(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 44))
+        let toolBarTime = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 44))
         
         toolBarTime.setItems([UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
                               doneTimeButton],

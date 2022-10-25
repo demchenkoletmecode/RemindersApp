@@ -10,7 +10,15 @@ import Foundation
 extension Int {
     
     var toPeriodicity: Periodicity? {
-        return Periodicity(rawValue: self)
+        return Periodicity(rawValue: Int(self))
+    }
+    
+}
+
+extension Int16 {
+    
+    var toPeriodicity: Periodicity? {
+        return Periodicity(rawValue: Int(self))
     }
     
 }

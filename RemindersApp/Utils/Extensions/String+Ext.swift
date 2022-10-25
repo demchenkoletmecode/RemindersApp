@@ -23,13 +23,9 @@ extension String {
     }
     
     var toPeriodicity: Periodicity? {
-        var period: Periodicity?
-        Periodicity.allCases.forEach {
-            if $0.displayValue == self {
-                period = $0
-            }
-        }
-        return period
+       Periodicity.allCases.first(where: {
+          $0.displayValue == self
+       })
     }
     
     var toDate: Date {
