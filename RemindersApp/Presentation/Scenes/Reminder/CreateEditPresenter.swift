@@ -10,9 +10,11 @@ import Foundation
 protocol CreateEditProtocol: AnyObject {
     var name: String { get }
     var isDateSelected: Bool { get set }
-    var date: String? { get set }
+    var date: Date? { get set }
+    var dateString: String? { get }
     var isTimeSelected: Bool { get set }
-    var time: String? { get set }
+    var time: Date? { get set }
+    var timeString: String? { get }
     var periodicity: Int? { get }
     var notes: String? { get }
     
@@ -48,15 +50,20 @@ class CreateEditPresenter {
         if validName(name) {
             let period = view?.periodicity?.toPeriodicity
             let notes = view?.notes
-            let reminder = Reminder(name: name,
-                                    isDone: false,
-                                    timeDate: fullDate,
-                                    periodicity: period,
-                                    notes: notes)
-            if let reminderId = reminderId {
-                coreDataManager.editReminder(id: reminderId, reminder: reminder)
+            if let date = view?.date {
+                fullDate = calendar.date(from: date.dateComponentsFromDate)
             } else {
-                coreDataManager.addReminder(reminder: reminder)
+                fullDate = reminder?.timeDate
+            }
+            let newReminder = Reminder(name: name,
+                                       isDone: false,
+                                       timeDate: fullDate,
+                                       periodicity: period,
+                                       notes: notes)
+            if let reminderId = reminderId {
+                coreDataManager.editReminder(id: reminderId, reminder: newReminder)
+            } else {
+                coreDataManager.addReminder(reminder: newReminder)
             }
             self.view?.save()
         }
@@ -79,19 +86,18 @@ class CreateEditPresenter {
         view?.isTimeSelected.toggle()
     }
     
-    func updateDate(date: Date) {
-        view?.date = date.dateFormat
-        fullDate = calendar.date(from: date.dateComponentsFromDate)
+    func updateDate(date: Date?) {
+        view?.date = date
     }
     
-    func updateTime(time: Date) {
-        view?.time = time.timeFormat
-        fullDate = calendar.date(byAdding: time.timeComponentsFromDate, to: fullDate ?? Date())
+    func updateTime(date: Date?) {
+        view?.time = date
     }
     
     func getReminder() {
         if let reminderId = reminderId {
-            view?.showReminder(reminder: coreDataManager.getReminderById(reminderId: reminderId))
+            reminder = coreDataManager.getReminderById(reminderId: reminderId)
+            view?.showReminder(reminder: reminder)
         }
     }
     

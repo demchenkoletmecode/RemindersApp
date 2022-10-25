@@ -201,6 +201,7 @@ class CreateEditReminderViewController: UIViewController {
     }()
     
     private var selectedPeriod: Int?
+    private var selectedDate: Date?
     
     var presenter: CreateEditPresenter?
         
@@ -313,12 +314,14 @@ class CreateEditReminderViewController: UIViewController {
     
     @objc
     func handleDatePicker(sender: UIDatePicker) {
-        presenter?.updateDate(date: sender.date)
+        date = sender.date
+        presenter?.updateDate(date: date)
     }
     
     @objc
     func handleTimePicker(sender: UIDatePicker) {
-        presenter?.updateTime(time: sender.date)
+        date = sender.date
+        presenter?.updateTime(date: date)
     }
     
     @objc
@@ -424,13 +427,18 @@ extension CreateEditReminderViewController: CreateEditProtocol {
         }
     }
     
-    var date: String? {
+    var date: Date? {
         get {
-            return selectedDateTxtField.text
+            return selectedDate
         }
         set {
-            selectedDateTxtField.text = newValue
+            selectedDate = newValue
+            selectedDateTxtField.text = newValue?.dateFormat
         }
+    }
+    
+    var dateString: String? {
+        return selectedDateTxtField.text
     }
     
     var isTimeSelected: Bool {
@@ -442,13 +450,18 @@ extension CreateEditReminderViewController: CreateEditProtocol {
         }
     }
     
-    var time: String? {
+    var time: Date? {
         get {
-            return selectedTimeTxtField.text
+            return selectedDate
         }
         set {
-            selectedTimeTxtField.text = newValue
+            selectedDate = newValue
+            selectedTimeTxtField.text = newValue?.timeFormat
         }
+    }
+    
+    var timeString: String? {
+        return selectedTimeTxtField.text
     }
     
     var periodicity: Int? {

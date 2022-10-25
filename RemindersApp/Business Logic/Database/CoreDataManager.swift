@@ -60,7 +60,7 @@ class CoreDataManager {
         reminderItem.id = reminder.id
         reminderItem.name = reminder.name
         reminderItem.isDone = reminder.isDone
-        reminderItem.periodicity = reminder.periodicity?.toString()
+        reminderItem.periodicity = reminder.periodicity?.displayValue
         reminderItem.timeDate = reminder.timeDate
         reminderItem.notes = reminder.notes
         
@@ -102,7 +102,7 @@ class CoreDataManager {
         reminderItem.id = id
         reminderItem.name = reminder.name
         reminderItem.isDone = reminder.isDone
-        reminderItem.periodicity = reminder.periodicity?.toString()
+        reminderItem.periodicity = reminder.periodicity?.displayValue
         reminderItem.timeDate = reminder.timeDate
         reminderItem.notes = reminder.notes
         

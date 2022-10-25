@@ -34,7 +34,7 @@ extension Date {
     }
     
     var dateComponentsFromDate: DateComponents {
-        Calendar.current.dateComponents([.day, .month, .year], from: self)
+        Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: self)
     }
     
     var timeComponentsFromDate: DateComponents {
