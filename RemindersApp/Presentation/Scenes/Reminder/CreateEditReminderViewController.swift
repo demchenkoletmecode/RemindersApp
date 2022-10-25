@@ -200,21 +200,26 @@ class CreateEditReminderViewController: UIViewController {
         return txtView
     }()
     
-    var reminderId: String?
-    private var selectedPeriod: String?
+    private var selectedPeriod: Int?
+    private var selectedDate: Date?
     
-    private var presenter: CreateEditPresenter!
+    var presenter: CreateEditPresenter?
         
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        presenter = CreateEditPresenter(view: self)
+        if presenter == nil {
+            presenter = CreateEditPresenter(view: self, id: nil)
+        }
     
         configureView()
         configureBarItems()
         configureDateTime()
         configurePeriodPickerView()
         
+        if let isEdit = presenter?.isEditReminder(), isEdit {
+            presentReminder()
+        }
     }
     
     private func configureView() {
@@ -280,22 +285,22 @@ class CreateEditReminderViewController: UIViewController {
         datePicker.addTarget(self, action: #selector(handleDatePicker(sender:)), for: .valueChanged)
         timePicker.addTarget(self, action: #selector(handleTimePicker(sender:)), for: .valueChanged)
         
-        let doneDateButton = UIBarButtonItem.init(title: "Done",
-                                                  style: .done,
-                                                  target: self,
-                                                  action: #selector(self.datePickerDone))
-        let doneTimeButton = UIBarButtonItem.init(title: "Done",
-                                                  style: .done,
-                                                  target: self,
-                                                  action: #selector(self.timePickerDone))
+        let doneDateButton = UIBarButtonItem(title: "Done",
+                                             style: .done,
+                                             target: self,
+                                             action: #selector(self.datePickerDone))
+        let doneTimeButton = UIBarButtonItem(title: "Done",
+                                             style: .done,
+                                             target: self,
+                                             action: #selector(self.timePickerDone))
         
-        let toolBarDate = UIToolbar.init(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 44))
+        let toolBarDate = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 44))
         
         toolBarDate.setItems([UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
                               doneDateButton],
                              animated: true)
         
-        let toolBarTime = UIToolbar.init(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 44))
+        let toolBarTime = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 44))
         
         toolBarTime.setItems([UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
                               doneTimeButton],
@@ -307,36 +312,50 @@ class CreateEditReminderViewController: UIViewController {
         timeSwitch.addTarget(self, action: #selector(timeSwitchChanged), for: .valueChanged)
     }
     
-    @objc func handleDatePicker(sender: UIDatePicker) {
-        presenter.updateDate(date: sender.date)
+    @objc
+    func handleDatePicker(sender: UIDatePicker) {
+        selectedDate = sender.date
+        presenter?.updateDate(date: selectedDate)
     }
     
-    @objc func handleTimePicker(sender: UIDatePicker) {
-        presenter.updateTime(time: sender.date)
+    @objc
+    func handleTimePicker(sender: UIDatePicker) {
+        selectedDate = sender.date
+        presenter?.updateTime(date: selectedDate)
     }
     
-    @objc private func dateSwitchChanged() {
-        presenter.dateSwitchChanged()
+    @objc
+    private func dateSwitchChanged() {
+        presenter?.dateSwitchChanged()
     }
     
-    @objc private func timeSwitchChanged() {
-        presenter.timeSwitchChanged()
+    @objc
+    private func timeSwitchChanged() {
+        presenter?.timeSwitchChanged()
     }
     
-    @objc func datePickerDone() {
+    @objc
+    func datePickerDone() {
         selectedDateTxtField.resignFirstResponder()
     }
     
-    @objc func timePickerDone() {
+    @objc
+    func timePickerDone() {
         selectedTimeTxtField.resignFirstResponder()
     }
     
-    @objc private func createEditClick() {
-        presenter.tapSaveEditReminder()
+    @objc
+    private func createEditClick() {
+        presenter?.tapSaveEditReminder()
     }
     
-    @objc private func cancelClick() {
+    @objc
+    private func cancelClick() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    func presentReminder() {
+        presenter?.getReminder()
     }
 }
 
@@ -347,16 +366,16 @@ extension CreateEditReminderViewController: UIPickerViewDelegate, UIPickerViewDa
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return presenter.periodList.count
+        return presenter?.periodList.count ?? 0
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return presenter.periodList[row]
+        return presenter?.periodList[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedPeriod = presenter.periodList[row]
-        repeatTxtField.text = selectedPeriod
+        selectedPeriod = row
+        repeatTxtField.text = presenter?.periodList[row]
     }
     
     func configurePeriodPickerView() {
@@ -378,14 +397,15 @@ extension CreateEditReminderViewController: UIPickerViewDelegate, UIPickerViewDa
         repeatTxtField.inputAccessoryView = toolBar
     }
     
-    @objc private func onDoneTapped() {
+    @objc
+    private func onDoneTapped() {
         view.endEditing(true)
     }
     
 }
 
 extension CreateEditReminderViewController: CreateEditProtocol {
-    
+
     var name: String {
         return nameTxtField.text ?? ""
     }
@@ -401,20 +421,24 @@ extension CreateEditReminderViewController: CreateEditProtocol {
             repeatTxtField.isHidden = newValue
             if newValue {
                 selectedTimeTxtField.isHidden = newValue
-            }
-            else {
+            } else {
                 selectedTimeTxtField.isHidden = !timeSwitch.isOn
             }
         }
     }
     
-    var date: String? {
+    var date: Date? {
         get {
-            return selectedDateTxtField.text
+            return selectedDate
         }
         set {
-            selectedDateTxtField.text = newValue
+            selectedDate = newValue
+            selectedDateTxtField.text = newValue?.dateFormat
         }
+    }
+    
+    var dateString: String? {
+        return selectedDateTxtField.text
     }
     
     var isTimeSelected: Bool {
@@ -426,16 +450,21 @@ extension CreateEditReminderViewController: CreateEditProtocol {
         }
     }
     
-    var time: String? {
+    var time: Date? {
         get {
-            return selectedTimeTxtField.text
+            return selectedDate
         }
         set {
-            selectedTimeTxtField.text = newValue
+            selectedDate = newValue
+            selectedTimeTxtField.text = newValue?.timeFormat
         }
     }
     
-    var periodicity: String? {
+    var timeString: String? {
+        return selectedTimeTxtField.text
+    }
+    
+    var periodicity: Int? {
         return selectedPeriod
     }
     
@@ -443,13 +472,17 @@ extension CreateEditReminderViewController: CreateEditProtocol {
         return notesTxtView.text
     }
     
-    func presentReminder(reminder: Reminder?) {
-        
+    func showReminder(reminder: Reminder?) {
+        nameTxtField.text = reminder?.name
+        selectedDateTxtField.text = reminder?.timeDate?.dateFormat
+        selectedTimeTxtField.text = reminder?.timeDate?.timeFormat
+        repeatTxtField.text = reminder?.periodicity?.displayValue
+        notesTxtView.text = reminder?.notes
     }
     
-    func save(reminder: Reminder) {        
-        navigationController?.popViewController(animated: true)
+    func save() {
         delegate?.didSaveReminder()
+        navigationController?.popViewController(animated: true)
     }
     
     func update(nameError: String?) {
@@ -468,4 +501,3 @@ extension CreateEditReminderViewController: UITextViewDelegate {
     }
     
 }
-

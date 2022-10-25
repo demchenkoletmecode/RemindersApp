@@ -12,7 +12,7 @@ extension String {
     var isValidEmail: Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         
-        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        let emailPred = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: self)
     }
     
@@ -23,7 +23,16 @@ extension String {
     }
     
     var toPeriodicity: Periodicity? {
-        return Periodicity(rawValue: self)
+       Periodicity.allCases.first(where: {
+          $0.displayValue == self
+       })
+    }
+    
+    var toDate: Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd / MM / yyyy"
+        let date = dateFormatter.date(from: self)
+        return date ?? Date()
     }
     
 }

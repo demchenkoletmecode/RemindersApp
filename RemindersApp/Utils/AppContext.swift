@@ -14,4 +14,6 @@ class AppContext {
 
     lazy var authentication = AuthService()
     
+    lazy var coreDateManager = CoreDataManager()
+    
 }

@@ -40,27 +40,32 @@ class ReminderTableViewCell: UITableViewCell {
         timeDateLbl.text = timeDate
         checkBox.addTarget(self, action: #selector(checkMarkButtonClicked(sender:)), for: .touchUpInside)
         
-        stackView.removeArrangedSubview(periodicityLbl)
-        stackView.removeArrangedSubview(timeDateLbl)
+        timeDateLbl.isHidden = timeDate == nil
+        periodicityLbl.isHidden = periodicity == nil
         
         if periodicity == nil, timeDate != nil {
-            stackView.addArrangedSubview(timeDateLbl)
             timeDateLbl.font = UIFont.boldSystemFont(ofSize: 26)
         } else if timeDate == nil, periodicity != nil {
-            stackView.addArrangedSubview(periodicityLbl)
             periodicityLbl.font = UIFont.boldSystemFont(ofSize: 20)
         } else {
-            stackView.addArrangedSubview(timeDateLbl)
-            stackView.addArrangedSubview(periodicityLbl)
             timeDateLbl.font = UIFont.boldSystemFont(ofSize: 20)
             periodicityLbl.font = UIFont.boldSystemFont(ofSize: 20)
         }
+        
+        setAccomplishment()
     }
     
-    @objc private func checkMarkButtonClicked(sender: UIButton) {
+    @objc
+    private func checkMarkButtonClicked(sender: UIButton) {
         sender.isSelected.toggle()
         if let delegateObject = self.checkBoxDelegate {
             delegateObject.checkBoxClick(self)
         }
+    }
+    
+    func setAccomplishment() {
+        nameLbl.alpha = checkBox.isSelected ? 0.5 : 1
+        timeDateLbl.alpha = checkBox.isSelected ? 0.5 : 1
+        periodicityLbl.alpha = checkBox.isSelected ? 0.5 : 1
     }
 }

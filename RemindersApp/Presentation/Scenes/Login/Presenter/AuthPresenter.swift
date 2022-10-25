@@ -5,10 +5,10 @@
 //  Created by Andrey on 06.10.2022.
 //
 
-import Foundation
-import UIKit
 import Firebase
 import FirebaseAuth
+import Foundation
+import UIKit
 
 enum AuthViewNavigation {
     case mainWithUser
@@ -96,10 +96,10 @@ class AuthPresenter {
         if isCorrect {
             authService.login(email, password) { [weak self] result in
                 switch result {
-                case .success(_):
+                case .success:
                     self?.view.move(to: .mainWithUser)
                 case .failure(let error):
-                    self?.view.passwordError = error?.localizedDescription ?? "Some error occurred"
+                    self?.view.passwordError = error.localizedDescription
                 }
             }
         }
@@ -114,10 +114,10 @@ class AuthPresenter {
         if isCorrect {
             authService.createAccount(view.email, view.password) { [weak self] result in
                 switch result {
-                case .success(_):
+                case .success:
                     self?.view.move(to: .mainWithUser)
                 case .failure(let error):
-                    self?.view.passwordError = error?.localizedDescription ?? "Some error occurred"
+                    self?.view.passwordError = error.localizedDescription
                 }
             }
         }

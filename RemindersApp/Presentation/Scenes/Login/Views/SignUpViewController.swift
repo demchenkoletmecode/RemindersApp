@@ -5,9 +5,9 @@
 //  Created by Andrey on 04.10.2022.
 //
 
-import UIKit
 import Firebase
 import FirebaseAuth
+import UIKit
 
 class SignUpViewController: UIViewController {
 
@@ -25,19 +25,19 @@ class SignUpViewController: UIViewController {
         presenter.show()
     }
 
-    @IBAction func emailChanged(_ sender: Any) {
+    @IBAction private func emailChanged(_ sender: Any) {
         presenter.passwOrEmailChanged()
     }
     
-    @IBAction func passwordChanged(_ sender: Any) {
+    @IBAction private func passwordChanged(_ sender: Any) {
         presenter.passwOrEmailChanged()
     }
     
-    @IBAction func signUpClick(_ sender: Any) {
+    @IBAction private func signUpClick(_ sender: Any) {
         presenter.tapSignUpButton()
     }
     
-    @IBAction func goToSignInClick(_ sender: Any) {
+    @IBAction private func goToSignInClick(_ sender: Any) {
         presenter.tapGoToSignIn()
     }
     

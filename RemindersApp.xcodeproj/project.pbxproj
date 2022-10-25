@@ -27,14 +27,15 @@
 		558A37A628EEFD6000801DAE /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558A37A528EEFD6000801DAE /* AuthService.swift */; };
 		55EFAA4F28F3FE60004171F0 /* ReminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EFAA4E28F3FE5F004171F0 /* ReminderTableViewCell.swift */; };
 		55EFAA5128F40EA3004171F0 /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EFAA5028F40EA3004171F0 /* Reminder.swift */; };
-		772BC0BB28FD6F6000426F6C /* ReminderItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772BC0B928FD6F6000426F6C /* ReminderItem+CoreDataClass.swift */; };
-		772BC0BC28FD6F6000426F6C /* ReminderItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772BC0BA28FD6F6000426F6C /* ReminderItem+CoreDataProperties.swift */; };
 		7735B52328F6E798000946AD /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7735B52228F6E798000946AD /* Date+Ext.swift */; };
 		7735B52528F6F9C7000946AD /* ReminderSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7735B52428F6F9C7000946AD /* ReminderSectionHeader.swift */; };
 		7735B52B28F70569000946AD /* ReminderSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7735B52A28F70569000946AD /* ReminderSectionHeader.xib */; };
 		7735B52D28F70BE9000946AD /* ReminderRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7735B52C28F70BE9000946AD /* ReminderRow.swift */; };
 		7741033C28F94274009041F9 /* CreateEditReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7741033B28F94274009041F9 /* CreateEditReminderViewController.swift */; };
 		7741034028F9886E009041F9 /* CreateEditPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7741033F28F9886E009041F9 /* CreateEditPresenter.swift */; };
+		775571812902E4DD0085A8A4 /* ReminderItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7755717F2902E4DC0085A8A4 /* ReminderItem+CoreDataClass.swift */; };
+		775571822902E4DD0085A8A4 /* ReminderItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775571802902E4DD0085A8A4 /* ReminderItem+CoreDataProperties.swift */; };
+		775A40282902DCC100CE1F9E /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775A40272902DCC100CE1F9E /* Int+Ext.swift */; };
 		7761A22F28F5872600004144 /* SectionReminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7761A22E28F5872600004144 /* SectionReminders.swift */; };
 		7761A23128F59A8B00004144 /* ReminderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7761A23028F59A8B00004144 /* ReminderCell.xib */; };
 		7773F5FC28F83CC8009FF41E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7773F5FA28F83CC8009FF41E /* MainViewController.swift */; };
@@ -42,9 +43,12 @@
 		778844C128FE9AD3006650BA /* UITextFieldWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778844C028FE9AD3006650BA /* UITextFieldWithPadding.swift */; };
 		778844C328FE9AFB006650BA /* UITextViewWithPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778844C228FE9AFB006650BA /* UITextViewWithPlaceholder.swift */; };
 		778ABFCE290128390015AB78 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778ABFCD290128390015AB78 /* String+Ext.swift */; };
+		77CF2AC729015E3E00A8BA92 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CF2AC629015E3E00A8BA92 /* CoreDataManager.swift */; };
+		AB6CED67A3EE53A5AD2C4AEE /* Pods_RemindersApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12751749FC442E8A10CFADC5 /* Pods_RemindersApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		12751749FC442E8A10CFADC5 /* Pods_RemindersApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RemindersApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5524B59C28EC454F007354DB /* SignUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
 		5524B59E28EC470C007354DB /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		5554352228F061D9008ED8DB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -64,14 +68,17 @@
 		558A37A528EEFD6000801DAE /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		55EFAA4E28F3FE5F004171F0 /* ReminderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderTableViewCell.swift; sourceTree = "<group>"; };
 		55EFAA5028F40EA3004171F0 /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
-		772BC0B928FD6F6000426F6C /* ReminderItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReminderItem+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		772BC0BA28FD6F6000426F6C /* ReminderItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReminderItem+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		58E96A4BC2E2A0C485F0C1A1 /* Pods-RemindersApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RemindersApp.release.xcconfig"; path = "Target Support Files/Pods-RemindersApp/Pods-RemindersApp.release.xcconfig"; sourceTree = "<group>"; };
+		5A09055A056CC9A14799BFD7 /* Pods-RemindersApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RemindersApp.debug.xcconfig"; path = "Target Support Files/Pods-RemindersApp/Pods-RemindersApp.debug.xcconfig"; sourceTree = "<group>"; };
 		7735B52228F6E798000946AD /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		7735B52428F6F9C7000946AD /* ReminderSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderSectionHeader.swift; sourceTree = "<group>"; };
 		7735B52A28F70569000946AD /* ReminderSectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReminderSectionHeader.xib; sourceTree = "<group>"; };
 		7735B52C28F70BE9000946AD /* ReminderRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderRow.swift; sourceTree = "<group>"; };
 		7741033B28F94274009041F9 /* CreateEditReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEditReminderViewController.swift; sourceTree = "<group>"; };
 		7741033F28F9886E009041F9 /* CreateEditPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEditPresenter.swift; sourceTree = "<group>"; };
+		7755717F2902E4DC0085A8A4 /* ReminderItem+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ReminderItem+CoreDataClass.swift"; sourceTree = "<group>"; };
+		775571802902E4DD0085A8A4 /* ReminderItem+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ReminderItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		775A40272902DCC100CE1F9E /* Int+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Ext.swift"; sourceTree = "<group>"; };
 		7761A22E28F5872600004144 /* SectionReminders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionReminders.swift; sourceTree = "<group>"; };
 		7761A23028F59A8B00004144 /* ReminderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReminderCell.xib; sourceTree = "<group>"; };
 		7773F5FA28F83CC8009FF41E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +86,7 @@
 		778844C028FE9AD3006650BA /* UITextFieldWithPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldWithPadding.swift; sourceTree = "<group>"; };
 		778844C228FE9AFB006650BA /* UITextViewWithPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewWithPlaceholder.swift; sourceTree = "<group>"; };
 		778ABFCD290128390015AB78 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
+		77CF2AC629015E3E00A8BA92 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +97,7 @@
 				5524B59B28EC3837007354DB /* FirebaseDatabase in Frameworks */,
 				5524B59728EC3837007354DB /* FirebaseAnalytics in Frameworks */,
 				5524B59928EC3837007354DB /* FirebaseAuth in Frameworks */,
+				AB6CED67A3EE53A5AD2C4AEE /* Pods_RemindersApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +109,7 @@
 			children = (
 				7735B52228F6E798000946AD /* Date+Ext.swift */,
 				778ABFCD290128390015AB78 /* String+Ext.swift */,
+				775A40272902DCC100CE1F9E /* Int+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -117,6 +127,8 @@
 			children = (
 				5581C87428EAD1C900728C40 /* RemindersApp */,
 				5581C87328EAD1C900728C40 /* Products */,
+				F93755775C8AD51E089A6A8D /* Pods */,
+				87D9BA93E07A0161580D2C4D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -252,9 +264,9 @@
 		558A37A228EEFCFA00801DAE /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				772BC0B928FD6F6000426F6C /* ReminderItem+CoreDataClass.swift */,
-				772BC0BA28FD6F6000426F6C /* ReminderItem+CoreDataProperties.swift */,
+				77CF2AC8290168BE00A8BA92 /* Model */,
 				5581C87E28EAD1C900728C40 /* RemindersApp.xcdatamodeld */,
+				77CF2AC629015E3E00A8BA92 /* CoreDataManager.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -311,6 +323,32 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		77CF2AC8290168BE00A8BA92 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				775571802902E4DD0085A8A4 /* ReminderItem+CoreDataProperties.swift */,
+				7755717F2902E4DC0085A8A4 /* ReminderItem+CoreDataClass.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		87D9BA93E07A0161580D2C4D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				12751749FC442E8A10CFADC5 /* Pods_RemindersApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F93755775C8AD51E089A6A8D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5A09055A056CC9A14799BFD7 /* Pods-RemindersApp.debug.xcconfig */,
+				58E96A4BC2E2A0C485F0C1A1 /* Pods-RemindersApp.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -318,6 +356,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5581C88928EAD1CB00728C40 /* Build configuration list for PBXNativeTarget "RemindersApp" */;
 			buildPhases = (
+				8239B3DB0D7120F09AE88CB9 /* [CP] Check Pods Manifest.lock */,
+				775A40262902AE1600CE1F9E /* SwiftLint */,
 				5581C86E28EAD1C900728C40 /* Sources */,
 				5581C86F28EAD1C900728C40 /* Frameworks */,
 				5581C87028EAD1C900728C40 /* Resources */,
@@ -390,6 +430,51 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		775A40262902AE1600CE1F9E /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8239B3DB0D7120F09AE88CB9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RemindersApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		5581C86E28EAD1C900728C40 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -401,15 +486,16 @@
 				55EFAA4F28F3FE60004171F0 /* ReminderTableViewCell.swift in Sources */,
 				7735B52528F6F9C7000946AD /* ReminderSectionHeader.swift in Sources */,
 				7735B52328F6E798000946AD /* Date+Ext.swift in Sources */,
-				772BC0BB28FD6F6000426F6C /* ReminderItem+CoreDataClass.swift in Sources */,
 				7741034028F9886E009041F9 /* CreateEditPresenter.swift in Sources */,
 				5581C87628EAD1C900728C40 /* AppDelegate.swift in Sources */,
+				775571822902E4DD0085A8A4 /* ReminderItem+CoreDataProperties.swift in Sources */,
+				775A40282902DCC100CE1F9E /* Int+Ext.swift in Sources */,
 				5581C88F28EAE21F00728C40 /* SignInViewController.swift in Sources */,
 				7773F5FC28F83CC8009FF41E /* MainViewController.swift in Sources */,
 				558A379928EED94900801DAE /* AuthPresenter.swift in Sources */,
 				5581C87828EAD1C900728C40 /* SceneDelegate.swift in Sources */,
 				558A37A628EEFD6000801DAE /* AuthService.swift in Sources */,
-				772BC0BC28FD6F6000426F6C /* ReminderItem+CoreDataProperties.swift in Sources */,
+				77CF2AC729015E3E00A8BA92 /* CoreDataManager.swift in Sources */,
 				778844C328FE9AFB006650BA /* UITextViewWithPlaceholder.swift in Sources */,
 				7741033C28F94274009041F9 /* CreateEditReminderViewController.swift in Sources */,
 				778ABFCE290128390015AB78 /* String+Ext.swift in Sources */,
@@ -418,6 +504,7 @@
 				5581C88028EAD1C900728C40 /* RemindersApp.xcdatamodeld in Sources */,
 				778844C128FE9AD3006650BA /* UITextFieldWithPadding.swift in Sources */,
 				558A379D28EED9E000801DAE /* MainPresenter.swift in Sources */,
+				775571812902E4DD0085A8A4 /* ReminderItem+CoreDataClass.swift in Sources */,
 				55EFAA5128F40EA3004171F0 /* Reminder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -552,6 +639,7 @@
 		};
 		5581C88A28EAD1CB00728C40 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5A09055A056CC9A14799BFD7 /* Pods-RemindersApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -580,6 +668,7 @@
 		};
 		5581C88B28EAD1CB00728C40 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 58E96A4BC2E2A0C485F0C1A1 /* Pods-RemindersApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
