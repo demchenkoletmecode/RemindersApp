@@ -10,14 +10,9 @@ import FirebaseAuth
 import FirebaseCore
 import Foundation
 
-enum Result<User, Error> {
-    case success
-    case failure(Error)
-}
-
 protocol AuthServiceProtocol {
-    func createAccount(_ email: String, _ password: String, completion: @escaping (Result<User, Error?>) -> Void)
-    func login(_ email: String, _ password: String, completion: @escaping (Result<User, Error?>) -> Void)
+    func createAccount(_ email: String, _ password: String, completion: @escaping (Result<User, Error>) -> Void)
+    func login(_ email: String, _ password: String, completion: @escaping (Result<User, Error>) -> Void)
     func logoutUser()
 }
 
@@ -27,25 +22,25 @@ class AuthService: AuthServiceProtocol {
         return Auth.auth().currentUser != nil
     }
     
-    func createAccount(_ email: String, _ password: String, completion: @escaping (Result<User, Error?>) -> Void) {
-        Auth.auth().createUser(withEmail: email, password: password) { _, error in
-            if error == nil {
-                completion(.success)
-            } else {
-                print("Error \(error?.localizedDescription ?? "something with creating account")")
+    func createAccount(_ email: String, _ password: String, completion: @escaping (Result<User, Error>) -> Void) {
+        Auth.auth().createUser(withEmail: email, password: password) { result, error in
+            if let error = error {
+                print("Error \(error.localizedDescription)")
                 completion(.failure(error))
+            } else if let user = result?.user {
+                completion(.success(User(user)))
             }
         }
         
     }
     
-    func login(_ email: String, _ password: String, completion: @escaping (Result<User, Error?>) -> Void) {
-        Auth.auth().signIn(withEmail: email, password: password) { _, error in
-            if error == nil {
-                completion(.success)
-            } else {
-                print("Error \(error?.localizedDescription ?? "something with login")")
+    func login(_ email: String, _ password: String, completion: @escaping (Result<User, Error>) -> Void) {
+        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+            if let error = error {
+                print("Error \(error.localizedDescription)")
                 completion(.failure(error))
+            } else if let user = result?.user {
+                completion(.success(User(user)))
             }
         }
     }

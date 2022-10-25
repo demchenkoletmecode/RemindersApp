@@ -99,7 +99,7 @@ class AuthPresenter {
                 case .success:
                     self?.view.move(to: .mainWithUser)
                 case .failure(let error):
-                    self?.view.passwordError = error?.localizedDescription ?? "Some error occurred"
+                    self?.view.passwordError = error.localizedDescription
                 }
             }
         }
@@ -117,7 +117,7 @@ class AuthPresenter {
                 case .success:
                     self?.view.move(to: .mainWithUser)
                 case .failure(let error):
-                    self?.view.passwordError = error?.localizedDescription ?? "Some error occurred"
+                    self?.view.passwordError = error.localizedDescription
                 }
             }
         }
