@@ -25,18 +25,19 @@ class MainPresenter {
     private var reminders: [Reminder] = []
     private var dataSource = [SectionReminders]()
     private let coreDataManager = appContext.coreDateManager
+    private let reminderService: ReminderService
     
-    init(view: MainViewProtocol) {
+    init(view: MainViewProtocol, reminderService: ReminderService) {
         self.view = view
+        self.reminderService = reminderService
+        self.reminderService.mainDelegate = self
     }
     
     func getReminders() {
         reminders.removeAll()
         dataSource.removeAll()
-        reminders = coreDataManager.fetchReminders()
-        
-        prepareDataSource()
-        self.view?.presentReminders(reminders: dataSource)
+        //reminders = coreDataManager.fetchReminders()
+        reminderService.getAllReminders()
     }
     
     func didTapReminder(reminderId: String) {
@@ -99,6 +100,31 @@ private extension MainPresenter {
             let section = SectionReminders(type: sectionType, rows: [rowItem])
             dataSource.append(section)
         }
+    }
+    
+}
+
+extension MainPresenter: MainReminderServiceDelegate {
+    
+    func onRemindersRetrieved(reminders: [ReminderRemoteItem]?) {
+        self.reminders = reminders?.map { rem in
+            Reminder(id: rem.id,
+                     name: rem.name,
+                     isDone: rem.isDone,
+                     timeDate: rem.timeDate,
+                     periodicity: rem.periodicity.toPeriodicity,
+                     notes: rem.notes)
+        } ?? self.reminders
+        prepareDataSource()
+        self.view?.presentReminders(reminders: dataSource)
+    }
+    
+    func onReminderDeleted(with id: String) {
+        
+    }
+    
+    func onError(error: Error) {
+        print("Error: \(error.localizedDescription)")
     }
     
 }

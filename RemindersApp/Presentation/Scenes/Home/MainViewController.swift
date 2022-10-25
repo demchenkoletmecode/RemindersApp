@@ -31,7 +31,7 @@ class MainViewController: UIViewController {
         tableView.register(UINib(nibName: "ReminderCell", bundle: .main), forCellReuseIdentifier: "ReminderCell")
         tableView.register(UINib(nibName: header, bundle: nil), forHeaderFooterViewReuseIdentifier: "CustomHeader")
         
-        presenter = MainPresenter(view: self)
+        presenter = MainPresenter(view: self, reminderService: appContext.firebaseDatabase)
         refreshData()
     }
     
@@ -155,7 +155,7 @@ extension MainViewController: MainViewProtocol {
             let vc = CreateEditReminderViewController()
             vc.delegate = self
             vc.title = "Edit Reminder"
-            vc.presenter = CreateEditPresenter(view: vc, id: reminderId)
+            vc.presenter = CreateEditPresenter(view: vc, reminderService: appContext.firebaseDatabase, id: reminderId)
             navigationController?.pushViewController(vc, animated: true)
         }
     }

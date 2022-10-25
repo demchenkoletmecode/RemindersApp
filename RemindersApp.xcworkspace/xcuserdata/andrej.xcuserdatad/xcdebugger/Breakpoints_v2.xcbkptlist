@@ -14,25 +14,9 @@
             filePath = "RemindersApp/Presentation/Scenes/Reminder/CreateEditPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
-            landmarkName = "updateTime(date:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "64C0FD2F-9914-48B9-AB9D-B3103FD5B3E7"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "RemindersApp/Business Logic/Services/ReminderService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "getAllReminders()"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "updateDate(date:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -46,8 +30,10 @@
             filePath = "RemindersApp/Presentation/Scenes/Home/Presenter/MainPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114">
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "onRemindersRetrieved(reminders:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -76,8 +62,8 @@
             filePath = "RemindersApp/Presentation/Scenes/Reminder/CreateEditPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
             landmarkName = "tapSaveEditReminder()"
             landmarkType = "7">
             <Locations>
@@ -144,6 +130,134 @@
             endingLineNumber = "105"
             landmarkName = "CoreDataManager"
             landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "75DE36FE-666B-42EA-BD0D-9C15432615E2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RemindersApp/Presentation/Scenes/Home/Presenter/MainPresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "onRemindersRetrieved(reminders:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "75DE36FE-666B-42EA-BD0D-9C15432615E2 - 88009da9302d9020"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RemindersApp.MainPresenter.onRemindersRetrieved(reminders: Swift.Optional&lt;Swift.Array&lt;RemindersApp.ReminderRemoteItem&gt;&gt;) -&gt; ()"
+                  moduleName = "RemindersApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrej/Desktop/RemindersApp/RemindersApp/Presentation/Scenes/Home/Presenter/MainPresenter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "110"
+                  endingLineNumber = "110"
+                  offsetFromSymbolStart = "62">
+               </Location>
+               <Location
+                  uuid = "75DE36FE-666B-42EA-BD0D-9C15432615E2 - 870ea0ce1ce73a24"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (RemindersApp.ReminderRemoteItem) -&gt; RemindersApp.Reminder in RemindersApp.MainPresenter.onRemindersRetrieved(reminders: Swift.Optional&lt;Swift.Array&lt;RemindersApp.ReminderRemoteItem&gt;&gt;) -&gt; ()"
+                  moduleName = "RemindersApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrej/Desktop/RemindersApp/RemindersApp/Presentation/Scenes/Home/Presenter/MainPresenter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "111"
+                  endingLineNumber = "111"
+                  offsetFromSymbolStart = "78">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D6929C09-FD54-4264-BD56-C92B9BFA0DAF"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RemindersApp/Presentation/Scenes/Home/Presenter/MainPresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "getReminders()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0CE63D5D-0C59-4FE1-954D-59730A8769E8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RemindersApp/Presentation/Scenes/Home/Presenter/MainPresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
+            landmarkName = "onRemindersRetrieved(reminders:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6F15813F-4651-4B9C-8AD5-6441E7606B75"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RemindersApp/Presentation/Scenes/Reminder/CreateEditPresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
+            landmarkName = "onReminderUpdated(reminder:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F9376D86-CABA-429E-BD28-2AAB5F777E45"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RemindersApp/Presentation/Scenes/Home/Presenter/MainPresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
+            landmarkName = "onError(error:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AEA7C0FC-771A-4067-AF97-008E2F4A0EB8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RemindersApp/Business Logic/Network/FirebaseDatabaseManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "readOnce(from:completion:onError:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

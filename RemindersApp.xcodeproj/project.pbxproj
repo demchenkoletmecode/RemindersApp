@@ -38,6 +38,15 @@
 		775A40282902DCC100CE1F9E /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775A40272902DCC100CE1F9E /* Int+Ext.swift */; };
 		7761A22F28F5872600004144 /* SectionReminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7761A22E28F5872600004144 /* SectionReminders.swift */; };
 		7761A23128F59A8B00004144 /* ReminderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7761A23028F59A8B00004144 /* ReminderCell.xib */; };
+		77641E5B29080DBB0012EE13 /* FirebaseDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77641E5A29080DBB0012EE13 /* FirebaseDatabaseManager.swift */; };
+		77641E5D29080DD90012EE13 /* RemindersEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77641E5C29080DD90012EE13 /* RemindersEndpoint.swift */; };
+		77641E5F29080DFF0012EE13 /* FirebaseDatabaseEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77641E5E29080DFF0012EE13 /* FirebaseDatabaseEndpoint.swift */; };
+		77641E6129080E160012EE13 /* FirebaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77641E6029080E160012EE13 /* FirebaseError.swift */; };
+		77641E6329080E310012EE13 /* ReminderRemoteItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77641E6229080E310012EE13 /* ReminderRemoteItem.swift */; };
+		77641E6529080E510012EE13 /* ReminderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77641E6429080E510012EE13 /* ReminderService.swift */; };
+		77641E6729080E9A0012EE13 /* Encodable+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77641E6629080E9A0012EE13 /* Encodable+Ext.swift */; };
+		77641E6929080EBD0012EE13 /* NSArray+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77641E6829080EBD0012EE13 /* NSArray+Ext.swift */; };
+		77641E6B29080EDE0012EE13 /* NSDictionary+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77641E6A29080EDE0012EE13 /* NSDictionary+Ext.swift */; };
 		7773F5FC28F83CC8009FF41E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7773F5FA28F83CC8009FF41E /* MainViewController.swift */; };
 		7773F5FD28F83CC8009FF41E /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7773F5FB28F83CC8009FF41E /* MainViewController.xib */; };
 		778844C128FE9AD3006650BA /* UITextFieldWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778844C028FE9AD3006650BA /* UITextFieldWithPadding.swift */; };
@@ -81,6 +90,15 @@
 		775A40272902DCC100CE1F9E /* Int+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Ext.swift"; sourceTree = "<group>"; };
 		7761A22E28F5872600004144 /* SectionReminders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionReminders.swift; sourceTree = "<group>"; };
 		7761A23028F59A8B00004144 /* ReminderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReminderCell.xib; sourceTree = "<group>"; };
+		77641E5A29080DBB0012EE13 /* FirebaseDatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabaseManager.swift; sourceTree = "<group>"; };
+		77641E5C29080DD90012EE13 /* RemindersEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersEndpoint.swift; sourceTree = "<group>"; };
+		77641E5E29080DFF0012EE13 /* FirebaseDatabaseEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabaseEndpoint.swift; sourceTree = "<group>"; };
+		77641E6029080E160012EE13 /* FirebaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
+		77641E6229080E310012EE13 /* ReminderRemoteItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderRemoteItem.swift; sourceTree = "<group>"; };
+		77641E6429080E510012EE13 /* ReminderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderService.swift; sourceTree = "<group>"; };
+		77641E6629080E9A0012EE13 /* Encodable+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Ext.swift"; sourceTree = "<group>"; };
+		77641E6829080EBD0012EE13 /* NSArray+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSArray+Ext.swift"; sourceTree = "<group>"; };
+		77641E6A29080EDE0012EE13 /* NSDictionary+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDictionary+Ext.swift"; sourceTree = "<group>"; };
 		7773F5FA28F83CC8009FF41E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		7773F5FB28F83CC8009FF41E /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		778844C028FE9AD3006650BA /* UITextFieldWithPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldWithPadding.swift; sourceTree = "<group>"; };
@@ -110,6 +128,9 @@
 				7735B52228F6E798000946AD /* Date+Ext.swift */,
 				778ABFCD290128390015AB78 /* String+Ext.swift */,
 				775A40272902DCC100CE1F9E /* Int+Ext.swift */,
+				77641E6629080E9A0012EE13 /* Encodable+Ext.swift */,
+				77641E6829080EBD0012EE13 /* NSArray+Ext.swift */,
+				77641E6A29080EDE0012EE13 /* NSDictionary+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -274,6 +295,9 @@
 		558A37A328EEFD0900801DAE /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				77641E5929080D940012EE13 /* Model */,
+				77641E5A29080DBB0012EE13 /* FirebaseDatabaseManager.swift */,
+				77641E5C29080DD90012EE13 /* RemindersEndpoint.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -282,6 +306,7 @@
 			isa = PBXGroup;
 			children = (
 				558A37A528EEFD6000801DAE /* AuthService.swift */,
+				77641E6429080E510012EE13 /* ReminderService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -302,6 +327,16 @@
 				7735B52C28F70BE9000946AD /* ReminderRow.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		77641E5929080D940012EE13 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				77641E5E29080DFF0012EE13 /* FirebaseDatabaseEndpoint.swift */,
+				77641E6029080E160012EE13 /* FirebaseError.swift */,
+				77641E6229080E310012EE13 /* ReminderRemoteItem.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		7773F5F328F82C30009FF41E /* Scenes */ = {
@@ -483,10 +518,15 @@
 				5524B59F28EC470C007354DB /* SignUpViewController.swift in Sources */,
 				5568851C28F00514004F211E /* AppContext.swift in Sources */,
 				7735B52D28F70BE9000946AD /* ReminderRow.swift in Sources */,
+				77641E6729080E9A0012EE13 /* Encodable+Ext.swift in Sources */,
+				77641E5B29080DBB0012EE13 /* FirebaseDatabaseManager.swift in Sources */,
+				77641E6329080E310012EE13 /* ReminderRemoteItem.swift in Sources */,
+				77641E5D29080DD90012EE13 /* RemindersEndpoint.swift in Sources */,
 				55EFAA4F28F3FE60004171F0 /* ReminderTableViewCell.swift in Sources */,
 				7735B52528F6F9C7000946AD /* ReminderSectionHeader.swift in Sources */,
 				7735B52328F6E798000946AD /* Date+Ext.swift in Sources */,
 				7741034028F9886E009041F9 /* CreateEditPresenter.swift in Sources */,
+				77641E6129080E160012EE13 /* FirebaseError.swift in Sources */,
 				5581C87628EAD1C900728C40 /* AppDelegate.swift in Sources */,
 				775571822902E4DD0085A8A4 /* ReminderItem+CoreDataProperties.swift in Sources */,
 				775A40282902DCC100CE1F9E /* Int+Ext.swift in Sources */,
@@ -499,10 +539,14 @@
 				778844C328FE9AFB006650BA /* UITextViewWithPlaceholder.swift in Sources */,
 				7741033C28F94274009041F9 /* CreateEditReminderViewController.swift in Sources */,
 				778ABFCE290128390015AB78 /* String+Ext.swift in Sources */,
+				77641E6529080E510012EE13 /* ReminderService.swift in Sources */,
+				77641E6B29080EDE0012EE13 /* NSDictionary+Ext.swift in Sources */,
 				5568851A28EFFB83004F211E /* User.swift in Sources */,
 				7761A22F28F5872600004144 /* SectionReminders.swift in Sources */,
 				5581C88028EAD1C900728C40 /* RemindersApp.xcdatamodeld in Sources */,
 				778844C128FE9AD3006650BA /* UITextFieldWithPadding.swift in Sources */,
+				77641E5F29080DFF0012EE13 /* FirebaseDatabaseEndpoint.swift in Sources */,
+				77641E6929080EBD0012EE13 /* NSArray+Ext.swift in Sources */,
 				558A379D28EED9E000801DAE /* MainPresenter.swift in Sources */,
 				775571812902E4DD0085A8A4 /* ReminderItem+CoreDataClass.swift in Sources */,
 				55EFAA5128F40EA3004171F0 /* Reminder.swift in Sources */,
