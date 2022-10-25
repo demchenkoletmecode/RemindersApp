@@ -16,7 +16,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "86"
             endingLineNumber = "86"
-            landmarkName = "dateSwitchChanged()"
+            landmarkName = "timeSwitchChanged()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

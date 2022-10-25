@@ -314,14 +314,14 @@ class CreateEditReminderViewController: UIViewController {
     
     @objc
     func handleDatePicker(sender: UIDatePicker) {
-        date = sender.date
-        presenter?.updateDate(date: date)
+        selectedDate = sender.date
+        presenter?.updateDate(date: selectedDate)
     }
     
     @objc
     func handleTimePicker(sender: UIDatePicker) {
-        date = sender.date
-        presenter?.updateTime(date: date)
+        selectedDate = sender.date
+        presenter?.updateTime(date: selectedDate)
     }
     
     @objc
