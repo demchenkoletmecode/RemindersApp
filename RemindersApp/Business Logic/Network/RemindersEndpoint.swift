@@ -25,9 +25,9 @@ enum RemindersEndpoint: FirebaseDatabaseEndpoint {
     var path: String {
         switch self {
         case .getAllReminders:
-            return "\(appContext.userId)/reminders"
+            return "\(AuthService.userId)/reminders"
         case let .postReminder(id), let .getReminderDetail(id), let .deleteReminder(id), let .updateReminder(id):
-            return "\(appContext.userId)/reminders/\(id)"
+            return "\(AuthService.userId)/reminders/\(id)"
         }
     }
     

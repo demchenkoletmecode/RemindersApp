@@ -79,23 +79,32 @@ class CreateEditPresenter {
                     }
                 }
             } else {
-                //coreDataManager.addReminder(reminder: newReminder)
-                let reminderItem = ReminderRemoteItem(id: UUID().uuidString,
-                                                      name: name,
-                                                      isDone: false,
-                                                      timeDate: fullDate,
-                                                      periodicity: periodicity,
-                                                      notes: notes)
-                reminderService.postReminder(reminder: reminderItem) { result in
-                    switch result {
-                    case let .success(id):
-                        print("reminder with id = \(id) has created")
-                    case let .failure(error):
-                        print("An error occurred: \(error)")
+                if !AuthService.userId.isEmpty {
+                    let reminderItem = ReminderRemoteItem(id: UUID().uuidString,
+                                                          name: name,
+                                                          isDone: false,
+                                                          timeDate: fullDate,
+                                                          periodicity: periodicity,
+                                                          notes: notes)
+                    reminderService.postReminder(reminder: reminderItem) { [weak self] result in
+                        switch result {
+                        case let .success(id):
+                            print("reminder with id = \(id) has created")
+                            self?.view?.save()
+                        case let .failure(error):
+                            print("An error occurred: \(error)")
+                        }
                     }
+                } else {
+                    let newReminder = Reminder(name: name,
+                                               isDone: false,
+                                               timeDate: fullDate,
+                                               periodicity: periodicity.toPeriodicity,
+                                               notes: notes)
+                    coreDataManager.addReminder(reminder: newReminder)
+                    self.view?.save()
                 }
             }
-            self.view?.save()
         }
     }
     

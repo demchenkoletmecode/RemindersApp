@@ -38,20 +38,8 @@ class AuthPresenter {
         self.authService = authService
     }
     
-    func getUserId() {
-        if let userId = defaults.string(forKey: "user_id") {
-            appContext.userId = userId
-        }
-    }
-    
-    func setUserId(id: String) {
-        defaults.set(id, forKey: "user_id")
-        appContext.userId = id
-    }
-    
     func show() {
         if AuthService.isAuthorized {
-            getUserId()
             view.move(to: .mainWithUser)
         }
     }
@@ -109,8 +97,7 @@ class AuthPresenter {
         if isCorrect {
             authService.login(email, password) { [weak self] result in
                 switch result {
-                case let .success(user):
-                    self?.setUserId(id: user.uid)
+                case let .success:
                     self?.view.move(to: .mainWithUser)
                 case .failure(let error):
                     self?.view.passwordError = error.localizedDescription
@@ -128,8 +115,7 @@ class AuthPresenter {
         if isCorrect {
             authService.createAccount(view.email, view.password) { [weak self] result in
                 switch result {
-                case let .success(user):
-                    self?.setUserId(id: user.uid)
+                case let .success:
                     self?.view.move(to: .mainWithUser)
                 case .failure(let error):
                     self?.view.passwordError = error.localizedDescription
