@@ -7,6 +7,13 @@
 
 import Foundation
 
+protocol FirebaseDatabaseEndpoint {
+    
+    var path: String { get }
+    var synced: Bool { get }
+    
+}
+
 enum RemindersEndpoint: FirebaseDatabaseEndpoint {
     
     case getAllReminders
@@ -18,9 +25,9 @@ enum RemindersEndpoint: FirebaseDatabaseEndpoint {
     var path: String {
         switch self {
         case .getAllReminders:
-            return "reminders"
+            return "\(appContext.userId)/reminders"
         case let .postReminder(id), let .getReminderDetail(id), let .deleteReminder(id), let .updateReminder(id):
-            return "reminders/\(id)"
+            return "\(appContext.userId)/reminders/\(id)"
         }
     }
     

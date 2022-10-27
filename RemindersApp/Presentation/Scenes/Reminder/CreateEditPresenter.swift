@@ -40,7 +40,6 @@ class CreateEditPresenter {
     init(view: CreateEditProtocol, reminderService: ReminderService, id: String?) {
         self.view = view
         self.reminderService = reminderService
-        self.reminderService.addEditDelegate = self
         self.reminderId = id
     }
     
@@ -71,7 +70,14 @@ class CreateEditPresenter {
                                                       timeDate: fullDate,
                                                       periodicity: periodicity,
                                                       notes: reminder.notes)
-                reminderService.updateReminder(with: reminderId, reminder: reminderItem)
+                reminderService.updateReminder(with: reminderId, reminder: reminderItem) { result in
+                    switch result {
+                    case let .success(id):
+                        print("reminder with id = \(id) has updated")
+                    case let .failure(error):
+                        print("An error occurred: \(error)")
+                    }
+                }
             } else {
                 //coreDataManager.addReminder(reminder: newReminder)
                 let reminderItem = ReminderRemoteItem(id: UUID().uuidString,
@@ -80,7 +86,14 @@ class CreateEditPresenter {
                                                       timeDate: fullDate,
                                                       periodicity: periodicity,
                                                       notes: notes)
-                reminderService.postReminder(reminder: reminderItem)
+                reminderService.postReminder(reminder: reminderItem) { result in
+                    switch result {
+                    case let .success(id):
+                        print("reminder with id = \(id) has created")
+                    case let .failure(error):
+                        print("An error occurred: \(error)")
+                    }
+                }
             }
             self.view?.save()
         }
@@ -115,36 +128,21 @@ class CreateEditPresenter {
         if let reminderId = reminderId {
             //reminder = coreDataManager.getReminderById(reminderId: reminderId)
             //view?.showReminder(reminder: reminder)
-            reminderService.getReminderDetail(with: reminderId)
+            reminderService.getReminderDetail(with: reminderId) { [weak self] result in
+                switch result {
+                case let .success(reminder):
+                    self?.reminder = Reminder(id: reminder.id,
+                                              name: reminder.name,
+                                              isDone: reminder.isDone,
+                                              timeDate: reminder.timeDate,
+                                              periodicity: reminder.periodicity.toPeriodicity,
+                                              notes: reminder.notes)
+                    self?.view?.showReminder(reminder: self?.reminder)
+                case let .failure(error):
+                    print("An error occurred: \(error)")
+                }
+            }
         }
-    }
-    
-}
-
-extension CreateEditPresenter: AddEditReminderServiceDelegate {
-    
-    func onReminderUpdated(reminder: ReminderRemoteItem?) {
-        print("reminder's updated")
-    }
-    
-    func onNewReminderPosted(reminder: ReminderRemoteItem?) {
-        print("reminder's posted")
-    }
-    
-    func onReminderDetailFetched(reminder: ReminderRemoteItem?) {
-        if let fetchedReminder = reminder {
-            self.reminder = Reminder(id: fetchedReminder.id,
-                                     name: fetchedReminder.name,
-                                     isDone: fetchedReminder.isDone,
-                                     timeDate: fetchedReminder.timeDate,
-                                     periodicity: fetchedReminder.periodicity.toPeriodicity,
-                                     notes: fetchedReminder.notes)
-            view?.showReminder(reminder: self.reminder)
-        }
-    }
-    
-    func onError(error: Error) {
-        print("Error: \(error.localizedDescription)")
     }
     
 }

@@ -7,71 +7,71 @@
 
 import Foundation
 
-protocol MainReminderServiceDelegate: AnyObject {
-    
-    func onRemindersRetrieved(reminders: [ReminderRemoteItem]?)
-    func onReminderDeleted(with id: String)
-    func onError(error: Error)
-    
-}
-
-protocol AddEditReminderServiceDelegate: AnyObject {
-    
-    func onNewReminderPosted(reminder: ReminderRemoteItem?)
-    func onReminderDetailFetched(reminder: ReminderRemoteItem?)
-    func onReminderUpdated(reminder: ReminderRemoteItem?)
-    func onError(error: Error)
-    
-}
-
 class ReminderService {
     
-    weak var mainDelegate: MainReminderServiceDelegate?
-    weak var addEditDelegate: AddEditReminderServiceDelegate?
+    private lazy var firebaseManager = FirebaseDatabaseManager()
     
-    func deleteReminder(with id: String) {
-        RemindersEndpoint.deleteReminder(id).remove { [weak self] in
-            self?.mainDelegate?.onReminderDeleted(with: id)
-        } onError: { [weak self] error in
-            self?.mainDelegate?.onError(error: error)
-        }
-    }
-    
-    func postReminder(reminder: ReminderRemoteItem?) {
-        guard let reminderId: String = reminder?.id else { return }
-        RemindersEndpoint.postReminder(reminderId).post(data: reminder, createNewKey: false) { [weak self] result in
+    func deleteReminder(with id: String, completion: @escaping (Result<String, Error>) -> Void) {
+        let endpoint = RemindersEndpoint.deleteReminder(id)
+        firebaseManager.remove(from: endpoint) { result in
             switch result {
-            case .success(let reminder):
-                self?.addEditDelegate?.onNewReminderPosted(reminder: reminder)
-            case .failure(let error):
-                self?.addEditDelegate?.onError(error: error)
+            case .success:
+                completion(.success(id))
+            case let .failure(error):
+                completion(.failure(error))
             }
         }
     }
     
-    func getAllReminders() {
-        RemindersEndpoint.getAllReminders.retrieve(completion: { [weak self] (rem: [ReminderRemoteItem]?) in
-            self?.mainDelegate?.onRemindersRetrieved(reminders: rem)
-        }) { [weak self] error in
-            self?.mainDelegate?.onError(error: error)
-        }
-    }
-    
-    func getReminderDetail(with id: String) {
-        RemindersEndpoint.getReminderDetail(id).retrieve(completion: { [weak self] (reminder: ReminderRemoteItem?) in
-            self?.addEditDelegate?.onReminderDetailFetched(reminder: reminder)
-        }) { [weak self] error in
-            self?.addEditDelegate?.onError(error: error)
-        }
-    }
-    
-    func updateReminder(with id: String, reminder: ReminderRemoteItem?) {
-        RemindersEndpoint.updateReminder(id).update(data: reminder) {  [weak self] result in
+    func postReminder(reminder: ReminderRemoteItem, completion: @escaping (Result<String, Error>) -> Void) {
+        let reminderId = reminder.id
+        let endpoint = RemindersEndpoint.postReminder(reminderId)
+        firebaseManager.post(from: endpoint,
+                             data: reminder,
+                             createNewKey: false) { result in
             switch result {
-            case .success(let reminder):
-                self?.addEditDelegate?.onReminderUpdated(reminder: reminder)
-            case .failure(let error):
-                self?.addEditDelegate?.onError(error: error)
+            case .success:
+                completion(.success(reminderId))
+            case let .failure(error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func getAllReminders(completion: @escaping (Result<[ReminderRemoteItem], Error>) -> Void) {
+        let endpoint = RemindersEndpoint.getAllReminders
+        firebaseManager.readOnce(from: endpoint, dataType: [ReminderRemoteItem].self) { result in
+            switch result {
+            case let .success(reminders):
+                completion(.success(reminders))
+            case let .failure(error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func getReminderDetail(with id: String, completion: @escaping (Result<ReminderRemoteItem, Error>) -> Void) {
+        let endpoint = RemindersEndpoint.getReminderDetail(id)
+        firebaseManager.readOnce(from: endpoint, dataType: ReminderRemoteItem.self) { result in
+            switch result {
+            case let .success(reminder):
+                completion(.success(reminder))
+            case let .failure(error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func updateReminder(with id: String,
+                        reminder: ReminderRemoteItem,
+                        completion: @escaping (Result<String, Error>) -> Void) {
+        let endpoint = RemindersEndpoint.updateReminder(id)
+        firebaseManager.update(from: endpoint, data: reminder) { result in
+            switch result {
+            case .success:
+                completion(.success(id))
+            case let .failure(error):
+                completion(.failure(error))
             }
         }
     }

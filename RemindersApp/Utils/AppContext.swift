@@ -18,4 +18,5 @@ class AppContext {
     
     lazy var coreDateManager = CoreDataManager()
     
+    lazy var userId = UUID().uuidString
 }

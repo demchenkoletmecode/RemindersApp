@@ -10,17 +10,15 @@ import Foundation
 
 class FirebaseDatabaseManager {
     
-    static let shared = FirebaseDatabaseManager()
-    
     private let databaseReference: DatabaseReference
     
-    private init() {
+    init() {
         databaseReference = Database.database().reference()
     }
     
     func readOnce<T: Codable>(from endpoint: FirebaseDatabaseEndpoint,
-                              completion: @escaping (T?) -> Void,
-                              onError: ((Error) -> Void)? = nil) {
+                              dataType: T.Type,
+                              completion: @escaping (Result<T, Error>) -> Void) {
         let query = databaseReference.child(endpoint.path)
         query.keepSynced(endpoint.synced)
         
@@ -36,20 +34,19 @@ class FirebaseDatabaseManager {
             if let value = snapshot.value as? NSArray {
                 decodedValue = value.decode(T.self)
             }
-            if decodedValue == nil {
-                onError?(FirebaseError.decodingError)
+            if let value = decodedValue {
+                completion(.success(value))
+            } else {
+                completion(.failure(FirebaseError.decodingError))
                 return
             }
-            completion(decodedValue)
-        }) { error in
-            onError?(error)
-        }
+        })
     }
-    
+             
     func post<T: Codable>(from endpoint: FirebaseDatabaseEndpoint,
                           data: T,
                           createNewKey: Bool = false,
-                          completion: ((Result<T, Error>) -> Void)? = nil) {
+                          completion: @escaping (Result<T, Error>) -> Void) {
         var encodedData: Any?
         if let value = data.dictionary {
             encodedData = value
@@ -58,36 +55,35 @@ class FirebaseDatabaseManager {
             encodedData = value
         }
         if encodedData == nil {
-            completion?(.failure(FirebaseError.encodingError))
+            completion(.failure(FirebaseError.encodingError))
             return
         }
-        var reference: DatabaseReference = databaseReference.child(endpoint.path)
+        var reference = databaseReference.child(endpoint.path)
         if createNewKey {
             reference = reference.childByAutoId()
         }
         reference.setValue(encodedData) { error, _ in
             if let error = error {
-                completion?(.failure(error))
+                completion(.failure(error))
             }
-            completion?(.success(data))
+            completion(.success(data))
         }
     }
     
     func remove(from endpoint: FirebaseDatabaseEndpoint,
-                completion: (() -> Void)?,
-                onError: ((Error) -> Void)?) {
+                completion: @escaping (Result<Void, Error>) -> Void) {
         databaseReference.child(endpoint.path).removeValue { error, _ in
             if let error = error {
-                onError?(error)
+                completion(.failure(error))
                 return
             }
-            completion?()
+            completion(.success(()))
         }
     }
     
     func update<T: Codable>(from endpoint: FirebaseDatabaseEndpoint,
                             data: T,
-                            completion: ((Result<T, Error>) -> Void)? = nil) {
+                            completion: @escaping (Result<T, Error>) -> Void) {
         var encodedData: Any?
         if let value = data.dictionary {
             encodedData = value
@@ -96,14 +92,14 @@ class FirebaseDatabaseManager {
             encodedData = value
         }
         if encodedData == nil {
-            completion?(.failure(FirebaseError.encodingError))
+            completion(.failure(FirebaseError.encodingError))
             return
         }
         databaseReference.child(endpoint.path).setValue(encodedData) { error, _ in
             if let error = error {
-                completion?(.failure(error))
+                completion(.failure(error))
             }
-            completion?(.success(data))
+            completion(.success(data))
         }
     }
     

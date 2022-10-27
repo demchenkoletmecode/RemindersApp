@@ -9,11 +9,13 @@ import FirebaseAuth
 import Foundation
 
 struct User {
+    let uid: String
     let email: String
 }
 
 extension User {
     init(_ user: FirebaseAuth.User?) {
         email = user?.email ?? ""
+        uid = user?.uid ?? UUID().uuidString
     }
 }

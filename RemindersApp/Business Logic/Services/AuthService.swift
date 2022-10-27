@@ -31,7 +31,6 @@ class AuthService: AuthServiceProtocol {
                 completion(.success(User(user)))
             }
         }
-        
     }
     
     func login(_ email: String, _ password: String, completion: @escaping (Result<User, Error>) -> Void) {
