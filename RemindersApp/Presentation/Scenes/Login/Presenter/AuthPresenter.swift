@@ -31,6 +31,7 @@ class AuthPresenter {
     
     var view: AuthViewProtocol
     let authService: AuthServiceProtocol
+    private let defaults = UserDefaults.standard
     
     init(view: AuthViewProtocol, authService: AuthServiceProtocol) {
         self.view = view
@@ -96,7 +97,7 @@ class AuthPresenter {
         if isCorrect {
             authService.login(email, password) { [weak self] result in
                 switch result {
-                case .success:
+                case let .success:
                     self?.view.move(to: .mainWithUser)
                 case .failure(let error):
                     self?.view.passwordError = error.localizedDescription
@@ -114,7 +115,7 @@ class AuthPresenter {
         if isCorrect {
             authService.createAccount(view.email, view.password) { [weak self] result in
                 switch result {
-                case .success:
+                case let .success:
                     self?.view.move(to: .mainWithUser)
                 case .failure(let error):
                     self?.view.passwordError = error.localizedDescription

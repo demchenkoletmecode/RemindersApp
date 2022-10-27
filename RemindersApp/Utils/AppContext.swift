@@ -14,6 +14,8 @@ class AppContext {
 
     lazy var authentication = AuthService()
     
-    lazy var coreDateManager = CoreDataManager()
+    lazy var firebaseDatabase = ReminderService()
     
+    lazy var coreDateManager = CoreDataManager()
+
 }

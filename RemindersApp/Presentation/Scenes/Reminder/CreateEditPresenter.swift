@@ -31,13 +31,15 @@ class CreateEditPresenter {
     private var fullDate: Date?
     private let calendar = Calendar.current
     private let coreDataManager = appContext.coreDateManager
+    private let reminderService: ReminderService
     
     var periodList = Periodicity.allCases.map {
         $0.displayValue
     }
     
-    init(view: CreateEditProtocol, id: String?) {
+    init(view: CreateEditProtocol, reminderService: ReminderService, id: String?) {
         self.view = view
+        self.reminderService = reminderService
         self.reminderId = id
     }
     
@@ -48,24 +50,61 @@ class CreateEditPresenter {
     func tapSaveEditReminder() {
         let name = view?.name ?? ""
         if validName(name) {
-            let period = view?.periodicity?.toPeriodicity
+            var periodicity: Int
+            if view?.periodicity != nil {
+                periodicity = view?.periodicity ?? -1
+            } else {
+                periodicity = reminder?.periodicity?.rawValue ?? -1
+            }
             let notes = view?.notes
             if let date = view?.date {
                 fullDate = calendar.date(from: date.dateComponentsFromDate)
             } else {
                 fullDate = reminder?.timeDate
             }
-            let newReminder = Reminder(name: name,
-                                       isDone: false,
-                                       timeDate: fullDate,
-                                       periodicity: period,
-                                       notes: notes)
-            if let reminderId = reminderId {
-                coreDataManager.editReminder(id: reminderId, reminder: newReminder)
+            if let reminderId = reminderId, let reminder = reminder {
+                //coreDataManager.editReminder(id: reminderId, reminder: newReminder)
+                let reminderItem = ReminderRemoteItem(id: reminderId,
+                                                      name: reminder.name,
+                                                      isDone: reminder.isDone,
+                                                      timeDate: fullDate,
+                                                      periodicity: periodicity,
+                                                      notes: reminder.notes)
+                reminderService.updateReminder(with: reminderId, reminder: reminderItem) { result in
+                    switch result {
+                    case let .success(id):
+                        print("reminder with id = \(id) has updated")
+                    case let .failure(error):
+                        print("An error occurred: \(error)")
+                    }
+                }
             } else {
-                coreDataManager.addReminder(reminder: newReminder)
+                if !AuthService.userId.isEmpty {
+                    let reminderItem = ReminderRemoteItem(id: UUID().uuidString,
+                                                          name: name,
+                                                          isDone: false,
+                                                          timeDate: fullDate,
+                                                          periodicity: periodicity,
+                                                          notes: notes)
+                    reminderService.postReminder(reminder: reminderItem) { [weak self] result in
+                        switch result {
+                        case let .success(id):
+                            print("reminder with id = \(id) has created")
+                            self?.view?.save()
+                        case let .failure(error):
+                            print("An error occurred: \(error)")
+                        }
+                    }
+                } else {
+                    let newReminder = Reminder(name: name,
+                                               isDone: false,
+                                               timeDate: fullDate,
+                                               periodicity: periodicity.toPeriodicity,
+                                               notes: notes)
+                    coreDataManager.addReminder(reminder: newReminder)
+                    self.view?.save()
+                }
             }
-            self.view?.save()
         }
     }
     
@@ -96,8 +135,22 @@ class CreateEditPresenter {
     
     func getReminder() {
         if let reminderId = reminderId {
-            reminder = coreDataManager.getReminderById(reminderId: reminderId)
-            view?.showReminder(reminder: reminder)
+            //reminder = coreDataManager.getReminderById(reminderId: reminderId)
+            //view?.showReminder(reminder: reminder)
+            reminderService.getReminderDetail(with: reminderId) { [weak self] result in
+                switch result {
+                case let .success(reminder):
+                    self?.reminder = Reminder(id: reminder.id,
+                                              name: reminder.name,
+                                              isDone: reminder.isDone,
+                                              timeDate: reminder.timeDate,
+                                              periodicity: reminder.periodicity.toPeriodicity,
+                                              notes: reminder.notes)
+                    self?.view?.showReminder(reminder: self?.reminder)
+                case let .failure(error):
+                    print("An error occurred: \(error)")
+                }
+            }
         }
     }
     

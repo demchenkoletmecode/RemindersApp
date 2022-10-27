@@ -25,18 +25,33 @@ class MainPresenter {
     private var reminders: [Reminder] = []
     private var dataSource = [SectionReminders]()
     private let coreDataManager = appContext.coreDateManager
+    private let reminderService: ReminderService
     
-    init(view: MainViewProtocol) {
+    init(view: MainViewProtocol, reminderService: ReminderService) {
         self.view = view
+        self.reminderService = reminderService
     }
     
     func getReminders() {
         reminders.removeAll()
         dataSource.removeAll()
-        reminders = coreDataManager.fetchReminders()
-        
-        prepareDataSource()
-        self.view?.presentReminders(reminders: dataSource)
+        //reminders = coreDataManager.fetchReminders()
+        reminderService.getAllReminders { [weak self] result in
+            switch result {
+            case let .success(reminders):
+                self?.reminders = reminders.map { rem in
+                    Reminder(id: rem.id,
+                             name: rem.name,
+                             isDone: rem.isDone,
+                             timeDate: rem.timeDate,
+                             periodicity: rem.periodicity.toPeriodicity,
+                             notes: rem.notes)
+                }
+                self?.prepareDataSource()
+            case let .failure(error):
+                print("An error occurred: \(error.localizedDescription)")
+            }
+        }
     }
     
     func didTapReminder(reminderId: String) {
@@ -56,7 +71,24 @@ class MainPresenter {
     }
     
     func didTapAccomplishment(reminderId: String) {
-        coreDataManager.changeAccomplishment(id: reminderId)
+        //coreDataManager.changeAccomplishment(id: reminderId)
+        if let reminder = reminders.first(where: { $0.id == reminderId }) {
+            let reminderItem = ReminderRemoteItem(id: reminderId,
+                                                  name: reminder.name,
+                                                  isDone: !reminder.isDone,
+                                                  timeDate: reminder.timeDate,
+                                                  periodicity: reminder.periodicity?.rawValue ?? -1,
+                                                  notes: reminder.notes)
+            reminderService.updateReminder(with: reminderId, reminder: reminderItem) { [weak self] result in
+                switch result {
+                case let .success(id):
+                    print("reminder with id = \(id) has updated")
+                    self?.getReminders()
+                case let .failure(error):
+                    print("An error occurred: \(error)")
+                }
+            }
+        }
     }
 }
 
@@ -82,6 +114,7 @@ private extension MainPresenter {
         }
         
         dataSource.sort { $0.type < $1.type }
+        self.view?.presentReminders(reminders: dataSource)
     }
     
     func appendItem(sectionType: SectionType, reminder: Reminder) {

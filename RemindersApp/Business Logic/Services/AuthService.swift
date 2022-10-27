@@ -18,8 +18,13 @@ protocol AuthServiceProtocol {
 
 class AuthService: AuthServiceProtocol {
     
+    
     static var isAuthorized: Bool {
         return Auth.auth().currentUser != nil
+    }
+    
+    static var userId: String {
+        return Auth.auth().currentUser?.uid ?? ""
     }
     
     func createAccount(_ email: String, _ password: String, completion: @escaping (Result<User, Error>) -> Void) {
@@ -31,7 +36,6 @@ class AuthService: AuthServiceProtocol {
                 completion(.success(User(user)))
             }
         }
-        
     }
     
     func login(_ email: String, _ password: String, completion: @escaping (Result<User, Error>) -> Void) {
