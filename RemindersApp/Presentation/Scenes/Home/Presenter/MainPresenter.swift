@@ -23,8 +23,6 @@ class MainPresenter {
     
     weak var view: MainViewProtocol?
     private var reminders: [Reminder] = []
-    private var localReminders: [Reminder] = []
-    private var remoteReminders: [Reminder] = []
     private var dataSource = [SectionReminders]()
     private let coreDataManager = appContext.coreDateManager
     private let reminderService: ReminderService
@@ -37,12 +35,16 @@ class MainPresenter {
     func getReminders() {
         reminders.removeAll()
         dataSource.removeAll()
-        localReminders = coreDataManager.fetchReminders()
+        let localReminders = coreDataManager.fetchReminders()
+        var remoteReminders = [Reminder]()
         reminders = localReminders
-        reminderService.getAllReminders { [weak self] result in
+        checkChanges(localReminders: localReminders, remoteReminders: remoteReminders)
+        let group = DispatchGroup()
+        group.enter()
+        reminderService.getAllReminders { result in
             switch result {
             case let .success(reminders):
-                self?.remoteReminders = reminders.map { rem in
+                remoteReminders = reminders.map { rem in
                     Reminder(id: rem.id,
                              name: rem.name,
                              isDone: rem.isDone,
@@ -51,10 +53,13 @@ class MainPresenter {
                              notes: rem.notes,
                              updatedAt: rem.updatedAt)
                 }
-                self?.checkChanges()
             case let .failure(error):
                 print("An error occurred with getting items: \(error.localizedDescription)")
             }
+            group.leave()
+        }
+        group.notify(queue: .global(qos: .default)) { [weak self] in
+            self?.checkChanges(localReminders: localReminders, remoteReminders: remoteReminders)
         }
         prepareDataSource()
     }
@@ -140,12 +145,16 @@ private extension MainPresenter {
         }
     }
     
-    func checkChanges() {
+    func checkChanges(localReminders: [Reminder], remoteReminders: [Reminder]) {
         for remRem in remoteReminders {
             if let locRem = localReminders.first(where: { $0.id == remRem.id }) {
                 if remRem != locRem {
                     if remRem.updatedAt > locRem.updatedAt {
                         updateLocalReminder(remRem)
+                        let index = localReminders.firstIndex(where: { $0.id == remRem.id })
+                        if let index = index {
+                            reminders[index] = remRem
+                        }
                     } else if remRem.updatedAt < locRem.updatedAt {
                         updateRemoteReminder(locRem)
                     }
@@ -155,18 +164,8 @@ private extension MainPresenter {
                 reminders.append(remRem)
             }
         }
-        for locRem in localReminders {
-            if let remRem = remoteReminders.first(where: { $0.id == locRem.id }) {
-                if locRem != remRem {
-                    if locRem.updatedAt > remRem.updatedAt {
-                        updateRemoteReminder(locRem)
-                    } else if locRem.updatedAt < remRem.updatedAt {
-                        updateLocalReminder(remRem)
-                    }
-                }
-            } else {
-                addRemoteReminder(locRem)
-            }
+        for locRem in localReminders where !remoteReminders.contains(where: { $0.id == locRem.id }) {
+            addRemoteReminder(locRem)
         }
         dataSource.removeAll()
         prepareDataSource()
@@ -174,10 +173,6 @@ private extension MainPresenter {
     
     func updateLocalReminder(_ reminder: Reminder) {
         coreDataManager.editReminder(id: reminder.id, reminder: reminder)
-        let index = localReminders.firstIndex(where: { $0.id == reminder.id })
-        if let index = index {
-            reminders[index] = reminder
-        }
     }
     
     func addLocalReminder(_ reminder: Reminder) {

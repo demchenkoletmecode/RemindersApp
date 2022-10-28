@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Reminder {
+struct Reminder: Equatable {
     let id: String
     var name: String
     var isDone: Bool
@@ -32,12 +32,12 @@ struct Reminder {
         self.updatedAt = updatedAt
     }
     
-    static func != (lrm: Reminder, rrm: Reminder) -> Bool {
-        return (lrm.name != rrm.name ||
-                lrm.isDone != rrm.isDone ||
-                lrm.timeDate != rrm.timeDate ||
-                lrm.periodicity != rrm.periodicity ||
-                lrm.notes != rrm.notes)
+    static func == (lhs: Reminder, rhs: Reminder) -> Bool {
+        return (lhs.name == rhs.name &&
+                lhs.isDone == rhs.isDone &&
+                lhs.timeDate == rhs.timeDate &&
+                lhs.periodicity == rhs.periodicity &&
+                lhs.notes == rhs.notes)
     }
     
 }
