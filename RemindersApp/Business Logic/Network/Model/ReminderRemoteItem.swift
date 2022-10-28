@@ -14,4 +14,5 @@ struct ReminderRemoteItem: Codable {
     var timeDate: Date?
     var periodicity: Int
     var notes: String?
+    var updatedAt: Date
 }

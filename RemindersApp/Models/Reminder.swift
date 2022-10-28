@@ -14,19 +14,30 @@ struct Reminder {
     var timeDate: Date?
     var periodicity: Periodicity?
     var notes: String?
+    var updatedAt: Date
     
     init(id: String = UUID().uuidString,
          name: String,
          isDone: Bool,
          timeDate: Date? = nil,
          periodicity: Periodicity? = nil,
-         notes: String? = nil) {
+         notes: String? = nil,
+         updatedAt: Date) {
         self.id = id
         self.name = name
         self.isDone = isDone
         self.timeDate = timeDate
         self.periodicity = periodicity
         self.notes = notes
+        self.updatedAt = updatedAt
+    }
+    
+    static func != (lrm: Reminder, rrm: Reminder) -> Bool {
+        return (lrm.name != rrm.name ||
+                lrm.isDone != rrm.isDone ||
+                lrm.timeDate != rrm.timeDate ||
+                lrm.periodicity != rrm.periodicity ||
+                lrm.notes != rrm.notes)
     }
     
 }

@@ -16,6 +16,7 @@ class MainViewController: UIViewController {
     private let authService = appContext.authentication
     private var presenter: MainPresenter!
     private var sections: [SectionReminders] = []
+    private let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +34,16 @@ class MainViewController: UIViewController {
         
         presenter = MainPresenter(view: self, reminderService: appContext.firebaseDatabase)
         refreshData()
+        
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        tableView.addSubview(refreshControl)
+    }
+    
+    @objc
+    private func refresh(_ sender: AnyObject) {
+        presenter.getReminders()
+        refreshControl.endRefreshing()
     }
     
     @objc

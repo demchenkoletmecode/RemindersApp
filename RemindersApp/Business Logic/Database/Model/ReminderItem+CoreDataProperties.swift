@@ -22,5 +22,6 @@ public extension ReminderItem {
     @NSManaged var notes: String?
     @NSManaged var periodicity: Int16
     @NSManaged var timeDate: Date?
+    @NSManaged var updatedAt: Date
 
 }
