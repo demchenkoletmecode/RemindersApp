@@ -19,6 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
+        appContext.notificationManager.showNotificationPermission()
         
         openTheDesiredController(isLater: false, isAuthorized: false)
     }

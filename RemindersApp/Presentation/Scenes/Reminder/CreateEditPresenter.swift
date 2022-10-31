@@ -32,6 +32,7 @@ class CreateEditPresenter {
     private let calendar = Calendar.current
     private let coreDataManager = appContext.coreDateManager
     private let reminderService: ReminderService
+    private let notificationManager = appContext.notificationManager
     
     var periodList = Periodicity.allCases.map {
         $0.displayValue
@@ -71,6 +72,7 @@ class CreateEditPresenter {
                                             notes: notes,
                                             updatedAt: Date())
                 coreDataManager.editReminder(id: reminderId, reminder: reminderItem)
+                notificationManager.editNotification(reminder: reminderItem)
                 self.view?.save()
             } else {
                 let newReminder = Reminder(name: name,
@@ -80,6 +82,7 @@ class CreateEditPresenter {
                                            notes: notes,
                                            updatedAt: Date())
                 coreDataManager.addReminder(reminder: newReminder)
+                notificationManager.setNotification(reminder: newReminder)
                 self.view?.save()
             }
         }

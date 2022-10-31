@@ -49,6 +49,7 @@
 		7773F5FC28F83CC8009FF41E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7773F5FA28F83CC8009FF41E /* MainViewController.swift */; };
 		7773F5FD28F83CC8009FF41E /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7773F5FB28F83CC8009FF41E /* MainViewController.xib */; };
 		7787BB4D290FEA6400F796EE /* IdNestingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7787BB4C290FEA6400F796EE /* IdNestingContainer.swift */; };
+		7787BB4F291001CE00F796EE /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7787BB4E291001CE00F796EE /* NotificationService.swift */; };
 		778844C128FE9AD3006650BA /* UITextFieldWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778844C028FE9AD3006650BA /* UITextFieldWithPadding.swift */; };
 		778844C328FE9AFB006650BA /* UITextViewWithPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778844C228FE9AFB006650BA /* UITextViewWithPlaceholder.swift */; };
 		778ABFCE290128390015AB78 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778ABFCD290128390015AB78 /* String+Ext.swift */; };
@@ -101,6 +102,7 @@
 		7773F5FA28F83CC8009FF41E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		7773F5FB28F83CC8009FF41E /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		7787BB4C290FEA6400F796EE /* IdNestingContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdNestingContainer.swift; sourceTree = "<group>"; };
+		7787BB4E291001CE00F796EE /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		778844C028FE9AD3006650BA /* UITextFieldWithPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldWithPadding.swift; sourceTree = "<group>"; };
 		778844C228FE9AFB006650BA /* UITextViewWithPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewWithPlaceholder.swift; sourceTree = "<group>"; };
 		778ABFCD290128390015AB78 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 			children = (
 				558A37A528EEFD6000801DAE /* AuthService.swift */,
 				77641E6429080E510012EE13 /* ReminderService.swift */,
+				7787BB4E291001CE00F796EE /* NotificationService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -519,6 +522,7 @@
 				5568851C28F00514004F211E /* AppContext.swift in Sources */,
 				7787BB4D290FEA6400F796EE /* IdNestingContainer.swift in Sources */,
 				7735B52D28F70BE9000946AD /* ReminderRow.swift in Sources */,
+				7787BB4F291001CE00F796EE /* NotificationService.swift in Sources */,
 				77641E6729080E9A0012EE13 /* Encodable+Ext.swift in Sources */,
 				77641E5B29080DBB0012EE13 /* FirebaseDatabaseManager.swift in Sources */,
 				77641E6329080E310012EE13 /* ReminderRemoteItem.swift in Sources */,

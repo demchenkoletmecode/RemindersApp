@@ -26,6 +26,7 @@ class MainPresenter {
     private var dataSource = [SectionReminders]()
     private let coreDataManager = appContext.coreDateManager
     private let reminderService: ReminderService
+    private let notificationManager = appContext.notificationManager
     
     init(view: MainViewProtocol, reminderService: ReminderService) {
         self.view = view
@@ -70,6 +71,9 @@ class MainPresenter {
     func tapOnSignInSignOut() {
         if AuthService.isAuthorized {
             coreDataManager.deleteAllData()
+            reminders.forEach {
+                notificationManager.removeNotification(reminderId: $0.id)
+            }
             self.view?.move(to: .logoutUserGoToSignIn)
         } else {
             self.view?.move(to: .goToSignIn)
@@ -83,6 +87,13 @@ class MainPresenter {
     func didTapAccomplishment(reminderId: String) {
         coreDataManager.changeAccomplishment(id: reminderId)
         if let reminder = reminders.first(where: { $0.id == reminderId }) {
+            
+            if !reminder.isDone {
+                notificationManager.removeNotification(reminderId: reminderId)
+            } else {
+                notificationManager.editNotification(reminder: reminder)
+            }
+            
             let reminderItem = ReminderRemoteItem(id: reminderId,
                                                   name: reminder.name,
                                                   isDone: !reminder.isDone,
