@@ -18,7 +18,6 @@ protocol AuthServiceProtocol {
 
 class AuthService: AuthServiceProtocol {
     
-    
     static var isAuthorized: Bool {
         return Auth.auth().currentUser != nil
     }

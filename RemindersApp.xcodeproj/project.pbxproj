@@ -48,6 +48,7 @@
 		77641E6B29080EDE0012EE13 /* NSDictionary+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77641E6A29080EDE0012EE13 /* NSDictionary+Ext.swift */; };
 		7773F5FC28F83CC8009FF41E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7773F5FA28F83CC8009FF41E /* MainViewController.swift */; };
 		7773F5FD28F83CC8009FF41E /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7773F5FB28F83CC8009FF41E /* MainViewController.xib */; };
+		7787BB4D290FEA6400F796EE /* IdNestingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7787BB4C290FEA6400F796EE /* IdNestingContainer.swift */; };
 		778844C128FE9AD3006650BA /* UITextFieldWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778844C028FE9AD3006650BA /* UITextFieldWithPadding.swift */; };
 		778844C328FE9AFB006650BA /* UITextViewWithPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778844C228FE9AFB006650BA /* UITextViewWithPlaceholder.swift */; };
 		778ABFCE290128390015AB78 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778ABFCD290128390015AB78 /* String+Ext.swift */; };
@@ -99,6 +100,7 @@
 		77641E6A29080EDE0012EE13 /* NSDictionary+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDictionary+Ext.swift"; sourceTree = "<group>"; };
 		7773F5FA28F83CC8009FF41E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		7773F5FB28F83CC8009FF41E /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		7787BB4C290FEA6400F796EE /* IdNestingContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdNestingContainer.swift; sourceTree = "<group>"; };
 		778844C028FE9AD3006650BA /* UITextFieldWithPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldWithPadding.swift; sourceTree = "<group>"; };
 		778844C228FE9AFB006650BA /* UITextViewWithPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewWithPlaceholder.swift; sourceTree = "<group>"; };
 		778ABFCD290128390015AB78 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
@@ -332,6 +334,7 @@
 			children = (
 				77641E6029080E160012EE13 /* FirebaseError.swift */,
 				77641E6229080E310012EE13 /* ReminderRemoteItem.swift */,
+				7787BB4C290FEA6400F796EE /* IdNestingContainer.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -514,6 +517,7 @@
 			files = (
 				5524B59F28EC470C007354DB /* SignUpViewController.swift in Sources */,
 				5568851C28F00514004F211E /* AppContext.swift in Sources */,
+				7787BB4D290FEA6400F796EE /* IdNestingContainer.swift in Sources */,
 				7735B52D28F70BE9000946AD /* ReminderRow.swift in Sources */,
 				77641E6729080E9A0012EE13 /* Encodable+Ext.swift in Sources */,
 				77641E5B29080DBB0012EE13 /* FirebaseDatabaseManager.swift in Sources */,
@@ -685,6 +689,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D7AYZAGTTZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RemindersApp/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -714,6 +719,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D7AYZAGTTZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RemindersApp/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

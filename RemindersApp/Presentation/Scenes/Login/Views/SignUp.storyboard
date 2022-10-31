@@ -22,7 +22,7 @@
                                 <string key="text">Sign Up to save
 your reminders in a cloud</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tAc-zq-eaP">
@@ -50,6 +50,7 @@ your reminders in a cloud</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                 <connections>
+                                    <action selector="hideKeyboard:" destination="Y6W-OH-hqX" eventType="editingDidEndOnExit" id="y89-R5-7uL"/>
                                     <action selector="passwordChanged:" destination="Y6W-OH-hqX" eventType="editingChanged" id="qBH-8s-Yzq"/>
                                 </connections>
                             </textField>

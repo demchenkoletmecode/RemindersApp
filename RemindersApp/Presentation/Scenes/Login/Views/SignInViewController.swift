@@ -45,6 +45,9 @@ class SignInViewController: UIViewController {
         presenter.tapGoToSignUp()
     }
     
+    @IBAction private func hideKeyboard(_ sender: Any) {
+        self.view.endEditing(true)
+    }
 }
 
 extension SignInViewController: AuthViewProtocol {

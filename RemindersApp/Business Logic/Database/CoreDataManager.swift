@@ -46,7 +46,8 @@ class CoreDataManager {
                          isDone: rem.isDone,
                          timeDate: rem.timeDate,
                          periodicity: rem.periodicity.toPeriodicity,
-                         notes: rem.notes)
+                         notes: rem.notes,
+                         updatedAt: rem.updatedAt)
             }
         } catch {
             print("An error occurred with fetching reminders")
@@ -63,6 +64,7 @@ class CoreDataManager {
         reminderItem.periodicity = Int16(reminder.periodicity?.rawValue ?? -1)
         reminderItem.timeDate = reminder.timeDate
         reminderItem.notes = reminder.notes
+        reminderItem.updatedAt = reminder.updatedAt
         saveContext()
     }
     
@@ -80,7 +82,8 @@ class CoreDataManager {
                                 isDone: reminderItem.isDone,
                                 timeDate: reminderItem.timeDate,
                                 periodicity: reminderItem.periodicity.toPeriodicity,
-                                notes: reminderItem.notes)
+                                notes: reminderItem.notes,
+                                updatedAt: reminderItem.updatedAt)
         } catch {
             print("An error occurred with getting reminder by id")
         }
@@ -100,6 +103,7 @@ class CoreDataManager {
         reminderItem.periodicity = Int16(reminder.periodicity?.rawValue ?? -1)
         reminderItem.timeDate = reminder.timeDate
         reminderItem.notes = reminder.notes
+        reminderItem.updatedAt = Date()
         saveContext()
     }
     
@@ -111,7 +115,22 @@ class CoreDataManager {
         let reminderItem = results?.first ?? ReminderItem(context: context)
 
         reminderItem.id = id
-        reminderItem.isDone = !reminderItem.isDone
+        reminderItem.isDone.toggle()
+        reminderItem.updatedAt = Date()
         saveContext()
+    }
+    
+    func deleteAllData() {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ReminderItem")
+        fetchRequest.returnsObjectsAsFaults = false
+        do {
+            let results = try context.fetch(fetchRequest)
+            for object in results {
+                guard let objectData = object as? NSManagedObject else {continue}
+                context.delete(objectData)
+            }
+        } catch {
+            print("An error occurred with deteling data: \(error.localizedDescription)")
+        }
     }
 }
