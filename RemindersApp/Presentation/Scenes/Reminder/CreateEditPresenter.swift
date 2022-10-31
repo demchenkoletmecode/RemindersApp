@@ -114,21 +114,6 @@ class CreateEditPresenter {
         if let reminderId = reminderId {
             reminder = coreDataManager.getReminderById(reminderId: reminderId)
             view?.showReminder(reminder: reminder)
-            /*reminderService.getReminderDetail(with: reminderId) { [weak self] result in
-                switch result {
-                case let .success(reminder):
-                    self?.reminder = Reminder(id: reminder.id,
-                                              name: reminder.name,
-                                              isDone: reminder.isDone,
-                                              timeDate: reminder.timeDate,
-                                              periodicity: reminder.periodicity.toPeriodicity,
-                                              notes: reminder.notes,
-                                              updatedAt: reminder.updatedAt)
-                    self?.view?.showReminder(reminder: self?.reminder)
-                case let .failure(error):
-                    print("An error occurred: \(error)")
-                }
-            }*/
         }
     }
     

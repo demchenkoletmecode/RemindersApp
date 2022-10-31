@@ -119,4 +119,18 @@ class CoreDataManager {
         reminderItem.updatedAt = Date()
         saveContext()
     }
+    
+    func deleteAllData() {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ReminderItem")
+        fetchRequest.returnsObjectsAsFaults = false
+        do {
+            let results = try context.fetch(fetchRequest)
+            for object in results {
+                guard let objectData = object as? NSManagedObject else {continue}
+                context.delete(objectData)
+            }
+        } catch {
+            print("An error occurred with deteling data: \(error.localizedDescription)")
+        }
+    }
 }

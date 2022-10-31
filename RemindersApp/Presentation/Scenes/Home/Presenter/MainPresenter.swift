@@ -38,7 +38,6 @@ class MainPresenter {
         let localReminders = coreDataManager.fetchReminders()
         var remoteReminders = [Reminder]()
         reminders = localReminders
-        checkChanges(localReminders: localReminders, remoteReminders: remoteReminders)
         let group = DispatchGroup()
         group.enter()
         reminderService.getAllReminders { result in
@@ -70,6 +69,7 @@ class MainPresenter {
     
     func tapOnSignInSignOut() {
         if AuthService.isAuthorized {
+            coreDataManager.deleteAllData()
             self.view?.move(to: .logoutUserGoToSignIn)
         } else {
             self.view?.move(to: .goToSignIn)

@@ -24,6 +24,9 @@ class MainViewController: UIViewController {
         title = "RemindersApp"
         configureBarItems()
         
+        presenter = MainPresenter(view: self, reminderService: appContext.firebaseDatabase)
+        refreshData()
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
@@ -31,9 +34,6 @@ class MainViewController: UIViewController {
         let header = "ReminderSectionHeader"
         tableView.register(UINib(nibName: "ReminderCell", bundle: .main), forCellReuseIdentifier: "ReminderCell")
         tableView.register(UINib(nibName: header, bundle: nil), forHeaderFooterViewReuseIdentifier: "CustomHeader")
-        
-        presenter = MainPresenter(view: self, reminderService: appContext.firebaseDatabase)
-        refreshData()
         
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)

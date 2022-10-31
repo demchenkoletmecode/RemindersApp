@@ -24,21 +24,24 @@ class FirebaseDatabaseManager {
         
         query.observeSingleEvent(of: .value,
                                  with: { snapshot in
-            var decodedValue: T?
-            if let value = snapshot.value as? NSDictionary {
-                decodedValue = value.decodeAsArray(T.self)
-                if decodedValue == nil {
+            do {
+                var decodedValue: T?
+                if let value = snapshot.value as? NSDictionary {
+                    decodedValue = try value.decodeAsArray(T.self)
+                    if decodedValue == nil {
+                        decodedValue = value.decode(T.self)
+                    }
+                } else if let value = snapshot.value as? NSArray {
                     decodedValue = value.decode(T.self)
                 }
-            }
-            if let value = snapshot.value as? NSArray {
-                decodedValue = value.decode(T.self)
-            }
-            if let value = decodedValue {
-                completion(.success(value))
-            } else {
-                completion(.failure(FirebaseError.decodingError))
-                return
+                if let value = decodedValue {
+                    completion(.success(value))
+                } else {
+                    completion(.failure(FirebaseError.decodingError))
+                    return
+                }
+            } catch {
+                completion(.failure(error))
             }
         })
     }
@@ -102,5 +105,4 @@ class FirebaseDatabaseManager {
             completion(.success(data))
         }
     }
-    
 }
