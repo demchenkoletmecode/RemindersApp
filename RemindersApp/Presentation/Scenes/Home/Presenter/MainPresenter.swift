@@ -17,6 +17,7 @@ enum MainViewNavigation {
 protocol MainViewProtocol: AnyObject {
     func presentReminders(reminders: [SectionReminders])
     func move(to: MainViewNavigation)
+    func changeBackground(indexPath: IndexPath)
 }
 
 class MainPresenter {
@@ -27,6 +28,7 @@ class MainPresenter {
     private let coreDataManager = appContext.coreDateManager
     private let reminderService: ReminderService
     private let notificationManager = appContext.notificationManager
+    var reminderId: String?
     
     init(view: MainViewProtocol, reminderService: ReminderService) {
         self.view = view
@@ -64,6 +66,10 @@ class MainPresenter {
         prepareDataSource()
     }
     
+    func reminderIsHighlighted() {
+        reminderId = nil
+    }
+    
     func didTapReminder(reminderId: String) {
         self.view?.move(to: .detailsReminder(reminderId))
     }
@@ -84,30 +90,57 @@ class MainPresenter {
         self.view?.move(to: .createReminder)
     }
     
+    func highlightReminder(_ id: String) {
+        print("notification id = \(id)")
+        let comparator: (ReminderRow) -> Bool = {
+            $0.objectId == id
+        }
+        if let sectionIndex = dataSource.firstIndex(where: { $0.rows.contains(where: comparator) }),
+           let rowIndex = dataSource[sectionIndex].rows.firstIndex(where: comparator) {
+            let indexPath = IndexPath(row: rowIndex, section: sectionIndex)
+            print("section index = \(sectionIndex), row index = \(rowIndex)")
+            view?.changeBackground(indexPath: indexPath)
+        }
+    }
+    
     func didTapAccomplishment(reminderId: String) {
-        coreDataManager.changeAccomplishment(id: reminderId)
         if let reminder = reminders.first(where: { $0.id == reminderId }) {
-            
-            if !reminder.isDone {
-                notificationManager.removeNotification(reminderId: reminderId)
+            if let periodicity = reminder.periodicity, periodicity != .never {
+                let date = reminder.timeDate?.addPeriodDate(index: periodicity.rawValue)
+                let reminderItem = Reminder(id: reminder.id,
+                                            name: reminder.name,
+                                            isDone: reminder.isDone,
+                                            timeDate: date,
+                                            periodicity: reminder.periodicity,
+                                            notes: reminder.notes,
+                                            updatedAt: Date())
+                notificationManager.editNotification(reminder: reminderItem)
+                updateLocalReminder(reminderItem)
+                updateRemoteReminder(reminderItem)
+                getReminders()
             } else {
-                notificationManager.editNotification(reminder: reminder)
-            }
-            
-            let reminderItem = ReminderRemoteItem(id: reminderId,
-                                                  name: reminder.name,
-                                                  isDone: !reminder.isDone,
-                                                  timeDate: reminder.timeDate,
-                                                  periodicity: reminder.periodicity?.rawValue ?? -1,
-                                                  notes: reminder.notes,
-                                                  updatedAt: Date())
-            reminderService.updateReminder(with: reminderId, reminder: reminderItem) { [weak self] result in
-                switch result {
-                case let .success(id):
-                    print("reminder with id = \(id) has updated")
-                    self?.getReminders()
-                case let .failure(error):
-                    print("An error occurred with changing accomplishment: \(error.localizedDescription)")
+                coreDataManager.changeAccomplishment(id: reminderId)
+                if !reminder.isDone {
+                    notificationManager.removeNotification(reminderId: reminderId)
+                } else {
+                    notificationManager.editNotification(reminder: reminder)
+                }
+                
+                let reminderItem = ReminderRemoteItem(id: reminderId,
+                                                      name: reminder.name,
+                                                      isDone: !reminder.isDone,
+                                                      timeDate: reminder.timeDate,
+                                                      periodicity: reminder.periodicity?.rawValue ?? -1,
+                                                      notes: reminder.notes,
+                                                      updatedAt: Date())
+                reminderService.updateReminder(with: reminderId, reminder: reminderItem) { [weak self] result in
+                    switch result {
+                    case let .success(id):
+                        print("reminder with id = \(id) has updated")
+                        self?.getReminders()
+                    case let .failure(error):
+                        print("An error occurred with changing accomplishment: \(error.localizedDescription)")
+                    }
                 }
             }
         }
@@ -117,6 +150,7 @@ class MainPresenter {
 private extension MainPresenter {
     
     func prepareDataSource() {
+        reminders.sort { $0.timeDate ?? Date() < $1.timeDate ?? Date() }
         reminders.forEach { reminder in
             let sectionType: SectionType
             if let date = reminder.timeDate {

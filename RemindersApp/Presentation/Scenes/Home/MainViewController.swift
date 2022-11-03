@@ -14,9 +14,9 @@ class MainViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     
     private let authService = appContext.authentication
-    private var presenter: MainPresenter!
     private var sections: [SectionReminders] = []
     private let refreshControl = UIRefreshControl()
+    var presenter: MainPresenter?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +24,6 @@ class MainViewController: UIViewController {
         title = "RemindersApp"
         configureBarItems()
         
-        presenter = MainPresenter(view: self, reminderService: appContext.firebaseDatabase)
         refreshData()
         
         tableView.dataSource = self
@@ -39,25 +38,25 @@ class MainViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         tableView.addSubview(refreshControl)
     }
-    
+
     @objc
     private func refresh(_ sender: AnyObject) {
-        presenter.getReminders()
+        presenter?.getReminders()
         refreshControl.endRefreshing()
     }
     
     @objc
     private func signInSignOutClick() {
-        presenter.tapOnSignInSignOut()
+        presenter?.tapOnSignInSignOut()
     }
     
     @objc
     private func addReminder() {
-        presenter.tapAddReminder()
+        presenter?.tapAddReminder()
     }
     
     private func refreshData() {
-        presenter.getReminders()
+        presenter?.getReminders()
     }
     
     private func configureBarItems() {
@@ -105,7 +104,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.didTapReminder(reminderId: (sections[indexPath.section].rows[indexPath.row].objectId))
+        presenter?.didTapReminder(reminderId: (sections[indexPath.section].rows[indexPath.row].objectId))
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -132,7 +131,7 @@ extension MainViewController: ReminderCellProtocol {
         if let indexPath = tableView.indexPath(for: cell) {
             var reminder = sections[indexPath.section].rows[indexPath.row]
             reminder.changeAccomplishment()
-            presenter.didTapAccomplishment(reminderId: (reminder.objectId))
+            presenter?.didTapAccomplishment(reminderId: (reminder.objectId))
             cell.setAccomplishment()
         }
     }
@@ -140,7 +139,14 @@ extension MainViewController: ReminderCellProtocol {
 }
 
 extension MainViewController: MainViewProtocol {
-   
+    
+    func changeBackground(indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? ReminderTableViewCell else {
+           fatalError("Could not dequeue cell of type ReminderTableViewCell")
+        }
+        cell.changeBackground()
+    }
+    
     func move(to: MainViewNavigation) {
         switch to {
         case .goToSignIn:

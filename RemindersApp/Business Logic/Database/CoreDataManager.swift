@@ -41,19 +41,38 @@ class CoreDataManager {
             var remindersItems = [ReminderItem]()
             remindersItems = try context.fetch(ReminderItem.fetchRequest())
             reminders = remindersItems.map { rem in
-                Reminder(id: rem.id,
-                         name: rem.name,
-                         isDone: rem.isDone,
-                         timeDate: rem.timeDate,
-                         periodicity: rem.periodicity.toPeriodicity,
-                         notes: rem.notes,
-                         updatedAt: rem.updatedAt)
+                changeAccomplishmentIfIsDoneAndPeriod(rem)
             }
         } catch {
             print("An error occurred with fetching reminders")
         }
         
         return reminders
+    }
+    
+    private func changeAccomplishmentIfIsDoneAndPeriod(_ rem: ReminderItem) -> Reminder {
+        var isDone = rem.isDone
+        var date = rem.timeDate
+        var updatedAt = rem.updatedAt
+        var isEdit = false
+        if rem.isDone, let period = rem.periodicity.toPeriodicity, period != .never {
+            date = rem.timeDate?.addPeriodDate(index: period.rawValue)
+            isDone = false
+            isEdit = true
+            updatedAt = Date()
+        }
+        let reminder = Reminder(id: rem.id,
+                                name: rem.name,
+                                isDone: isDone,
+                                timeDate: date,
+                                periodicity: rem.periodicity.toPeriodicity,
+                                notes: rem.notes,
+                                updatedAt: updatedAt)
+        if isEdit {
+            appContext.notificationManager.editNotification(reminder: reminder)
+        }
+        
+        return reminder
     }
     
     func addReminder(reminder: Reminder) {

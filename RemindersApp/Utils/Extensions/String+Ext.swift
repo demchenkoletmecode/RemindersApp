@@ -35,4 +35,12 @@ extension String {
         return date ?? Date()
     }
     
+    var timeToDate: Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        let date = dateFormatter.date(from: self)
+        return date
+    }
+    
 }

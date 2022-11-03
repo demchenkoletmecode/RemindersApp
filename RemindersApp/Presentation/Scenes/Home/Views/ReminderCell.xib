@@ -105,6 +105,7 @@
                 <outlet property="periodicityLbl" destination="PnP-Zm-4nX" id="Khl-Ey-nHr"/>
                 <outlet property="stackView" destination="Khh-5I-MR6" id="btD-kW-fji"/>
                 <outlet property="timeDateLbl" destination="bPl-UO-1SU" id="ObK-YZ-ad9"/>
+                <outlet property="view" destination="vRB-I5-3Le" id="SGj-3i-5nu"/>
             </connections>
             <point key="canvasLocation" x="-1173.8461538461538" y="-105.21327014218009"/>
         </tableViewCell>

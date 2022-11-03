@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import UserNotifications
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    var pendingNotification: UNNotificationResponse?
 
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
@@ -19,7 +21,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
+        
         appContext.notificationManager.showNotificationPermission()
+        UNUserNotificationCenter.current().delegate = self
         
         openTheDesiredController(isLater: false, isAuthorized: false)
     }
@@ -27,15 +31,44 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func openTheDesiredController(isLater: Bool, isAuthorized: Bool) {
         if isLater || isAuthorized {
             let vc = MainViewController(nibName: "MainViewController", bundle: nil)
+            let presenter = MainPresenter(view: vc, reminderService: appContext.firebaseDatabase)
+            vc.presenter = presenter
             let navController = UINavigationController(rootViewController: vc)
             window?.rootViewController = navController
             window?.makeKeyAndVisible()
+            if let pendingNotification {
+                proccess(notification: pendingNotification, mainPresenter: presenter)
+                self.pendingNotification = nil
+            }
         } else {
             let storyboard = UIStoryboard(name: "SignIn", bundle: nil)
             let controller = storyboard.instantiateViewController(withIdentifier: "SignInVC") as? SignInViewController
             let navController = UINavigationController(rootViewController: controller ?? SignInViewController())
             window?.rootViewController = navController
             window?.makeKeyAndVisible()
+        }
+    }
+    
+    func proccess(notification: UNNotificationResponse, mainPresenter: MainPresenter? = nil) {
+        var presenter: MainPresenter?
+        if let mainPresenter {
+            presenter = mainPresenter
+        } else {
+            if let navVC = window?.rootViewController as? UINavigationController,
+               let mainVC = navVC.topViewController as? MainViewController {
+                presenter = mainVC.presenter
+            }
+        }
+        guard let presenter else { return }
+        
+        let reminderInfo = notification.notification.request.content.userInfo
+        let reminderId = reminderInfo["REMINDER_ID"] as? String
+        
+        if let reminderId {
+            presenter.highlightReminder(reminderId)
+            if notification.actionIdentifier == "COMPLETED_ACTION" {
+                presenter.didTapAccomplishment(reminderId: reminderId)
+            }
         }
     }
 
@@ -70,4 +103,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         appContext.coreDateManager.saveContext()
     }
 
+}
+
+extension SceneDelegate: UNUserNotificationCenterDelegate {
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler:
+            @escaping (UNNotificationPresentationOptions) -> Void) {
+
+            return completionHandler(UNNotificationPresentationOptions.alert)
+        }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler:
+                                @escaping () -> Void) {
+        
+        if let navVC = window?.rootViewController as? UINavigationController,
+           navVC.topViewController is MainViewController {
+            proccess(notification: response)
+        } else {
+            pendingNotification = response
+        }
+        
+        completionHandler()
+    }
+    
 }

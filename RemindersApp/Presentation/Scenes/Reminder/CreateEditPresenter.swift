@@ -58,22 +58,30 @@ class CreateEditPresenter {
                 periodicity = reminder?.periodicity?.rawValue ?? -1
             }
             let notes = view?.notes
+            if let isSelected = view?.isDateSelected, isSelected {
+                if let reminder = reminder, let date = reminder.timeDate {
+                    fullDate = date
+                } else {
+                    fullDate = Date()
+                    view?.date = fullDate
+                }
+            } else {
+                fullDate = nil
+                periodicity = -1
+            }
             if let date = view?.date {
                 fullDate = calendar.date(from: date.dateComponentsFromDate)
-            } else {
-                fullDate = reminder?.timeDate
             }
-            if let reminderId = reminderId, let reminder = reminder {
+            if let reminderId = reminderId {
                 let reminderItem = Reminder(id: reminderId,
                                             name: name,
-                                            isDone: reminder.isDone,
+                                            isDone: false,
                                             timeDate: fullDate,
                                             periodicity: periodicity.toPeriodicity,
                                             notes: notes,
                                             updatedAt: Date())
                 coreDataManager.editReminder(id: reminderId, reminder: reminderItem)
                 notificationManager.editNotification(reminder: reminderItem)
-                self.view?.save()
             } else {
                 let newReminder = Reminder(name: name,
                                            isDone: false,
@@ -83,8 +91,8 @@ class CreateEditPresenter {
                                            updatedAt: Date())
                 coreDataManager.addReminder(reminder: newReminder)
                 notificationManager.setNotification(reminder: newReminder)
-                self.view?.save()
             }
+            self.view?.save()
         }
     }
     
