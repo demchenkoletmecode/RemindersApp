@@ -28,7 +28,6 @@ class MainPresenter {
     private let coreDataManager = appContext.coreDateManager
     private let reminderService: ReminderService
     private let notificationManager = appContext.notificationManager
-    var reminderId: String?
     
     init(view: MainViewProtocol, reminderService: ReminderService) {
         self.view = view
@@ -66,10 +65,6 @@ class MainPresenter {
         prepareDataSource()
     }
     
-    func reminderIsHighlighted() {
-        reminderId = nil
-    }
-    
     func didTapReminder(reminderId: String) {
         self.view?.move(to: .detailsReminder(reminderId))
     }
@@ -91,15 +86,15 @@ class MainPresenter {
     }
     
     func highlightReminder(_ id: String) {
-        print("notification id = \(id)")
         let comparator: (ReminderRow) -> Bool = {
             $0.objectId == id
         }
         if let sectionIndex = dataSource.firstIndex(where: { $0.rows.contains(where: comparator) }),
            let rowIndex = dataSource[sectionIndex].rows.firstIndex(where: comparator) {
             let indexPath = IndexPath(row: rowIndex, section: sectionIndex)
-            print("section index = \(sectionIndex), row index = \(rowIndex)")
-            view?.changeBackground(indexPath: indexPath)
+            DispatchQueue.main.async {
+                self.view?.changeBackground(indexPath: indexPath)
+            }
         }
     }
     

@@ -93,17 +93,15 @@ class ReminderTableViewCell: UITableViewCell {
     func changeBackground() {
         UIView.animate(withDuration: 0.5,
                        delay: 0.0,
-                       options: [.curveEaseIn, .curveEaseOut, .allowUserInteraction],
                        animations: {() -> Void in
-                   self.view.backgroundColor = UIColor.systemGray4
-               })
+            self.view.backgroundColor = UIColor.systemGray4
+        })
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             UIView.animate(withDuration: 0.5,
                            delay: 0.0,
-                           options: [.curveEaseIn, .curveEaseOut, .allowUserInteraction],
                            animations: {() -> Void in
-                       self.view.backgroundColor = UIColor.systemGray6
-                   })
+                self.view.backgroundColor = UIColor.systemGray6
+            })
         }
     }
     

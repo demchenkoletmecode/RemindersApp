@@ -51,28 +51,30 @@ class NotificationService {
             if let period = reminder.periodicity, period != .never {
                 switch period {
                 case .daily:
-                    // the two lines below are commented for testing repeating notifications every minute
-//                    specificDateComponents.hour = dateComponents.hour
-//                    specificDateComponents.minute = dateComponents.minute
+                    // the three lines below are commented for testing repeating notifications every minute
+//                    specificDateComponents = generateComponents(hour: dateComponents.hour,
+//                                                                minute: dateComponents.minute,
+//                                                                second: dateComponents.second)
                     specificDateComponents.second = dateComponents.second
                 case .weekly:
-                    specificDateComponents.day = dateComponents.day
-                    specificDateComponents.hour = dateComponents.hour
-                    specificDateComponents.minute = dateComponents.minute
-                    specificDateComponents.second = dateComponents.second
+                    specificDateComponents = generateComponents(day: dateComponents.day,
+                                                                hour: dateComponents.hour,
+                                                                minute: dateComponents.minute,
+                                                                second: dateComponents.second)
                 case .monthly:
-                    specificDateComponents.weekOfMonth = dateComponents.weekOfMonth
-                    specificDateComponents.day = dateComponents.day
-                    specificDateComponents.hour = dateComponents.hour
-                    specificDateComponents.minute = dateComponents.minute
-                    specificDateComponents.second = dateComponents.second
+                    specificDateComponents = generateComponents(weekOfMonth: dateComponents.weekOfMonth,
+                                                                day: dateComponents.day,
+                                                                hour: dateComponents.hour,
+                                                                minute: dateComponents.minute,
+                                                                second: dateComponents.second)
+
                 case .yearly:
-                    specificDateComponents.month = dateComponents.month
-                    specificDateComponents.weekOfMonth = dateComponents.weekOfMonth
-                    specificDateComponents.day = dateComponents.day
-                    specificDateComponents.hour = dateComponents.hour
-                    specificDateComponents.minute = dateComponents.minute
-                    specificDateComponents.second = dateComponents.second
+                    specificDateComponents = generateComponents(month: dateComponents.month,
+                                                                weekOfMonth: dateComponents.weekOfMonth,
+                                                                day: dateComponents.day,
+                                                                hour: dateComponents.hour,
+                                                                minute: dateComponents.minute,
+                                                                second: dateComponents.second)
                 case .never: break
                 }
                 trigger = UNCalendarNotificationTrigger(dateMatching: specificDateComponents, repeats: true)
@@ -92,6 +94,22 @@ class NotificationService {
                 }
             }
         }
+    }
+    
+    func generateComponents(month: Int? = nil,
+                            weekOfMonth: Int? = nil,
+                            day: Int? = nil,
+                            hour: Int? = nil,
+                            minute: Int? = nil,
+                            second: Int? = nil) -> DateComponents {
+        var specificDateComponents = DateComponents()
+        specificDateComponents.month = month
+        specificDateComponents.weekOfMonth = weekOfMonth
+        specificDateComponents.day = day
+        specificDateComponents.hour = hour
+        specificDateComponents.minute = minute
+        specificDateComponents.second = second
+        return specificDateComponents
     }
     
     func editNotification(reminder: Reminder) {
