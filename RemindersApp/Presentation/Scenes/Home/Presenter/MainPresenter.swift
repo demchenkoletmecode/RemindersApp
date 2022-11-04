@@ -32,6 +32,7 @@ class MainPresenter {
     init(view: MainViewProtocol, reminderService: ReminderService) {
         self.view = view
         self.reminderService = reminderService
+        getReminders()
     }
     
     func getReminders() {
@@ -50,6 +51,7 @@ class MainPresenter {
                              name: rem.name,
                              isDone: rem.isDone,
                              timeDate: rem.timeDate,
+                             isTimeSet: rem.isTimeSet,
                              periodicity: rem.periodicity.toPeriodicity,
                              notes: rem.notes,
                              updatedAt: rem.updatedAt)
@@ -106,6 +108,7 @@ class MainPresenter {
                                             name: reminder.name,
                                             isDone: reminder.isDone,
                                             timeDate: date,
+                                            isTimeSet: reminder.isTimeSet,
                                             periodicity: reminder.periodicity,
                                             notes: reminder.notes,
                                             updatedAt: Date())
@@ -125,6 +128,7 @@ class MainPresenter {
                                                       name: reminder.name,
                                                       isDone: !reminder.isDone,
                                                       timeDate: reminder.timeDate,
+                                                      isTimeSet: reminder.isTimeSet,
                                                       periodicity: reminder.periodicity?.rawValue ?? -1,
                                                       notes: reminder.notes,
                                                       updatedAt: Date())
@@ -145,7 +149,7 @@ class MainPresenter {
 private extension MainPresenter {
     
     func prepareDataSource() {
-        reminders.sort { $0.timeDate ?? Date() < $1.timeDate ?? Date() }
+        reminders.sort { $0.timeDate ?? $0.updatedAt < $1.timeDate ?? $0.updatedAt }
         reminders.forEach { reminder in
             let sectionType: SectionType
             if let date = reminder.timeDate {
@@ -171,11 +175,15 @@ private extension MainPresenter {
     func appendItem(sectionType: SectionType, reminder: Reminder) {
         let timeForCell = reminder.timeDate?.timeFormatForCell
         let dateForCell = reminder.timeDate?.dateFormatForCell
-        let dateString = sectionType == .today ? timeForCell : dateForCell
+        let dateString = sectionType == .today && reminder.isTimeSet ? timeForCell : dateForCell
+        var periodicityStr = reminder.periodicity?.displayValue
+        if let periodicity = reminder.periodicity, periodicity == .never {
+            periodicityStr = nil
+        }
         let rowItem = ReminderRow(name: reminder.name,
                                   isChecked: reminder.isDone,
                                   dateString: dateString,
-                                  periodicityString: reminder.periodicity?.displayValue,
+                                  periodicityString: periodicityStr,
                                   objectId: reminder.id)
         if let sectionIndex = dataSource.firstIndex(where: { $0.type == sectionType }) {
             dataSource[sectionIndex].rows.append(rowItem)
@@ -213,10 +221,12 @@ private extension MainPresenter {
     
     func updateLocalReminder(_ reminder: Reminder) {
         coreDataManager.editReminder(id: reminder.id, reminder: reminder)
+        notificationManager.editNotification(reminder: reminder)
     }
     
     func addLocalReminder(_ reminder: Reminder) {
         coreDataManager.addReminder(reminder: reminder)
+        notificationManager.setNotification(reminder: reminder)
     }
     
     func updateRemoteReminder(_ reminder: Reminder) {
@@ -224,6 +234,7 @@ private extension MainPresenter {
                                               name: reminder.name,
                                               isDone: reminder.isDone,
                                               timeDate: reminder.timeDate,
+                                              isTimeSet: reminder.isTimeSet,
                                               periodicity: reminder.periodicity?.rawValue ?? -1,
                                               notes: reminder.notes,
                                               updatedAt: reminder.updatedAt)
@@ -243,6 +254,7 @@ private extension MainPresenter {
                                                   name: reminder.name,
                                                   isDone: reminder.isDone,
                                                   timeDate: reminder.timeDate,
+                                                  isTimeSet: reminder.isTimeSet,
                                                   periodicity: reminder.periodicity?.rawValue ?? -1,
                                                   notes: reminder.notes,
                                                   updatedAt: reminder.updatedAt)

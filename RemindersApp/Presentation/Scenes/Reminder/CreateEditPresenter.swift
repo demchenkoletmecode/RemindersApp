@@ -52,6 +52,7 @@ class CreateEditPresenter {
         let name = view?.name ?? ""
         if validName(name) {
             var periodicity: Int
+            let isTime = view?.isTimeSelected ?? false
             if view?.periodicity != nil {
                 periodicity = view?.periodicity ?? -1
             } else {
@@ -77,6 +78,7 @@ class CreateEditPresenter {
                                             name: name,
                                             isDone: false,
                                             timeDate: fullDate,
+                                            isTimeSet: isTime,
                                             periodicity: periodicity.toPeriodicity,
                                             notes: notes,
                                             updatedAt: Date())
@@ -86,6 +88,7 @@ class CreateEditPresenter {
                 let newReminder = Reminder(name: name,
                                            isDone: false,
                                            timeDate: fullDate,
+                                           isTimeSet: isTime,
                                            periodicity: periodicity.toPeriodicity,
                                            notes: notes,
                                            updatedAt: Date())
@@ -107,10 +110,16 @@ class CreateEditPresenter {
     
     func dateSwitchChanged() {
         view?.isDateSelected.toggle()
+        if let isDate = view?.isDateSelected, isDate, view?.date == nil {
+            view?.date = Date()
+        }
     }
     
     func timeSwitchChanged() {
         view?.isTimeSelected.toggle()
+        if let isTime = view?.isTimeSelected, isTime {
+            view?.time = Date()
+        }
     }
     
     func updateDate(date: Date?) {

@@ -16,6 +16,6 @@ struct ReminderRow {
     let objectId: String
     
     mutating func changeAccomplishment() {
-        self.isChecked = !self.isChecked
+        self.isChecked.toggle()
     }
 }

@@ -42,12 +42,13 @@ class CoreDataManager {
             remindersItems = try context.fetch(ReminderItem.fetchRequest())
             reminders = remindersItems.map { rem in
                 Reminder(id: rem.id,
-                          name: rem.name,
-                          isDone: rem.isDone,
-                          timeDate: rem.timeDate,
-                          periodicity: rem.periodicity.toPeriodicity,
-                          notes: rem.notes,
-                          updatedAt: rem.updatedAt)
+                         name: rem.name,
+                         isDone: rem.isDone,
+                         timeDate: rem.timeDate,
+                         isTimeSet: rem.isTimeSet,
+                         periodicity: rem.periodicity.toPeriodicity,
+                         notes: rem.notes,
+                         updatedAt: rem.updatedAt)
             }
         } catch {
             print("An error occurred with fetching reminders")
@@ -63,6 +64,7 @@ class CoreDataManager {
         reminderItem.isDone = reminder.isDone
         reminderItem.periodicity = Int16(reminder.periodicity?.rawValue ?? -1)
         reminderItem.timeDate = reminder.timeDate
+        reminderItem.isTimeSet = reminder.isTimeSet
         reminderItem.notes = reminder.notes
         reminderItem.updatedAt = reminder.updatedAt
         saveContext()
@@ -81,6 +83,7 @@ class CoreDataManager {
                                 name: reminderItem.name,
                                 isDone: reminderItem.isDone,
                                 timeDate: reminderItem.timeDate,
+                                isTimeSet: reminderItem.isTimeSet,
                                 periodicity: reminderItem.periodicity.toPeriodicity,
                                 notes: reminderItem.notes,
                                 updatedAt: reminderItem.updatedAt)
@@ -102,6 +105,7 @@ class CoreDataManager {
         reminderItem.isDone = reminder.isDone
         reminderItem.periodicity = Int16(reminder.periodicity?.rawValue ?? -1)
         reminderItem.timeDate = reminder.timeDate
+        reminderItem.isTimeSet = reminder.isTimeSet
         reminderItem.notes = reminder.notes
         reminderItem.updatedAt = Date()
         saveContext()
@@ -117,7 +121,7 @@ class CoreDataManager {
         var date = reminderItem.timeDate
         let updatedAt = Date()
         var isEdit = false
-        if reminderItem.isDone, let period = reminderItem.periodicity.toPeriodicity, period != .never {
+        if !reminderItem.isDone, let period = reminderItem.periodicity.toPeriodicity, period != .never {
             date = reminderItem.timeDate?.addPeriodDate(index: period.rawValue)
             isEdit = true
         }
@@ -128,6 +132,7 @@ class CoreDataManager {
                                     name: reminderItem.name,
                                     isDone: reminderItem.isDone,
                                     timeDate: date,
+                                    isTimeSet: reminderItem.isTimeSet,
                                     periodicity: reminderItem.periodicity.toPeriodicity,
                                     notes: reminderItem.notes,
                                     updatedAt: updatedAt)

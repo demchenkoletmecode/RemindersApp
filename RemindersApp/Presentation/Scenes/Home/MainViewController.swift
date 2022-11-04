@@ -26,8 +26,6 @@ class MainViewController: UIViewController {
         title = "RemindersApp"
         configureBarItems()
         
-        refreshData()
-        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none

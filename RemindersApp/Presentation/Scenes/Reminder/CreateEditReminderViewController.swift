@@ -90,7 +90,7 @@ class CreateEditReminderViewController: UIViewController {
     
     private lazy var dateSwitch: UISwitch = {
         let dateSw = UISwitch()
-        dateSw.setOn(true, animated: true)
+        dateSw.setOn(false, animated: true)
         return dateSw
     }()
     
@@ -102,6 +102,7 @@ class CreateEditReminderViewController: UIViewController {
         txtField.layer.cornerRadius = 8
         txtField.placeholder = "Select date"
         txtField.font = UIFont.systemFont(ofSize: textSize)
+        txtField.isHidden = true
         return txtField
     }()
     
@@ -109,6 +110,7 @@ class CreateEditReminderViewController: UIViewController {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
+        stackView.isHidden = true
         return stackView
     }()
     
@@ -122,7 +124,7 @@ class CreateEditReminderViewController: UIViewController {
     
     private lazy var timeSwitch: UISwitch = {
         let dateSw = UISwitch()
-        dateSw.setOn(true, animated: true)
+        dateSw.setOn(false, animated: true)
         return dateSw
     }()
     
@@ -134,6 +136,7 @@ class CreateEditReminderViewController: UIViewController {
         txtField.layer.cornerRadius = 8
         txtField.placeholder = "Select time"
         txtField.font = UIFont.systemFont(ofSize: textSize)
+        txtField.isHidden = true
         return txtField
     }()
     
@@ -142,6 +145,7 @@ class CreateEditReminderViewController: UIViewController {
         txtLbl.textColor = .black
         txtLbl.text = "Repeat at"
         txtLbl.font = UIFont.boldSystemFont(ofSize: textSize)
+        txtLbl.isHidden = true
         return txtLbl
     }()
     
@@ -153,6 +157,7 @@ class CreateEditReminderViewController: UIViewController {
         txtField.layer.cornerRadius = 8
         txtField.placeholder = "Select periodocity"
         txtField.font = UIFont.systemFont(ofSize: textSize)
+        txtField.isHidden = true
         return txtField
     }()
     
@@ -388,10 +393,10 @@ extension CreateEditReminderViewController: UIPickerViewDelegate, UIPickerViewDa
     func setupDoneToolbar() {
         let toolBar = UIToolbar()
         toolBar.sizeToFit()
-        toolBar.setItems([UIBarButtonItem(title: "Done",
-                                          style: .plain,
-                                          target: self,
-                                          action: #selector(self.onDoneTapped))],
+        toolBar.setItems([UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), UIBarButtonItem(title: "Done",
+                            style: .done,
+                            target: self,
+                            action: #selector(self.onDoneTapped))],
                          animated: true)
         toolBar.isUserInteractionEnabled = true
         repeatTxtField.inputAccessoryView = toolBar
@@ -474,9 +479,23 @@ extension CreateEditReminderViewController: CreateEditProtocol {
     
     func showReminder(reminder: Reminder?) {
         nameTxtField.text = reminder?.name
-        selectedDateTxtField.text = reminder?.timeDate?.dateFormat
-        selectedTimeTxtField.text = reminder?.timeDate?.timeFormat
-        repeatTxtField.text = reminder?.periodicity?.displayValue
+        let isDate = reminder?.timeDate != nil
+        selectedDateTxtField.isHidden = !isDate
+        dateSwitch.isOn = isDate
+        timeStackView.isHidden = !isDate
+        repeatLbl.isHidden = !isDate
+        repeatTxtField.isHidden = !isDate
+        if isDate {
+            selectedDateTxtField.text = reminder?.timeDate?.dateFormat
+            repeatTxtField.text = reminder?.periodicity?.displayValue
+            datePicker.date = (reminder?.timeDate)!
+            if let isTime = reminder?.isTimeSet, isTime {
+                timeSwitch.isOn = isTime
+                selectedTimeTxtField.isHidden = !isTime
+                selectedTimeTxtField.text = reminder?.timeDate?.timeFormat
+                timePicker.date = (reminder?.timeDate)!
+            }
+        }
         notesTxtView.text = reminder?.notes
     }
     
