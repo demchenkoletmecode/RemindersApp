@@ -23,6 +23,8 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        refreshData()
+        
         title = "RemindersApp"
         configureBarItems()
         

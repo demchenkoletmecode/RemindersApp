@@ -101,6 +101,7 @@
 		77641E6A29080EDE0012EE13 /* NSDictionary+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDictionary+Ext.swift"; sourceTree = "<group>"; };
 		7773F5FA28F83CC8009FF41E /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		7773F5FB28F83CC8009FF41E /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		777FECE82918F4C7002EFFFE /* RemindersAppOld.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RemindersAppOld.xcdatamodel; sourceTree = "<group>"; };
 		7787BB4C290FEA6400F796EE /* IdNestingContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdNestingContainer.swift; sourceTree = "<group>"; };
 		7787BB4E291001CE00F796EE /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		778844C028FE9AD3006650BA /* UITextFieldWithPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldWithPadding.swift; sourceTree = "<group>"; };
@@ -801,6 +802,7 @@
 		5581C87E28EAD1C900728C40 /* RemindersApp.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				777FECE82918F4C7002EFFFE /* RemindersAppOld.xcdatamodel */,
 				5581C87F28EAD1C900728C40 /* RemindersApp.xcdatamodel */,
 			);
 			currentVersion = 5581C87F28EAD1C900728C40 /* RemindersApp.xcdatamodel */;

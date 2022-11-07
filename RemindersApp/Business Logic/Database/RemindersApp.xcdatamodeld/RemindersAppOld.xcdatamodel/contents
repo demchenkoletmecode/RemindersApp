@@ -3,7 +3,6 @@
     <entity name="ReminderItem" representedClassName="ReminderItem" syncable="YES">
         <attribute name="id" attributeType="String"/>
         <attribute name="isDone" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="isTimeSet" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="notes" optional="YES" attributeType="String"/>
         <attribute name="periodicity" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>

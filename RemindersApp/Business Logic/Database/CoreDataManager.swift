@@ -16,6 +16,14 @@ class CoreDataManager {
     
     private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "RemindersApp")
+        
+        let storeDirectory = NSPersistentContainer.defaultDirectoryURL()
+        let url = storeDirectory.appendingPathComponent("RemindersApp.sqlite")
+        let description = NSPersistentStoreDescription(url: url)
+        description.shouldMigrateStoreAutomatically = true
+        description.shouldInferMappingModelAutomatically = true
+        container.persistentStoreDescriptions = [description]
+        
         container.loadPersistentStores(completionHandler: { _, error in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
