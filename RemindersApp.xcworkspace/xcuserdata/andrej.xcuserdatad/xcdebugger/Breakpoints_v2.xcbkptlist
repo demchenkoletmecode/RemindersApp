@@ -30,8 +30,8 @@
             filePath = "RemindersApp/Business Logic/Database/CoreDataManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
             landmarkName = "editReminder(id:reminder:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -445,8 +445,8 @@
             filePath = "RemindersApp/Business Logic/Database/CoreDataManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
             landmarkName = "deleteAllData()"
             landmarkType = "7">
          </BreakpointContent>
