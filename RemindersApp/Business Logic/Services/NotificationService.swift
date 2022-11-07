@@ -33,7 +33,7 @@ class NotificationService {
         }
         
         let completedAction = UNNotificationAction(identifier: "COMPLETED_ACTION",
-                                                   title: "Completed",
+                                                   title: "Completed".localized,
                                                    options: UNNotificationActionOptions(rawValue: 0))
         
         let reminderCategory = UNNotificationCategory(identifier: "REMINDER_ISDONE_CATEGORY",

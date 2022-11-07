@@ -57,15 +57,15 @@ enum Periodicity: Int, CaseIterable {
     var displayValue: String {
         switch self {
         case .never:
-            return "Never"
+            return "Never".localized
         case .daily:
-            return "Daily"
+            return "Daily".localized
         case .weekly:
-            return "Weekly"
+            return "Weekly".localized
         case .monthly:
-            return "Monthly"
+            return "Monthly".localized
         case .yearly:
-            return "Yearly"
+            return "Yearly".localized
         }
     }
 

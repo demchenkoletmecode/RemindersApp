@@ -10,7 +10,6 @@
 		5524B59728EC3837007354DB /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5524B59628EC3837007354DB /* FirebaseAnalytics */; };
 		5524B59928EC3837007354DB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5524B59828EC3837007354DB /* FirebaseAuth */; };
 		5524B59B28EC3837007354DB /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 5524B59A28EC3837007354DB /* FirebaseDatabase */; };
-		5524B59D28EC454F007354DB /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5524B59C28EC454F007354DB /* SignUp.storyboard */; };
 		5524B59F28EC470C007354DB /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5524B59E28EC470C007354DB /* SignUpViewController.swift */; };
 		5554352328F061D9008ED8DB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5554352228F061D9008ED8DB /* GoogleService-Info.plist */; };
 		5568851A28EFFB83004F211E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5568851928EFFB83004F211E /* User.swift */; };
@@ -20,7 +19,6 @@
 		5581C88028EAD1C900728C40 /* RemindersApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5581C87E28EAD1C900728C40 /* RemindersApp.xcdatamodeld */; };
 		5581C88228EAD1CB00728C40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5581C88128EAD1CB00728C40 /* Assets.xcassets */; };
 		5581C88528EAD1CB00728C40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5581C88328EAD1CB00728C40 /* LaunchScreen.storyboard */; };
-		5581C88D28EAD2CA00728C40 /* SignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5581C88C28EAD2CA00728C40 /* SignIn.storyboard */; };
 		5581C88F28EAE21F00728C40 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5581C88E28EAE21F00728C40 /* SignInViewController.swift */; };
 		558A379928EED94900801DAE /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558A379828EED94900801DAE /* AuthPresenter.swift */; };
 		558A379D28EED9E000801DAE /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558A379C28EED9E000801DAE /* MainPresenter.swift */; };
@@ -31,6 +29,9 @@
 		7735B52528F6F9C7000946AD /* ReminderSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7735B52428F6F9C7000946AD /* ReminderSectionHeader.swift */; };
 		7735B52B28F70569000946AD /* ReminderSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7735B52A28F70569000946AD /* ReminderSectionHeader.xib */; };
 		7735B52D28F70BE9000946AD /* ReminderRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7735B52C28F70BE9000946AD /* ReminderRow.swift */; };
+		7735E6372919370000F9180C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7735E6392919370000F9180C /* Localizable.strings */; };
+		7735E63C2919391700F9180C /* SignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7735E63E2919391700F9180C /* SignIn.storyboard */; };
+		7735E6432919396800F9180C /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7735E6452919396800F9180C /* SignUp.storyboard */; };
 		7741033C28F94274009041F9 /* CreateEditReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7741033B28F94274009041F9 /* CreateEditReminderViewController.swift */; };
 		7741034028F9886E009041F9 /* CreateEditPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7741033F28F9886E009041F9 /* CreateEditPresenter.swift */; };
 		775571812902E4DD0085A8A4 /* ReminderItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7755717F2902E4DC0085A8A4 /* ReminderItem+CoreDataClass.swift */; };
@@ -59,7 +60,6 @@
 
 /* Begin PBXFileReference section */
 		12751749FC442E8A10CFADC5 /* Pods_RemindersApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RemindersApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5524B59C28EC454F007354DB /* SignUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
 		5524B59E28EC470C007354DB /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		5554352228F061D9008ED8DB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5568851928EFFB83004F211E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -71,7 +71,6 @@
 		5581C88128EAD1CB00728C40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5581C88428EAD1CB00728C40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5581C88628EAD1CB00728C40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5581C88C28EAD2CA00728C40 /* SignIn.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignIn.storyboard; sourceTree = "<group>"; };
 		5581C88E28EAE21F00728C40 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		558A379828EED94900801DAE /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
 		558A379C28EED9E000801DAE /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
@@ -84,6 +83,15 @@
 		7735B52428F6F9C7000946AD /* ReminderSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderSectionHeader.swift; sourceTree = "<group>"; };
 		7735B52A28F70569000946AD /* ReminderSectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReminderSectionHeader.xib; sourceTree = "<group>"; };
 		7735B52C28F70BE9000946AD /* ReminderRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderRow.swift; sourceTree = "<group>"; };
+		7735E6382919370000F9180C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7735E63A2919370900F9180C /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7735E63B2919370E00F9180C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7735E63D2919391700F9180C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/SignIn.storyboard; sourceTree = "<group>"; };
+		7735E6442919396800F9180C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/SignUp.storyboard; sourceTree = "<group>"; };
+		7735E64B291939EF00F9180C /* ar */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ar; path = ar.lproj/SignIn.storyboard; sourceTree = "<group>"; };
+		7735E64C291939F000F9180C /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ru; path = ru.lproj/SignIn.storyboard; sourceTree = "<group>"; };
+		7735E64E29193CBF00F9180C /* ar */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ar; path = ar.lproj/SignUp.storyboard; sourceTree = "<group>"; };
+		7735E64F29193CBF00F9180C /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ru; path = ru.lproj/SignUp.storyboard; sourceTree = "<group>"; };
 		7741033B28F94274009041F9 /* CreateEditReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEditReminderViewController.swift; sourceTree = "<group>"; };
 		7741033F28F9886E009041F9 /* CreateEditPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEditPresenter.swift; sourceTree = "<group>"; };
 		7755717F2902E4DC0085A8A4 /* ReminderItem+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ReminderItem+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -184,6 +192,7 @@
 				5581C88328EAD1CB00728C40 /* LaunchScreen.storyboard */,
 				5581C87528EAD1C900728C40 /* AppDelegate.swift */,
 				5581C87728EAD1C900728C40 /* SceneDelegate.swift */,
+				7735E6392919370000F9180C /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -250,9 +259,9 @@
 		558A379E28EEFA4B00801DAE /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5581C88C28EAD2CA00728C40 /* SignIn.storyboard */,
+				7735E63E2919391700F9180C /* SignIn.storyboard */,
 				5581C88E28EAE21F00728C40 /* SignInViewController.swift */,
-				5524B59C28EC454F007354DB /* SignUp.storyboard */,
+				7735E6452919396800F9180C /* SignUp.storyboard */,
 				5524B59E28EC470C007354DB /* SignUpViewController.swift */,
 			);
 			path = Views;
@@ -437,6 +446,8 @@
 			knownRegions = (
 				en,
 				Base,
+				ar,
+				ru,
 			);
 			mainGroup = 5581C86928EAD1C900728C40;
 			packageReferences = (
@@ -456,10 +467,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5581C88D28EAD2CA00728C40 /* SignIn.storyboard in Resources */,
+				7735E63C2919391700F9180C /* SignIn.storyboard in Resources */,
 				5581C88528EAD1CB00728C40 /* LaunchScreen.storyboard in Resources */,
 				7761A23128F59A8B00004144 /* ReminderCell.xib in Resources */,
-				5524B59D28EC454F007354DB /* SignUp.storyboard in Resources */,
+				7735E6432919396800F9180C /* SignUp.storyboard in Resources */,
+				7735E6372919370000F9180C /* Localizable.strings in Resources */,
 				7773F5FD28F83CC8009FF41E /* MainViewController.xib in Resources */,
 				7735B52B28F70569000946AD /* ReminderSectionHeader.xib in Resources */,
 				5581C88228EAD1CB00728C40 /* Assets.xcassets in Resources */,
@@ -569,6 +581,36 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		7735E6392919370000F9180C /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7735E6382919370000F9180C /* en */,
+				7735E63A2919370900F9180C /* ar */,
+				7735E63B2919370E00F9180C /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		7735E63E2919391700F9180C /* SignIn.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7735E63D2919391700F9180C /* en */,
+				7735E64B291939EF00F9180C /* ar */,
+				7735E64C291939F000F9180C /* ru */,
+			);
+			name = SignIn.storyboard;
+			sourceTree = "<group>";
+		};
+		7735E6452919396800F9180C /* SignUp.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7735E6442919396800F9180C /* en */,
+				7735E64E29193CBF00F9180C /* ar */,
+				7735E64F29193CBF00F9180C /* ru */,
+			);
+			name = SignUp.storyboard;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -576,6 +618,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -636,6 +679,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

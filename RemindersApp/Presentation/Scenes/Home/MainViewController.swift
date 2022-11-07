@@ -36,7 +36,7 @@ class MainViewController: UIViewController {
         tableView.register(UINib(nibName: "ReminderCell", bundle: .main), forCellReuseIdentifier: "ReminderCell")
         tableView.register(UINib(nibName: header, bundle: nil), forHeaderFooterViewReuseIdentifier: "CustomHeader")
         
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh".localized)
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         tableView.addSubview(refreshControl)
     }
@@ -67,12 +67,12 @@ class MainViewController: UIViewController {
                                                                  target: self,
                                                                  action: #selector(addReminder))
         if AuthService.isAuthorized {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Sign Out",
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Sign Out".localized,
                                                                     style: .done,
                                                                     target: self,
                                                                     action: #selector(signInSignOutClick))
         } else {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Sign In",
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Sign In".localized,
                                                                     style: .done,
                                                                     target: self,
                                                                     action: #selector(signInSignOutClick))
@@ -176,13 +176,13 @@ extension MainViewController: MainViewProtocol {
         case .createReminder:
             let vc = CreateEditReminderViewController()
             vc.delegate = self
-            vc.title = "Create Reminder"
+            vc.title = "Create Reminder".localized
             navigationController?.pushViewController(vc, animated: true)
             
         case let .detailsReminder(reminderId):
             let vc = CreateEditReminderViewController()
             vc.delegate = self
-            vc.title = "Edit Reminder"
+            vc.title = "Edit Reminder".localized
             vc.presenter = CreateEditPresenter(view: vc, reminderService: appContext.firebaseDatabase, id: reminderId)
             navigationController?.pushViewController(vc, animated: true)
         }
