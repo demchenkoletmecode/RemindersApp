@@ -51,11 +51,9 @@ class NotificationService {
             if let period = reminder.periodicity, period != .never {
                 switch period {
                 case .daily:
-                    // the three lines below are commented for testing repeating notifications every minute
-//                    specificDateComponents = generateComponents(hour: dateComponents.hour,
-//                                                                minute: dateComponents.minute,
-//                                                                second: dateComponents.second)
-                    specificDateComponents.second = dateComponents.second
+                    specificDateComponents = generateComponents(hour: dateComponents.hour,
+                                                                minute: dateComponents.minute,
+                                                                second: dateComponents.second)
                 case .weekly:
                     specificDateComponents = generateComponents(day: dateComponents.day,
                                                                 hour: dateComponents.hour,

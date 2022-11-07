@@ -208,6 +208,8 @@ class CreateEditReminderViewController: UIViewController {
     private var selectedPeriod: Int?
     private var selectedDate: Date?
     
+    private let pickerView = UIPickerView()
+    
     var presenter: CreateEditPresenter?
         
     override func viewDidLoad() {
@@ -383,20 +385,22 @@ extension CreateEditReminderViewController: UIPickerViewDelegate, UIPickerViewDa
         repeatTxtField.text = presenter?.periodList[row]
     }
     
-    func configurePeriodPickerView() {
-        let pickerView = UIPickerView()
+    private func configurePeriodPickerView() {
         pickerView.delegate = self
         repeatTxtField.inputView = pickerView
         setupDoneToolbar()
     }
     
-    func setupDoneToolbar() {
+    private func setupDoneToolbar() {
         let toolBar = UIToolbar()
         toolBar.sizeToFit()
-        toolBar.setItems([UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), UIBarButtonItem(title: "Done",
-                            style: .done,
-                            target: self,
-                            action: #selector(self.onDoneTapped))],
+        toolBar.setItems([UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
+                                          target: nil,
+                                          action: nil),
+                          UIBarButtonItem(title: "Done",
+                                          style: .done,
+                                          target: self,
+                                          action: #selector(self.onDoneTapped))],
                          animated: true)
         toolBar.isUserInteractionEnabled = true
         repeatTxtField.inputAccessoryView = toolBar
@@ -404,6 +408,8 @@ extension CreateEditReminderViewController: UIPickerViewDelegate, UIPickerViewDa
     
     @objc
     private func onDoneTapped() {
+        let index = pickerView.selectedRow(inComponent: 0)
+        repeatTxtField.text = presenter?.periodList[index]
         view.endEditing(true)
     }
     
