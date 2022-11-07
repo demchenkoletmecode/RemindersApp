@@ -32,6 +32,7 @@ class CreateEditPresenter {
     private let calendar = Calendar.current
     private let coreDataManager = appContext.coreDateManager
     private let reminderService: ReminderService
+    private let notificationManager = appContext.notificationManager
     
     var periodList = Periodicity.allCases.map {
         $0.displayValue
@@ -51,37 +52,50 @@ class CreateEditPresenter {
         let name = view?.name ?? ""
         if validName(name) {
             var periodicity: Int
+            let isTime = view?.isTimeSelected ?? false
             if view?.periodicity != nil {
                 periodicity = view?.periodicity ?? -1
             } else {
                 periodicity = reminder?.periodicity?.rawValue ?? -1
             }
             let notes = view?.notes
+            if let isSelected = view?.isDateSelected, isSelected {
+                if let reminder = reminder, let date = reminder.timeDate {
+                    fullDate = date
+                } else {
+                    fullDate = Date()
+                    view?.date = fullDate
+                }
+            } else {
+                fullDate = nil
+                periodicity = -1
+            }
             if let date = view?.date {
                 fullDate = calendar.date(from: date.dateComponentsFromDate)
-            } else {
-                fullDate = reminder?.timeDate
             }
-            if let reminderId = reminderId, let reminder = reminder {
+            if let reminderId = reminderId {
                 let reminderItem = Reminder(id: reminderId,
                                             name: name,
-                                            isDone: reminder.isDone,
+                                            isDone: false,
                                             timeDate: fullDate,
+                                            isTimeSet: isTime,
                                             periodicity: periodicity.toPeriodicity,
                                             notes: notes,
                                             updatedAt: Date())
                 coreDataManager.editReminder(id: reminderId, reminder: reminderItem)
-                self.view?.save()
+                notificationManager.editNotification(reminder: reminderItem)
             } else {
                 let newReminder = Reminder(name: name,
                                            isDone: false,
                                            timeDate: fullDate,
+                                           isTimeSet: isTime,
                                            periodicity: periodicity.toPeriodicity,
                                            notes: notes,
                                            updatedAt: Date())
                 coreDataManager.addReminder(reminder: newReminder)
-                self.view?.save()
+                notificationManager.setNotification(reminder: newReminder)
             }
+            self.view?.save()
         }
     }
     
@@ -96,10 +110,16 @@ class CreateEditPresenter {
     
     func dateSwitchChanged() {
         view?.isDateSelected.toggle()
+        if let isDate = view?.isDateSelected, isDate, view?.date == nil {
+            view?.date = Date()
+        }
     }
     
     func timeSwitchChanged() {
         view?.isTimeSelected.toggle()
+        if let isTime = view?.isTimeSelected, isTime {
+            view?.time = Date()
+        }
     }
     
     func updateDate(date: Date?) {

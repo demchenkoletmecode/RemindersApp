@@ -13,6 +13,7 @@ protocol ReminderCellProtocol: AnyObject {
 
 class ReminderTableViewCell: UITableViewCell {
 
+    @IBOutlet private weak var view: UIView!
     @IBOutlet private weak var checkBox: UIButton!
     @IBOutlet private weak var nameLbl: UILabel!
     @IBOutlet private weak var timeDateLbl: UILabel!
@@ -24,6 +25,8 @@ class ReminderTableViewCell: UITableViewCell {
     let separator = UIView()
     
     func setViews(cellModel: ReminderRow) {
+        
+        view.backgroundColor = UIColor.systemGray6
         
         if cellModel.name.count > 20 {
             nameLbl.font = UIFont.boldSystemFont(ofSize: 18)
@@ -51,15 +54,18 @@ class ReminderTableViewCell: UITableViewCell {
             timeDateLbl.font = UIFont.boldSystemFont(ofSize: 20)
             periodicityLbl.font = UIFont.boldSystemFont(ofSize: 20)
         }
-        
+    
         setAccomplishment()
+        setOverdueItem(dateStr: timeDate)
     }
     
     @objc
     private func checkMarkButtonClicked(sender: UIButton) {
         sender.isSelected.toggle()
         if let delegateObject = self.checkBoxDelegate {
-            delegateObject.checkBoxClick(self)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                delegateObject.checkBoxClick(self)
+            }
         }
     }
     
@@ -68,4 +74,35 @@ class ReminderTableViewCell: UITableViewCell {
         timeDateLbl.alpha = checkBox.isSelected ? 0.5 : 1
         periodicityLbl.alpha = checkBox.isSelected ? 0.5 : 1
     }
+    
+    private func setOverdueItem(dateStr: String?) {
+        if let dateStr = dateStr,
+           let currentDate = Date().timeFormat.timeToDate,
+           let date = dateStr.timeToDate,
+           date < currentDate {
+            nameLbl.textColor = UIColor.systemRed
+            timeDateLbl.textColor = UIColor.systemRed
+            checkBox.tintColor = UIColor.systemRed
+        } else {
+            nameLbl.textColor = UIColor.black
+            timeDateLbl.textColor = UIColor.systemGray
+            checkBox.tintColor = UIColor.systemGreen
+        }
+    }
+
+    func changeBackground() {
+        UIView.animate(withDuration: 0.5,
+                       delay: 0.0,
+                       animations: {() -> Void in
+            self.view.backgroundColor = UIColor.systemGray4
+        })
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            UIView.animate(withDuration: 0.5,
+                           delay: 0.0,
+                           animations: {() -> Void in
+                self.view.backgroundColor = UIColor.systemGray6
+            })
+        }
+    }
+    
 }

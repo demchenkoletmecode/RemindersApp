@@ -45,6 +45,7 @@ class CoreDataManager {
                          name: rem.name,
                          isDone: rem.isDone,
                          timeDate: rem.timeDate,
+                         isTimeSet: rem.isTimeSet,
                          periodicity: rem.periodicity.toPeriodicity,
                          notes: rem.notes,
                          updatedAt: rem.updatedAt)
@@ -63,6 +64,7 @@ class CoreDataManager {
         reminderItem.isDone = reminder.isDone
         reminderItem.periodicity = Int16(reminder.periodicity?.rawValue ?? -1)
         reminderItem.timeDate = reminder.timeDate
+        reminderItem.isTimeSet = reminder.isTimeSet
         reminderItem.notes = reminder.notes
         reminderItem.updatedAt = reminder.updatedAt
         saveContext()
@@ -81,6 +83,7 @@ class CoreDataManager {
                                 name: reminderItem.name,
                                 isDone: reminderItem.isDone,
                                 timeDate: reminderItem.timeDate,
+                                isTimeSet: reminderItem.isTimeSet,
                                 periodicity: reminderItem.periodicity.toPeriodicity,
                                 notes: reminderItem.notes,
                                 updatedAt: reminderItem.updatedAt)
@@ -102,6 +105,7 @@ class CoreDataManager {
         reminderItem.isDone = reminder.isDone
         reminderItem.periodicity = Int16(reminder.periodicity?.rawValue ?? -1)
         reminderItem.timeDate = reminder.timeDate
+        reminderItem.isTimeSet = reminder.isTimeSet
         reminderItem.notes = reminder.notes
         reminderItem.updatedAt = Date()
         saveContext()
@@ -113,10 +117,34 @@ class CoreDataManager {
 
         let results = try? context.fetch(fetchReminder)
         let reminderItem = results?.first ?? ReminderItem(context: context)
+        
+        var date = reminderItem.timeDate
+        let updatedAt = Date()
+        var isEdit = false
+        if !reminderItem.isDone, let period = reminderItem.periodicity.toPeriodicity, period != .never {
+            date = reminderItem.timeDate?.addPeriodDate(index: period.rawValue)
+            isEdit = true
+        }
+        
+        if isEdit {
+            reminderItem.isDone = false
+            let reminder = Reminder(id: id,
+                                    name: reminderItem.name,
+                                    isDone: reminderItem.isDone,
+                                    timeDate: date,
+                                    isTimeSet: reminderItem.isTimeSet,
+                                    periodicity: reminderItem.periodicity.toPeriodicity,
+                                    notes: reminderItem.notes,
+                                    updatedAt: updatedAt)
+            appContext.notificationManager.editNotification(reminder: reminder)
+        } else {
+            reminderItem.isDone.toggle()
+            appContext.notificationManager.removeNotification(reminderId: id)
+        }
 
         reminderItem.id = id
-        reminderItem.isDone.toggle()
-        reminderItem.updatedAt = Date()
+        reminderItem.timeDate = date
+        reminderItem.updatedAt = updatedAt
         saveContext()
     }
     

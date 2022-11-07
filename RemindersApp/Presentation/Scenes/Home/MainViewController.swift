@@ -14,18 +14,17 @@ class MainViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     
     private let authService = appContext.authentication
-    private var presenter: MainPresenter!
     private var sections: [SectionReminders] = []
     private let refreshControl = UIRefreshControl()
+    var presenter: MainPresenter!
+    
+    var cellIndexPath: IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "RemindersApp"
         configureBarItems()
-        
-        presenter = MainPresenter(view: self, reminderService: appContext.firebaseDatabase)
-        refreshData()
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -39,7 +38,7 @@ class MainViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         tableView.addSubview(refreshControl)
     }
-    
+
     @objc
     private func refresh(_ sender: AnyObject) {
         presenter.getReminders()
@@ -78,6 +77,15 @@ class MainViewController: UIViewController {
         }
     }
     
+    func changeBackground(indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? ReminderTableViewCell {
+            cell.changeBackground()
+        } else {
+            cellIndexPath = indexPath
+            tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        }
+    }
+    
 }
 
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
@@ -98,6 +106,13 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         cell.setViews(cellModel: sections[indexPath.section].rows[indexPath.row])
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let cellIndexPath, let reminderCell = cell as? ReminderTableViewCell, indexPath == cellIndexPath {
+            reminderCell.changeBackground()
+            self.cellIndexPath = nil
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -132,7 +147,7 @@ extension MainViewController: ReminderCellProtocol {
         if let indexPath = tableView.indexPath(for: cell) {
             var reminder = sections[indexPath.section].rows[indexPath.row]
             reminder.changeAccomplishment()
-            presenter.didTapAccomplishment(reminderId: (reminder.objectId))
+            presenter?.didTapAccomplishment(reminderId: (reminder.objectId))
             cell.setAccomplishment()
         }
     }
@@ -140,7 +155,7 @@ extension MainViewController: ReminderCellProtocol {
 }
 
 extension MainViewController: MainViewProtocol {
-   
+    
     func move(to: MainViewNavigation) {
         switch to {
         case .goToSignIn:

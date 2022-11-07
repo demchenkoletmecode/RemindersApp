@@ -12,6 +12,7 @@ struct Reminder: Equatable {
     var name: String
     var isDone: Bool
     var timeDate: Date?
+    var isTimeSet: Bool
     var periodicity: Periodicity?
     var notes: String?
     var updatedAt: Date
@@ -20,6 +21,7 @@ struct Reminder: Equatable {
          name: String,
          isDone: Bool,
          timeDate: Date? = nil,
+         isTimeSet: Bool = true,
          periodicity: Periodicity? = nil,
          notes: String? = nil,
          updatedAt: Date) {
@@ -27,6 +29,7 @@ struct Reminder: Equatable {
         self.name = name
         self.isDone = isDone
         self.timeDate = timeDate
+        self.isTimeSet = isTimeSet
         self.periodicity = periodicity
         self.notes = notes
         self.updatedAt = updatedAt
@@ -36,6 +39,7 @@ struct Reminder: Equatable {
         return (lhs.name == rhs.name &&
                 lhs.isDone == rhs.isDone &&
                 lhs.timeDate == rhs.timeDate &&
+                lhs.isTimeSet == rhs.isTimeSet &&
                 lhs.periodicity == rhs.periodicity &&
                 lhs.notes == rhs.notes)
     }

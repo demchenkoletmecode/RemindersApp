@@ -17,6 +17,7 @@ enum MainViewNavigation {
 protocol MainViewProtocol: AnyObject {
     func presentReminders(reminders: [SectionReminders])
     func move(to: MainViewNavigation)
+    func changeBackground(indexPath: IndexPath)
 }
 
 class MainPresenter {
@@ -26,10 +27,12 @@ class MainPresenter {
     private var dataSource = [SectionReminders]()
     private let coreDataManager = appContext.coreDateManager
     private let reminderService: ReminderService
+    private let notificationManager = appContext.notificationManager
     
     init(view: MainViewProtocol, reminderService: ReminderService) {
         self.view = view
         self.reminderService = reminderService
+        getReminders()
     }
     
     func getReminders() {
@@ -48,6 +51,7 @@ class MainPresenter {
                              name: rem.name,
                              isDone: rem.isDone,
                              timeDate: rem.timeDate,
+                             isTimeSet: rem.isTimeSet,
                              periodicity: rem.periodicity.toPeriodicity,
                              notes: rem.notes,
                              updatedAt: rem.updatedAt)
@@ -70,6 +74,9 @@ class MainPresenter {
     func tapOnSignInSignOut() {
         if AuthService.isAuthorized {
             coreDataManager.deleteAllData()
+            reminders.forEach {
+                notificationManager.removeNotification(reminderId: $0.id)
+            }
             self.view?.move(to: .logoutUserGoToSignIn)
         } else {
             self.view?.move(to: .goToSignIn)
@@ -80,23 +87,59 @@ class MainPresenter {
         self.view?.move(to: .createReminder)
     }
     
+    func highlightReminder(_ id: String) {
+        let comparator: (ReminderRow) -> Bool = {
+            $0.objectId == id
+        }
+        if let sectionIndex = dataSource.firstIndex(where: { $0.rows.contains(where: comparator) }),
+           let rowIndex = dataSource[sectionIndex].rows.firstIndex(where: comparator) {
+            let indexPath = IndexPath(row: rowIndex, section: sectionIndex)
+            DispatchQueue.main.async {
+                self.view?.changeBackground(indexPath: indexPath)
+            }
+        }
+    }
+    
     func didTapAccomplishment(reminderId: String) {
-        coreDataManager.changeAccomplishment(id: reminderId)
         if let reminder = reminders.first(where: { $0.id == reminderId }) {
-            let reminderItem = ReminderRemoteItem(id: reminderId,
-                                                  name: reminder.name,
-                                                  isDone: !reminder.isDone,
-                                                  timeDate: reminder.timeDate,
-                                                  periodicity: reminder.periodicity?.rawValue ?? -1,
-                                                  notes: reminder.notes,
-                                                  updatedAt: Date())
-            reminderService.updateReminder(with: reminderId, reminder: reminderItem) { [weak self] result in
-                switch result {
-                case let .success(id):
-                    print("reminder with id = \(id) has updated")
-                    self?.getReminders()
-                case let .failure(error):
-                    print("An error occurred with changing accomplishment: \(error.localizedDescription)")
+            if let periodicity = reminder.periodicity, periodicity != .never {
+                let date = reminder.timeDate?.addPeriodDate(index: periodicity.rawValue)
+                let reminderItem = Reminder(id: reminder.id,
+                                            name: reminder.name,
+                                            isDone: reminder.isDone,
+                                            timeDate: date,
+                                            isTimeSet: reminder.isTimeSet,
+                                            periodicity: reminder.periodicity,
+                                            notes: reminder.notes,
+                                            updatedAt: Date())
+                notificationManager.editNotification(reminder: reminderItem)
+                updateLocalReminder(reminderItem)
+                updateRemoteReminder(reminderItem)
+                getReminders()
+            } else {
+                coreDataManager.changeAccomplishment(id: reminderId)
+                if !reminder.isDone {
+                    notificationManager.removeNotification(reminderId: reminderId)
+                } else {
+                    notificationManager.editNotification(reminder: reminder)
+                }
+                
+                let reminderItem = ReminderRemoteItem(id: reminderId,
+                                                      name: reminder.name,
+                                                      isDone: !reminder.isDone,
+                                                      timeDate: reminder.timeDate,
+                                                      isTimeSet: reminder.isTimeSet,
+                                                      periodicity: reminder.periodicity?.rawValue ?? -1,
+                                                      notes: reminder.notes,
+                                                      updatedAt: Date())
+                reminderService.updateReminder(with: reminderId, reminder: reminderItem) { [weak self] result in
+                    switch result {
+                    case let .success(id):
+                        print("reminder with id = \(id) has updated")
+                        self?.getReminders()
+                    case let .failure(error):
+                        print("An error occurred with changing accomplishment: \(error.localizedDescription)")
+                    }
                 }
             }
         }
@@ -106,6 +149,7 @@ class MainPresenter {
 private extension MainPresenter {
     
     func prepareDataSource() {
+        reminders.sort { $0.timeDate ?? $0.updatedAt < $1.timeDate ?? $0.updatedAt }
         reminders.forEach { reminder in
             let sectionType: SectionType
             if let date = reminder.timeDate {
@@ -131,11 +175,15 @@ private extension MainPresenter {
     func appendItem(sectionType: SectionType, reminder: Reminder) {
         let timeForCell = reminder.timeDate?.timeFormatForCell
         let dateForCell = reminder.timeDate?.dateFormatForCell
-        let dateString = sectionType == .today ? timeForCell : dateForCell
+        let dateString = sectionType == .today && reminder.isTimeSet ? timeForCell : dateForCell
+        var periodicityStr = reminder.periodicity?.displayValue
+        if let periodicity = reminder.periodicity, periodicity == .never {
+            periodicityStr = nil
+        }
         let rowItem = ReminderRow(name: reminder.name,
                                   isChecked: reminder.isDone,
                                   dateString: dateString,
-                                  periodicityString: reminder.periodicity?.displayValue,
+                                  periodicityString: periodicityStr,
                                   objectId: reminder.id)
         if let sectionIndex = dataSource.firstIndex(where: { $0.type == sectionType }) {
             dataSource[sectionIndex].rows.append(rowItem)
@@ -173,10 +221,12 @@ private extension MainPresenter {
     
     func updateLocalReminder(_ reminder: Reminder) {
         coreDataManager.editReminder(id: reminder.id, reminder: reminder)
+        notificationManager.editNotification(reminder: reminder)
     }
     
     func addLocalReminder(_ reminder: Reminder) {
         coreDataManager.addReminder(reminder: reminder)
+        notificationManager.setNotification(reminder: reminder)
     }
     
     func updateRemoteReminder(_ reminder: Reminder) {
@@ -184,6 +234,7 @@ private extension MainPresenter {
                                               name: reminder.name,
                                               isDone: reminder.isDone,
                                               timeDate: reminder.timeDate,
+                                              isTimeSet: reminder.isTimeSet,
                                               periodicity: reminder.periodicity?.rawValue ?? -1,
                                               notes: reminder.notes,
                                               updatedAt: reminder.updatedAt)
@@ -203,6 +254,7 @@ private extension MainPresenter {
                                                   name: reminder.name,
                                                   isDone: reminder.isDone,
                                                   timeDate: reminder.timeDate,
+                                                  isTimeSet: reminder.isTimeSet,
                                                   periodicity: reminder.periodicity?.rawValue ?? -1,
                                                   notes: reminder.notes,
                                                   updatedAt: reminder.updatedAt)

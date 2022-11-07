@@ -53,4 +53,24 @@ extension Date {
         Calendar.current.isDate(self, equalTo: Date(), toGranularity: .month)
     }
     
+    func addPeriodDate(index: Int) -> Date {
+        var dateComponent = DateComponents()
+        switch index {
+        case 1:
+            dateComponent.day = 1
+            return Calendar.current.date(byAdding: dateComponent, to: self) ?? self
+        case 2:
+            dateComponent.weekOfYear = 1
+            return Calendar.current.date(byAdding: dateComponent, to: self) ?? self
+        case 3:
+            dateComponent.month = 1
+            return Calendar.current.date(byAdding: dateComponent, to: self) ?? self
+        case 4:
+            dateComponent.year = 1
+            return Calendar.current.date(byAdding: dateComponent, to: self) ?? self
+        default:
+            return self
+        }
+    }
+    
 }
