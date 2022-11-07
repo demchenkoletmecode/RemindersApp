@@ -32,7 +32,6 @@ class MainPresenter {
     init(view: MainViewProtocol, reminderService: ReminderService) {
         self.view = view
         self.reminderService = reminderService
-        getReminders()
     }
     
     func getReminders() {

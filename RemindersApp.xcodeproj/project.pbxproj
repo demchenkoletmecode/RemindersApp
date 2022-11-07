@@ -805,7 +805,7 @@
 				777FECE82918F4C7002EFFFE /* RemindersAppOld.xcdatamodel */,
 				5581C87F28EAD1C900728C40 /* RemindersApp.xcdatamodel */,
 			);
-			currentVersion = 777FECE82918F4C7002EFFFE /* RemindersAppOld.xcdatamodel */;
+			currentVersion = 5581C87F28EAD1C900728C40 /* RemindersApp.xcdatamodel */;
 			path = RemindersApp.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
