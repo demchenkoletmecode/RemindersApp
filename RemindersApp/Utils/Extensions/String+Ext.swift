@@ -43,4 +43,8 @@ extension String {
         return date
     }
     
+    var localized: String {
+        return NSLocalizedString(self, comment: self)
+    }
+    
 }

@@ -102,7 +102,7 @@ class CreateEditPresenter {
     func validName(_ name: String) -> Bool {
         var nameError: String?
         if name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            nameError = "Enter name!"
+            nameError = "Enter name!".localized
         }
         view?.update(nameError: nameError)
         return nameError?.isEmpty != false

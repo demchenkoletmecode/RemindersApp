@@ -16,7 +16,7 @@ class UITextViewWithPlaceholder: UITextView {
         }
     }
     
-    var placeholderText: String = "Enter notes"
+    var placeholderText: String = "Enter notes".localized
     var placeholderTextColor = UIColor(red: 0.78, green: 0.78, blue: 0.80, alpha: 1.0)
     var placeholderTextFont = UIFont.systemFont(ofSize: 20)
     

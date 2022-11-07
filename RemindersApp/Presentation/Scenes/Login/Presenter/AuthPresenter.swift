@@ -50,28 +50,28 @@ class AuthPresenter {
     
     func validateEmailAndPassword(_ email: String, _ password: String) -> Bool {
         if email.isEmpty && password.isEmpty {
-            self.view.emailError = "Enter Email!"
-            self.view.passwordError = "Enter Password!"
+            self.view.emailError = "Enter Email!".localized
+            self.view.passwordError = "Enter Password!".localized
             self.view.isBtnEnabled = false
         } else {
             if email.isEmpty {
-                self.view.emailError = "Enter Email!"
+                self.view.emailError = "Enter Email!".localized
                 self.view.isBtnEnabled = false
             }
             if password.isEmpty {
-                self.view.passwordError = "Enter Password!"
+                self.view.passwordError = "Enter Password!".localized
                 self.view.isBtnEnabled = false
             } else {
                 if !email.isValidEmail {
-                    self.view.emailError = "Invalide Email!"
+                    self.view.emailError = "Invalide Email!".localized
                     self.view.isBtnEnabled = false
                 }
                 if password.count < 8 {
-                    self.view.passwordError = "Password should have at least 8 characters!"
+                    self.view.passwordError = "Password should have at least 8 characters!".localized
                     self.view.isBtnEnabled = false
                 } else if email.isValidEmail && password.count >= 8 {
                     if !password.isPasswordHasNumberAndCharacter {
-                        self.view.passwordError = "Password should have at least 1 number and 1 character!"
+                        self.view.passwordError = "Password should have at least 1 number and 1 character!".localized
                         self.view.isBtnEnabled = false
                     } else {
                         self.view.emailError = ""

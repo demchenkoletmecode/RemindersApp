@@ -39,7 +39,7 @@ class CreateEditReminderViewController: UIViewController {
     
     private lazy var nameLbl: UILabel = {
         let txtLbl = UILabel()
-        txtLbl.text = "Reminder name"
+        txtLbl.text = "Reminder name".localized
         txtLbl.textColor = .black
         txtLbl.font = UIFont.boldSystemFont(ofSize: textSize)
         return txtLbl
@@ -47,7 +47,7 @@ class CreateEditReminderViewController: UIViewController {
     
     private lazy var nameErrorLbl: UILabel = {
         let txtLbl = UILabel()
-        txtLbl.text = "Enter name!"
+        txtLbl.text = "Enter name!".localized
         txtLbl.isHidden = true
         txtLbl.textColor = UIColor.systemRed
         txtLbl.font = UIFont.boldSystemFont(ofSize: 14)
@@ -56,7 +56,7 @@ class CreateEditReminderViewController: UIViewController {
     
     private lazy var nameTxtField: UITextFieldWithPadding = {
         let txtField = UITextFieldWithPadding()
-        txtField.placeholder = "Enter name"
+        txtField.placeholder = "Enter name".localized
         txtField.layer.borderWidth = 1
         txtField.layer.cornerRadius = 8
         txtField.layer.borderColor = UIColor.lightGray.cgColor
@@ -67,7 +67,7 @@ class CreateEditReminderViewController: UIViewController {
     private lazy var remindAtLbl: UILabel = {
         let txtLbl = UILabel()
         txtLbl.textColor = .black
-        txtLbl.text = "Remind at"
+        txtLbl.text = "Remind at".localized
         txtLbl.font = UIFont.boldSystemFont(ofSize: textSize)
         return txtLbl
     }()
@@ -83,7 +83,7 @@ class CreateEditReminderViewController: UIViewController {
     private lazy var dateLbl: UILabel = {
         let txtLbl = UILabel()
         txtLbl.textColor = .black
-        txtLbl.text = "Date"
+        txtLbl.text = "Date".localized
         txtLbl.font = UIFont.boldSystemFont(ofSize: textSize)
         return txtLbl
     }()
@@ -100,7 +100,7 @@ class CreateEditReminderViewController: UIViewController {
         txtField.layer.borderColor = UIColor.lightGray.cgColor
         txtField.layer.borderWidth = 1
         txtField.layer.cornerRadius = 8
-        txtField.placeholder = "Select date"
+        txtField.placeholder = "Select date".localized
         txtField.font = UIFont.systemFont(ofSize: textSize)
         txtField.isHidden = true
         return txtField
@@ -117,7 +117,7 @@ class CreateEditReminderViewController: UIViewController {
     private lazy var timeLbl: UILabel = {
         let txtLbl = UILabel()
         txtLbl.textColor = .black
-        txtLbl.text = "Time"
+        txtLbl.text = "Time".localized
         txtLbl.font = UIFont.boldSystemFont(ofSize: textSize)
         return txtLbl
     }()
@@ -134,7 +134,7 @@ class CreateEditReminderViewController: UIViewController {
         txtField.layer.borderColor = UIColor.lightGray.cgColor
         txtField.layer.borderWidth = 1
         txtField.layer.cornerRadius = 8
-        txtField.placeholder = "Select time"
+        txtField.placeholder = "Select time".localized
         txtField.font = UIFont.systemFont(ofSize: textSize)
         txtField.isHidden = true
         return txtField
@@ -143,7 +143,7 @@ class CreateEditReminderViewController: UIViewController {
     private lazy var repeatLbl: UILabel = {
         let txtLbl = UILabel()
         txtLbl.textColor = .black
-        txtLbl.text = "Repeat at"
+        txtLbl.text = "Repeat at".localized
         txtLbl.font = UIFont.boldSystemFont(ofSize: textSize)
         txtLbl.isHidden = true
         return txtLbl
@@ -155,7 +155,7 @@ class CreateEditReminderViewController: UIViewController {
         txtField.layer.borderColor = UIColor.lightGray.cgColor
         txtField.layer.borderWidth = 1
         txtField.layer.cornerRadius = 8
-        txtField.placeholder = "Select periodocity"
+        txtField.placeholder = "Select periodocity".localized
         txtField.font = UIFont.systemFont(ofSize: textSize)
         txtField.isHidden = true
         return txtField
@@ -164,7 +164,7 @@ class CreateEditReminderViewController: UIViewController {
     private lazy var notesLbl: UILabel = {
         let txtLbl = UILabel()
         txtLbl.textColor = .black
-        txtLbl.text = "Notes"
+        txtLbl.text = "Notes".localized
         txtLbl.font = UIFont.boldSystemFont(ofSize: textSize)
         return txtLbl
     }()
@@ -197,7 +197,7 @@ class CreateEditReminderViewController: UIViewController {
         txtView.translatesAutoresizingMaskIntoConstraints = false
         txtView.textColor = .black
         txtView.delegate = self
-        txtView.placeholderText = "Enter notes"
+        txtView.placeholderText = "Enter notes".localized
         txtView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         txtView.contentInsetAdjustmentBehavior = .automatic
         txtView.font = UIFont.systemFont(ofSize: 16)
@@ -276,11 +276,11 @@ class CreateEditReminderViewController: UIViewController {
     }
         
     private func configureBarItems() {
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel",
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel".localized,
                                                                 style: .plain,
                                                                 target: self,
                                                                 action: #selector(cancelClick))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save",
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save".localized,
                                                                  style: .done,
                                                                  target: self,
                                                                  action: #selector(createEditClick))
@@ -292,11 +292,11 @@ class CreateEditReminderViewController: UIViewController {
         datePicker.addTarget(self, action: #selector(handleDatePicker(sender:)), for: .valueChanged)
         timePicker.addTarget(self, action: #selector(handleTimePicker(sender:)), for: .valueChanged)
         
-        let doneDateButton = UIBarButtonItem(title: "Done",
+        let doneDateButton = UIBarButtonItem(title: "Done".localized,
                                              style: .done,
                                              target: self,
                                              action: #selector(self.datePickerDone))
-        let doneTimeButton = UIBarButtonItem(title: "Done",
+        let doneTimeButton = UIBarButtonItem(title: "Done".localized,
                                              style: .done,
                                              target: self,
                                              action: #selector(self.timePickerDone))
@@ -397,7 +397,7 @@ extension CreateEditReminderViewController: UIPickerViewDelegate, UIPickerViewDa
         toolBar.setItems([UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
                                           target: nil,
                                           action: nil),
-                          UIBarButtonItem(title: "Done",
+                          UIBarButtonItem(title: "Done".localized,
                                           style: .done,
                                           target: self,
                                           action: #selector(self.onDoneTapped))],

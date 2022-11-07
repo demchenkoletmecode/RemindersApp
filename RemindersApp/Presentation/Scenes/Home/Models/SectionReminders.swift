@@ -17,13 +17,13 @@ enum SectionType: Int {
     var displayString: String {
         switch self {
         case .today:
-            return "Today"
+            return "Today".localized
         case .week:
-            return "This week"
+            return "This week".localized
         case .month:
-            return "This month"
+            return "This month".localized
         case .later:
-            return "Later"
+            return "Later".localized
         }
     }
     
