@@ -41,7 +41,7 @@ your reminders in a cloud</string>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k1u-9E-07X">
                                 <rect key="frame" x="40" y="354.66666666666669" width="310" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" textContentType="email"/>
                                 <connections>
                                     <action selector="emailChanged:" destination="Y6W-OH-hqX" eventType="editingChanged" id="ezy-3O-8k2"/>
                                 </connections>
@@ -82,7 +82,7 @@ your reminders in a cloud</string>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xLa-pW-hEE">
                                 <rect key="frame" x="40" y="414" width="310" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
+                                <textInputTraits key="textInputTraits" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" textContentType="password"/>
                                 <connections>
                                     <action selector="hideKeyboard:" destination="Y6W-OH-hqX" eventType="editingDidEndOnExit" id="ccB-33-8sh"/>
                                     <action selector="passwordChanged:" destination="Y6W-OH-hqX" eventType="editingChanged" id="Xtx-vx-pGp"/>
