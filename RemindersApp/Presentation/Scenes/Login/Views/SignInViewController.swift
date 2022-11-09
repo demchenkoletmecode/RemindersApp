@@ -48,6 +48,10 @@ class SignInViewController: UIViewController {
     @IBAction private func hideKeyboard(_ sender: Any) {
         self.view.endEditing(true)
     }
+    
+    @IBAction private func forgotPasswordClick(_ sender: Any) {
+        presenter.tapGoToResetPassword()
+    }
 }
 
 extension SignInViewController: AuthViewProtocol {
@@ -105,6 +109,13 @@ extension SignInViewController: AuthViewProtocol {
             vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: true)
         case .goToSignIn: break
+        case .goToResetPassword:
+            let storyboard = UIStoryboard(name: "ResetPassword", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "ResetPassVC") as? ResetPasswordViewController
+            if let vc = vc {
+                vc.presenter = ResetPasswordPresenter(view: vc, authService: appContext.authentication)
+                navigationController?.pushViewController(vc, animated: true)
+            }
         }
     }
 

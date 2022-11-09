@@ -98,6 +98,7 @@ extension SignUpViewController: AuthViewProtocol {
             let vc = signInStoryboard.instantiateViewController(withIdentifier: "SignInVC")
             vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: true)
+        case .goToResetPassword: break
         }
 
     }

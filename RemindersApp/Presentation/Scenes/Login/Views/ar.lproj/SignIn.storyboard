@@ -76,7 +76,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jcp-ve-7Dh">
-                                <rect key="frame" x="163" y="578.33333333333337" width="64" height="35"/>
+                                <rect key="frame" x="163" y="619.33333333333337" width="64" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="لاحقا">
                                     <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -114,6 +114,15 @@
                                     <action selector="goToSignUpClick:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="59d-Lx-B9f"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NSJ-na-8SV">
+                                <rect key="frame" x="110" y="580.33333333333337" width="170" height="35"/>
+                                <color key="tintColor" systemColor="labelColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="نسيت كلمة المرور?"/>
+                                <connections>
+                                    <action selector="forgotPasswordClick:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="dfR-kz-cal"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -122,11 +131,13 @@
                             <constraint firstItem="Jcp-ve-7Dh" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="163" id="3Fj-zT-foP"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="BNy-b0-pia" secondAttribute="trailing" constant="141" id="3G2-sa-uv3"/>
                             <constraint firstItem="7BI-zb-ijw" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="153" id="3wE-qc-UWD"/>
+                            <constraint firstItem="NSJ-na-8SV" firstAttribute="top" secondItem="7BI-zb-ijw" secondAttribute="bottom" constant="8" id="4wK-Yq-gJb"/>
                             <constraint firstItem="Afm-mW-SlL" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="105" id="75T-Fj-G6n"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="R7q-4l-bIy" secondAttribute="trailing" constant="44" id="D7A-dI-lZr"/>
                             <constraint firstItem="k1u-9E-07X" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="40" id="DR0-nO-2YI"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="k1u-9E-07X" secondAttribute="trailing" constant="40" id="EbZ-0F-qtG"/>
                             <constraint firstItem="k1u-9E-07X" firstAttribute="top" secondItem="Afm-mW-SlL" secondAttribute="bottom" constant="135" id="Fsb-j0-TvQ"/>
+                            <constraint firstItem="Jcp-ve-7Dh" firstAttribute="top" secondItem="NSJ-na-8SV" secondAttribute="bottom" constant="4" id="HpP-ao-zmh"/>
                             <constraint firstItem="Sd3-ix-BPM" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="JCt-sw-Pgh"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="7BI-zb-ijw" secondAttribute="trailing" constant="153" id="JvP-ie-Xpg"/>
                             <constraint firstItem="xLa-pW-hEE" firstAttribute="top" secondItem="k1u-9E-07X" secondAttribute="bottom" constant="25.333333333333314" id="LFm-n3-jH4"/>
@@ -136,14 +147,15 @@
                             <constraint firstItem="INA-6P-Xjq" firstAttribute="top" secondItem="xLa-pW-hEE" secondAttribute="bottom" constant="6" id="gPP-Yu-DhF"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="xLa-pW-hEE" secondAttribute="trailing" constant="40" id="gnS-xI-feU"/>
                             <constraint firstItem="R7q-4l-bIy" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="44" id="j3D-IE-gdo"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="NSJ-na-8SV" secondAttribute="trailing" constant="110" id="jEE-os-bSo"/>
                             <constraint firstItem="7BI-zb-ijw" firstAttribute="top" secondItem="xLa-pW-hEE" secondAttribute="bottom" constant="66.666666666666629" id="jF4-ux-bn4"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="INA-6P-Xjq" secondAttribute="trailing" constant="44" id="mTm-vn-6LY"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Sd3-ix-BPM" secondAttribute="trailing" constant="40" id="pNU-c1-JkZ"/>
+                            <constraint firstItem="NSJ-na-8SV" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="110" id="q4T-BI-ohZ"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Afm-mW-SlL" secondAttribute="trailing" constant="81" id="q4X-nj-MWd"/>
                             <constraint firstItem="BNy-b0-pia" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="82" id="qWT-Jq-cMf"/>
                             <constraint firstItem="Sd3-ix-BPM" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="40" id="rTv-HP-mje"/>
                             <constraint firstItem="R7q-4l-bIy" firstAttribute="top" secondItem="k1u-9E-07X" secondAttribute="bottom" constant="6" id="uRW-fp-teC"/>
-                            <constraint firstItem="Jcp-ve-7Dh" firstAttribute="top" secondItem="7BI-zb-ijw" secondAttribute="bottom" constant="6" id="wec-ab-Ek0"/>
                             <constraint firstItem="xLa-pW-hEE" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="40" id="xhB-Yl-Hlq"/>
                         </constraints>
                     </view>
@@ -161,6 +173,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
