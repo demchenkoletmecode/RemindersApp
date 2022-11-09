@@ -26,7 +26,7 @@
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="بريد الإلكتروني" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tAc-zq-eaP">
                                 <rect key="frame" x="40" y="356.33333333333331" width="310" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" textContentType="email"/>
                                 <connections>
                                     <action selector="emailChanged:" destination="Y6W-OH-hqX" eventType="editingChanged" id="0RR-4r-4RZ"/>
                                 </connections>
@@ -46,7 +46,7 @@
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="مة المرور" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vFq-sI-G1D">
                                 <rect key="frame" x="40" y="415.66666666666669" width="310" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" textContentType="password"/>
                                 <connections>
                                     <action selector="hideKeyboard:" destination="Y6W-OH-hqX" eventType="editingDidEndOnExit" id="y89-R5-7uL"/>
                                     <action selector="passwordChanged:" destination="Y6W-OH-hqX" eventType="editingChanged" id="qBH-8s-Yzq"/>

@@ -11,6 +11,7 @@ class ResetPasswordViewController: UIViewController {
     
     @IBOutlet private weak var emailTextField: UITextField!
     @IBOutlet private weak var errorEmailLbl: UILabel!
+    @IBOutlet private weak var sendEmailBtn: UIButton!
     
     var presenter: ResetPasswordPresenter!
     
@@ -26,12 +27,16 @@ class ResetPasswordViewController: UIViewController {
         presenter.tapGoBack()
     }
     
+    @IBAction private func emailChanged(_ sender: Any) {
+        presenter.emailChanged()
+    }
+    
 }
 
 extension ResetPasswordViewController: ResetPasswordProtocol {
     
     var email: String {
-        return ""
+        return emailTextField.text ?? ""
     }
     
     var emailError: String {
@@ -39,7 +44,8 @@ extension ResetPasswordViewController: ResetPasswordProtocol {
             return ""
         }
         set {
-            
+            errorEmailLbl.isHidden = false
+            errorEmailLbl.text = newValue
         }
     }
     
@@ -48,7 +54,7 @@ extension ResetPasswordViewController: ResetPasswordProtocol {
             return true
         }
         set {
-            
+            sendEmailBtn.isEnabled = newValue
         }
     }
     
@@ -57,7 +63,16 @@ extension ResetPasswordViewController: ResetPasswordProtocol {
         case .goBack:
             navigationController?.popViewController(animated: true)
         case .goToLoginWithResetesPass:
-            navigationController?.popViewController(animated: true)
+            let alert = UIAlertController(title: "Resetting password",
+                                          message: "Check your email account. We have sent you a link. Follow the link and create a new password",
+                                          preferredStyle: .alert)
+            let okBtn = UIAlertAction(title: "OK", style: .default, handler: { _ in
+                self.navigationController?.popViewController(animated: true)
+            })
+            alert.addAction(okBtn)
+            DispatchQueue.main.async(execute: {
+                self.present(alert, animated: true)
+            })
         }
     }
     

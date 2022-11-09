@@ -30,8 +30,45 @@ class ResetPasswordPresenter {
         self.authService = authService
     }
     
+    private func validateEmail(_ email: String) -> Bool {
+        if email.isEmpty {
+            self.view.emailError = "Enter Email!".localized
+            self.view.isBtnEnabled = false
+        } else {
+            if email.isEmpty {
+                self.view.emailError = "Enter Email!".localized
+                self.view.isBtnEnabled = false
+            } else {
+                if !email.isValidEmail {
+                    self.view.emailError = "Invalide Email!".localized
+                    self.view.isBtnEnabled = false
+                } else {
+                    self.view.emailError = ""
+                    self.view.isBtnEnabled = true
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
     func tapSendEmail() {
-        view.move(to: .goToLoginWithResetesPass)
+        let email = view.email
+        if validateEmail(email) {
+            authService.resetPassword(email: email) { [weak self] result in
+                switch result {
+                case .success:
+                    self?.view.move(to: .goToLoginWithResetesPass)
+                case .failure(let error):
+                    self?.view.emailError = error.localizedDescription
+                }
+            }
+            view.move(to: .goToLoginWithResetesPass)
+        }
+    }
+    
+    func emailChanged() {
+        self.view.isBtnEnabled = true
     }
     
     func tapGoBack() {
