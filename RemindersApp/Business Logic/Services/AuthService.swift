@@ -14,6 +14,7 @@ protocol AuthServiceProtocol {
     func createAccount(_ email: String, _ password: String, completion: @escaping (Result<User, Error>) -> Void)
     func login(_ email: String, _ password: String, completion: @escaping (Result<User, Error>) -> Void)
     func logoutUser()
+    func resetPassword(email: String, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 class AuthService: AuthServiceProtocol {
@@ -52,6 +53,17 @@ class AuthService: AuthServiceProtocol {
         do {
             try Auth.auth().signOut()
         } catch { print("already logged out") }
+    }
+    
+    func resetPassword(email: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        Auth.auth().sendPasswordReset(withEmail: email) { error in
+            if let error = error {
+                print("Error \(error.localizedDescription)")
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+        }
     }
     
 }

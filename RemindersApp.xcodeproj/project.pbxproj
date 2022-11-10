@@ -25,6 +25,9 @@
 		558A37A628EEFD6000801DAE /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558A37A528EEFD6000801DAE /* AuthService.swift */; };
 		55EFAA4F28F3FE60004171F0 /* ReminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EFAA4E28F3FE5F004171F0 /* ReminderTableViewCell.swift */; };
 		55EFAA5128F40EA3004171F0 /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EFAA5028F40EA3004171F0 /* Reminder.swift */; };
+		770F899B291D17FF005E2914 /* ResetPassword.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 770F899D291D17FF005E2914 /* ResetPassword.storyboard */; };
+		771D5C0F291BCE0D00331A62 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771D5C0E291BCE0D00331A62 /* ResetPasswordViewController.swift */; };
+		77267737291BD32C00CCCC41 /* ResetPasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77267736291BD32C00CCCC41 /* ResetPasswordPresenter.swift */; };
 		7735B52328F6E798000946AD /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7735B52228F6E798000946AD /* Date+Ext.swift */; };
 		7735B52528F6F9C7000946AD /* ReminderSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7735B52428F6F9C7000946AD /* ReminderSectionHeader.swift */; };
 		7735B52B28F70569000946AD /* ReminderSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7735B52A28F70569000946AD /* ReminderSectionHeader.xib */; };
@@ -79,6 +82,11 @@
 		55EFAA5028F40EA3004171F0 /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
 		58E96A4BC2E2A0C485F0C1A1 /* Pods-RemindersApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RemindersApp.release.xcconfig"; path = "Target Support Files/Pods-RemindersApp/Pods-RemindersApp.release.xcconfig"; sourceTree = "<group>"; };
 		5A09055A056CC9A14799BFD7 /* Pods-RemindersApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RemindersApp.debug.xcconfig"; path = "Target Support Files/Pods-RemindersApp/Pods-RemindersApp.debug.xcconfig"; sourceTree = "<group>"; };
+		770F899C291D17FF005E2914 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/ResetPassword.storyboard; sourceTree = "<group>"; };
+		770F89A4291D18D4005E2914 /* ar */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ar; path = ar.lproj/ResetPassword.storyboard; sourceTree = "<group>"; };
+		770F89A7291D18DE005E2914 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ru; path = ru.lproj/ResetPassword.storyboard; sourceTree = "<group>"; };
+		771D5C0E291BCE0D00331A62 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
+		77267736291BD32C00CCCC41 /* ResetPasswordPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordPresenter.swift; sourceTree = "<group>"; };
 		7735B52228F6E798000946AD /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		7735B52428F6F9C7000946AD /* ReminderSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderSectionHeader.swift; sourceTree = "<group>"; };
 		7735B52A28F70569000946AD /* ReminderSectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReminderSectionHeader.xib; sourceTree = "<group>"; };
@@ -263,6 +271,8 @@
 				5581C88E28EAE21F00728C40 /* SignInViewController.swift */,
 				7735E6452919396800F9180C /* SignUp.storyboard */,
 				5524B59E28EC470C007354DB /* SignUpViewController.swift */,
+				770F899D291D17FF005E2914 /* ResetPassword.storyboard */,
+				771D5C0E291BCE0D00331A62 /* ResetPasswordViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -271,6 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				558A379828EED94900801DAE /* AuthPresenter.swift */,
+				77267736291BD32C00CCCC41 /* ResetPasswordPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -476,6 +487,7 @@
 				7735B52B28F70569000946AD /* ReminderSectionHeader.xib in Resources */,
 				5581C88228EAD1CB00728C40 /* Assets.xcassets in Resources */,
 				5554352328F061D9008ED8DB /* GoogleService-Info.plist in Resources */,
+				770F899B291D17FF005E2914 /* ResetPassword.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -540,6 +552,7 @@
 				77641E5B29080DBB0012EE13 /* FirebaseDatabaseManager.swift in Sources */,
 				77641E6329080E310012EE13 /* ReminderRemoteItem.swift in Sources */,
 				77641E5D29080DD90012EE13 /* RemindersEndpoint.swift in Sources */,
+				771D5C0F291BCE0D00331A62 /* ResetPasswordViewController.swift in Sources */,
 				55EFAA4F28F3FE60004171F0 /* ReminderTableViewCell.swift in Sources */,
 				7735B52528F6F9C7000946AD /* ReminderSectionHeader.swift in Sources */,
 				7735B52328F6E798000946AD /* Date+Ext.swift in Sources */,
@@ -553,6 +566,7 @@
 				558A379928EED94900801DAE /* AuthPresenter.swift in Sources */,
 				5581C87828EAD1C900728C40 /* SceneDelegate.swift in Sources */,
 				558A37A628EEFD6000801DAE /* AuthService.swift in Sources */,
+				77267737291BD32C00CCCC41 /* ResetPasswordPresenter.swift in Sources */,
 				77CF2AC729015E3E00A8BA92 /* CoreDataManager.swift in Sources */,
 				778844C328FE9AFB006650BA /* UITextViewWithPlaceholder.swift in Sources */,
 				7741033C28F94274009041F9 /* CreateEditReminderViewController.swift in Sources */,
@@ -579,6 +593,16 @@
 				5581C88428EAD1CB00728C40 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		770F899D291D17FF005E2914 /* ResetPassword.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				770F899C291D17FF005E2914 /* en */,
+				770F89A4291D18D4005E2914 /* ar */,
+				770F89A7291D18DE005E2914 /* ru */,
+			);
+			name = ResetPassword.storyboard;
 			sourceTree = "<group>";
 		};
 		7735E6392919370000F9180C /* Localizable.strings */ = {
@@ -736,6 +760,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = D7AYZAGTTZ;
@@ -754,6 +779,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.letmecode.remindersapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -766,6 +792,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = D7AYZAGTTZ;
@@ -784,6 +811,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.letmecode.remindersapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

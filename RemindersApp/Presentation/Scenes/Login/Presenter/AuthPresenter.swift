@@ -15,6 +15,7 @@ enum AuthViewNavigation {
     case mainWithoutUser
     case goToSignUp
     case goToSignIn
+    case goToResetPassword
 }
 
 protocol AuthViewProtocol: AnyObject {
@@ -134,6 +135,10 @@ class AuthPresenter {
     
     func tapGoToSignIn() {
         self.view.move(to: .goToSignIn)
+    }
+    
+    func tapGoToResetPassword() {
+        self.view.move(to: .goToResetPassword)
     }
     
 }

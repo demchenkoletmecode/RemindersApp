@@ -161,18 +161,14 @@ extension MainViewController: MainViewProtocol {
     func move(to: MainViewNavigation) {
         switch to {
         case .goToSignIn:
-            let signInStoryboard = UIStoryboard(name: "SignIn", bundle: nil)
-            let vc = signInStoryboard.instantiateViewController(withIdentifier: "SignInVC")
-            vc.modalPresentationStyle = .overFullScreen
-            self.present(vc, animated: true)
+            if let scene = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+                scene.openTheDesiredController(isLater: false, isAuthorized: false)
+            }
         case .logoutUserGoToSignIn:
             authService.logoutUser()
-            navigationController?.popToRootViewController(animated: true)
-            
-            let signInStoryboard = UIStoryboard(name: "SignIn", bundle: nil)
-            let vc = signInStoryboard.instantiateViewController(withIdentifier: "SignInVC")
-            vc.modalPresentationStyle = .overFullScreen
-            self.present(vc, animated: true)
+            if let scene = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+                scene.openTheDesiredController(isLater: false, isAuthorized: false)
+            }
         case .createReminder:
             let vc = CreateEditReminderViewController()
             vc.delegate = self
