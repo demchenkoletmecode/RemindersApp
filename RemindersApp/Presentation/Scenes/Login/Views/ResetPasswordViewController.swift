@@ -62,11 +62,11 @@ extension ResetPasswordViewController: ResetPasswordProtocol {
         switch to {
         case .goBack:
             navigationController?.popViewController(animated: true)
-        case .goToLoginWithResetesPass:
-            let alert = UIAlertController(title: "Resetting password",
-                                          message: "Check your email account. We have sent you a link. Follow the link and create a new password",
+        case .goToLoginWithResetedPass:
+            let alert = UIAlertController(title: "Resetting password".localized,
+                                          message: "Check your email account. We have sent you a link. Follow the link and create a new password".localized,
                                           preferredStyle: .alert)
-            let okBtn = UIAlertAction(title: "OK", style: .default, handler: { _ in
+            let okBtn = UIAlertAction(title: "OK".localized, style: .default, handler: { _ in
                 self.navigationController?.popViewController(animated: true)
             })
             alert.addAction(okBtn)

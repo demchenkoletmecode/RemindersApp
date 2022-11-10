@@ -9,7 +9,7 @@ import Foundation
 
 enum ResetPasswordNavigation {
     case goBack
-    case goToLoginWithResetesPass
+    case goToLoginWithResetedPass
 }
 
 protocol ResetPasswordProtocol: AnyObject {
@@ -58,12 +58,11 @@ class ResetPasswordPresenter {
             authService.resetPassword(email: email) { [weak self] result in
                 switch result {
                 case .success:
-                    self?.view.move(to: .goToLoginWithResetesPass)
+                    self?.view.move(to: .goToLoginWithResetedPass)
                 case .failure(let error):
                     self?.view.emailError = error.localizedDescription
                 }
             }
-            view.move(to: .goToLoginWithResetesPass)
         }
     }
     
