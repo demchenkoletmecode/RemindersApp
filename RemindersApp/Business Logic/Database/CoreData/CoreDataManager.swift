@@ -104,10 +104,10 @@ class CoreDataManager {
     func editReminder(id: String, reminder: Reminder) {
         let fetchReminder: NSFetchRequest<ReminderItem> = ReminderItem.fetchRequest()
         fetchReminder.predicate = NSPredicate(format: "id = %@", id as String)
-
+        
         let results = try? context.fetch(fetchReminder)
         let reminderItem = results?.first ?? ReminderItem(context: context)
-
+        
         reminderItem.id = id
         reminderItem.name = reminder.name
         reminderItem.isDone = reminder.isDone
@@ -122,7 +122,7 @@ class CoreDataManager {
     func changeAccomplishment(id: String) {
         let fetchReminder: NSFetchRequest<ReminderItem> = ReminderItem.fetchRequest()
         fetchReminder.predicate = NSPredicate(format: "id = %@", id as String)
-
+        
         let results = try? context.fetch(fetchReminder)
         let reminderItem = results?.first ?? ReminderItem(context: context)
         
@@ -149,7 +149,7 @@ class CoreDataManager {
             reminderItem.isDone.toggle()
             appContext.notificationManager.removeNotification(reminderId: id)
         }
-
+        
         reminderItem.id = id
         reminderItem.timeDate = date
         reminderItem.updatedAt = updatedAt

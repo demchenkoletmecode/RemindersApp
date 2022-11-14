@@ -33,15 +33,16 @@ class CreateEditPresenter {
     private let coreDataManager = appContext.coreDateManager
     private let reminderService: ReminderService
     private let notificationManager = appContext.notificationManager
-    
+    private let storage: ReminderRepositoryImpl<CoreDataStorageContext<Reminder>>
     var periodList = Periodicity.allCases.map {
         $0.displayValue
     }
     
-    init(view: CreateEditProtocol, reminderService: ReminderService, id: String?) {
+    init(view: CreateEditProtocol, reminderService: ReminderService, id: String?, storage: any StorageContext) {
         self.view = view
         self.reminderService = reminderService
         self.reminderId = id
+        self.storage = storage
     }
     
     func isEditReminder() -> Bool {
@@ -82,6 +83,8 @@ class CreateEditPresenter {
                                             periodicity: periodicity.toPeriodicity,
                                             notes: notes,
                                             updatedAt: Date())
+                storage.save(object: reminderItem)
+                //reminderItem.update(managedObject: reminderItem.toManagedObject(from: T##NSManagedObjectContext), in: T##NSManagedObjectContext)
                 coreDataManager.editReminder(id: reminderId, reminder: reminderItem)
                 notificationManager.editNotification(reminder: reminderItem)
             } else {
@@ -92,6 +95,8 @@ class CreateEditPresenter {
                                            periodicity: periodicity.toPeriodicity,
                                            notes: notes,
                                            updatedAt: Date())
+                //storage.save(object: reminderItem.toManagedObject(from: NSManagedObjectContext))
+                //newReminder.saveEntity(in: appContext.coreDateManager2.context)
                 coreDataManager.addReminder(reminder: newReminder)
                 notificationManager.setNotification(reminder: newReminder)
             }

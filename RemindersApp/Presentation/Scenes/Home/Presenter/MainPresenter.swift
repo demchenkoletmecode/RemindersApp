@@ -111,6 +111,9 @@ class MainPresenter {
                                             periodicity: reminder.periodicity,
                                             notes: reminder.notes,
                                             updatedAt: Date())
+                
+                
+                
                 notificationManager.editNotification(reminder: reminderItem)
                 updateLocalReminder(reminderItem)
                 updateRemoteReminder(reminderItem)

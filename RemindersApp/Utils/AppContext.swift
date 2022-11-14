@@ -18,6 +18,8 @@ class AppContext {
     
     lazy var coreDateManager = CoreDataManager()
     
+    lazy var coreDateManager2 = CoreDataStorageContext()
+    
     lazy var notificationManager = NotificationService()
 
 }
