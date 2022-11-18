@@ -8,6 +8,7 @@
 import Foundation
 
 struct Reminder: Equatable {
+    
     let id: String
     var name: String
     var isDone: Bool

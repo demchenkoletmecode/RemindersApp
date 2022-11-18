@@ -216,7 +216,11 @@ class CreateEditReminderViewController: UIViewController {
         super.viewDidLoad()
         
         if presenter == nil {
-            presenter = CreateEditPresenter(view: self, reminderService: appContext.firebaseDatabase, id: nil)
+            let storage = ReminderRepositoryImpl(storage: appContext.coreDataStorage)
+            presenter = CreateEditPresenter(view: self,
+                                            reminderService: appContext.firebaseDatabase,
+                                            id: nil,
+                                            repository: storage)
         }
     
         configureView()
