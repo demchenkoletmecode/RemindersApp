@@ -25,21 +25,32 @@ class MainPresenter {
     weak var view: MainViewProtocol?
     private var reminders: [Reminder] = []
     private var dataSource = [SectionReminders]()
-    private let coreDataManager = appContext.coreDateManager
     private let reminderService: ReminderService
     private let notificationManager = appContext.notificationManager
+    private let storage: ReminderRepositoryImpl<CoreDataStorage<Reminder>>
     
-    init(view: MainViewProtocol, reminderService: ReminderService) {
+    init(view: MainViewProtocol,
+         reminderService: ReminderService,
+         storage: ReminderRepositoryImpl<CoreDataStorage<Reminder>>) {
         self.view = view
         self.reminderService = reminderService
+        self.storage = storage
     }
     
     func getReminders() {
         reminders.removeAll()
         dataSource.removeAll()
-        let localReminders = coreDataManager.fetchReminders()
+        var localReminders = [Reminder]()
         var remoteReminders = [Reminder]()
-        reminders = localReminders
+        storage.getAllReminders { result in
+            switch result {
+            case let .success(reminders):
+                localReminders = reminders
+                self.reminders = localReminders
+            case let .failure(error):
+                print("An error occurred with getting local items: \(error.localizedDescription)")
+            }
+        }
         let group = DispatchGroup()
         group.enter()
         reminderService.getAllReminders { result in
@@ -56,7 +67,7 @@ class MainPresenter {
                              updatedAt: rem.updatedAt)
                 }
             case let .failure(error):
-                print("An error occurred with getting items: \(error.localizedDescription)")
+                print("An error occurred with getting remote items: \(error.localizedDescription)")
             }
             group.leave()
         }
@@ -72,8 +83,12 @@ class MainPresenter {
     
     func tapOnSignInSignOut() {
         if AuthService.isAuthorized {
-            coreDataManager.deleteAllData()
             reminders.forEach {
+                storage.deleteReminder(object: $0, completion: { error in
+                    if let error = error {
+                        print("An error occurred with changing accomp in local reminder: \(error.localizedDescription)")
+                    }
+                })
                 notificationManager.removeNotification(reminderId: $0.id)
             }
             self.view?.move(to: .logoutUserGoToSignIn)
@@ -112,14 +127,18 @@ class MainPresenter {
                                             notes: reminder.notes,
                                             updatedAt: Date())
                 
-                
-                
                 notificationManager.editNotification(reminder: reminderItem)
                 updateLocalReminder(reminderItem)
                 updateRemoteReminder(reminderItem)
                 getReminders()
             } else {
-                coreDataManager.changeAccomplishment(id: reminderId)
+                let updatedReminder = changeReminderAccomplishment(reminder)
+                storage.changeAccomplishment(object: updatedReminder, completion: { error in
+                    if let error = error {
+                        print("An error occurred with changing accomp in local reminder: \(error.localizedDescription)")
+                    }
+                })
+
                 if !reminder.isDone {
                     notificationManager.removeNotification(reminderId: reminderId)
                 } else {
@@ -146,6 +165,38 @@ class MainPresenter {
             }
         }
     }
+    
+    private func changeReminderAccomplishment(_ reminder: Reminder) -> Reminder {
+        var reminderItem = reminder
+        let newReminder: Reminder
+        var date = reminderItem.timeDate
+        let updatedAt = Date()
+        var isEdit = false
+        if !reminderItem.isDone, let period = reminderItem.periodicity, period != .never {
+            date = reminderItem.timeDate?.addPeriodDate(index: period.rawValue)
+            isEdit = true
+        }
+        
+        if isEdit {
+            reminderItem.isDone = false
+        } else {
+            reminderItem.isDone.toggle()
+            appContext.notificationManager.removeNotification(reminderId: reminderItem.id)
+        }
+        newReminder = Reminder(id: reminderItem.id,
+                               name: reminderItem.name,
+                               isDone: reminderItem.isDone,
+                               timeDate: date,
+                               isTimeSet: reminderItem.isTimeSet,
+                               periodicity: reminderItem.periodicity,
+                               notes: reminderItem.notes,
+                               updatedAt: updatedAt)
+        if isEdit {
+            appContext.notificationManager.editNotification(reminder: newReminder)
+        }
+        return newReminder
+    }
+    
 }
 
 private extension MainPresenter {
@@ -222,12 +273,20 @@ private extension MainPresenter {
     }
     
     func updateLocalReminder(_ reminder: Reminder) {
-        coreDataManager.editReminder(id: reminder.id, reminder: reminder)
+        storage.updateReminder(object: reminder, completion: { error in
+            if let error = error {
+                print("An error occurred with updating local reminder: \(error.localizedDescription)")
+            }
+        })
         notificationManager.editNotification(reminder: reminder)
     }
     
     func addLocalReminder(_ reminder: Reminder) {
-        coreDataManager.addReminder(reminder: reminder)
+        storage.createReminder(object: reminder, completion: { error in
+            if let error = error {
+                print("An error occurred with creating local reminder: \(error.localizedDescription)")
+            }
+        })
         notificationManager.setNotification(reminder: reminder)
     }
     

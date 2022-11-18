@@ -8,7 +8,7 @@
 import CoreData
 import Foundation
 
-class CoreDataStorageContext<T>: StorageContext
+class CoreDataStorage<T>: StorageContext
 where T: CoreDataConvertible, T.CoreDataType.ModelType == T {
     
     lazy var context: NSManagedObjectContext = {
@@ -44,9 +44,10 @@ where T: CoreDataConvertible, T.CoreDataType.ModelType == T {
         }
     }
     
-    func save(object: T) -> Error?  {
+    func save(object: T) -> Error? {
+        let context = persistentContainer.viewContext
         do {
-            
+            try object.saveEntity(in: context)
             saveContext()
             return nil
         } catch {
@@ -55,31 +56,36 @@ where T: CoreDataConvertible, T.CoreDataType.ModelType == T {
         }
     }
     
-    func query(predicate: NSPredicate?) -> [T] {
-        var objects = [T]()
+    func delete(object: T) -> Error? {
+        let entity = object.uid
+        let context = persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<T.CoreDataType> = T.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id = %@", entity)
+        do {
+            if let result = (try context.fetch(fetchRequest).first) {
+                context.delete(result)
+            }
+            saveContext()
+            return nil
+        } catch {
+            print("An error occurred with updating data")
+            return error
+        }
+    }
+    
+    func query(predicate: NSPredicate?) -> Result<[T], Error> {
+        var objects = [T.CoreDataType]()
         do {
             let fetchRequest: NSFetchRequest<T.CoreDataType> = T.fetchRequest()
             fetchRequest.predicate = predicate
-            objects = try context.fetch(fetchRequest) as? [T] ?? []
+            objects = try context.fetch(fetchRequest) as [T.CoreDataType]
+            let reminderObjects = objects.map {
+                $0.toModel()
+            }
+            return .success(reminderObjects)
         } catch {
             print("An error occurred with fetching objects")
-        }
-        return objects
-    }
-    
-    func delete(predicate: NSPredicate?) -> Error? {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "\(T.self)")
-        fetchRequest.predicate = predicate
-        do {
-            let results = try context.fetch(fetchRequest)
-            for object in results {
-                guard let objectData = object as? NSManagedObject else {continue}
-                context.delete(objectData)
-            }
-            return nil
-        } catch {
-            print("An error occurred with deleting data: \(error.localizedDescription)")
-            return error
+            return .failure(error)
         }
     }
     

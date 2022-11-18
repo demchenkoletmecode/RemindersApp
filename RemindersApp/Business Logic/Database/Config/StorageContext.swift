@@ -12,7 +12,7 @@ protocol StorageContext {
     associatedtype T
 
     func save(object: T) -> Error?
-    func query(predicate: NSPredicate?) -> [T]
-    func delete(predicate: NSPredicate?) -> Error?
+    func query(predicate: NSPredicate?) -> Result<[T], Error>
+    func delete(object: T) -> Error?
     
 }

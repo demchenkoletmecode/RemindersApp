@@ -179,7 +179,11 @@ extension MainViewController: MainViewProtocol {
             let vc = CreateEditReminderViewController()
             vc.delegate = self
             vc.title = "Edit Reminder".localized
-            vc.presenter = CreateEditPresenter(view: vc, reminderService: appContext.firebaseDatabase, id: reminderId)
+            let repository = ReminderRepositoryImpl(storage: appContext.coreDataStorage)
+            vc.presenter = CreateEditPresenter(view: vc,
+                                               reminderService: appContext.firebaseDatabase,
+                                               id: reminderId,
+                                               repository: repository)
             navigationController?.pushViewController(vc, animated: true)
         }
     }

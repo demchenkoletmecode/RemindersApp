@@ -15,7 +15,7 @@ protocol CoreDataConvertible {
     var uid: String { get }
     
     static func fetchRequest() -> NSFetchRequest<CoreDataType>
-    func saveEntity(in context: NSManagedObjectContext)
+    func saveEntity(in context: NSManagedObjectContext) throws
     func toManagedObject(from context: NSManagedObjectContext) -> CoreDataType?
     func update(managedObject: CoreDataType, in context: NSManagedObjectContext)
     

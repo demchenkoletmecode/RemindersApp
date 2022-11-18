@@ -8,7 +8,7 @@
 import CoreData
 import Foundation
 
-extension Reminder: CoreDataConvertible {
+extension Reminder: CoreDataConvertible {    
     
     typealias CoreDataType = ReminderItem
     
@@ -16,18 +16,18 @@ extension Reminder: CoreDataConvertible {
         return self.id
     }
     
-    func saveEntity(in context: NSManagedObjectContext) {
-        let reminder = self.toManagedObject(from: context)
-        if let reminder = reminder {
-            do {
-                //try coreDataManager.save(object: reminder)
-            } catch {
-                print("An error occurred with saving entity")
-            }
+    func saveEntity(in context: NSManagedObjectContext) throws {
+        let fetchRequest = Self.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id = %@", uid)
+        fetchRequest.fetchLimit = 1
+        if let existingRem = try context.fetch(fetchRequest).first {
+            update(managedObject: existingRem, in: context)
+        } else {
+            self.toManagedObject(from: context)
         }
     }
     
-    static func fetchRequest() -> NSFetchRequest<ReminderItem> {
+    public static func fetchRequest() -> NSFetchRequest<ReminderItem> {
         let request = ReminderItem.fetchRequest() as NSFetchRequest<ReminderItem>
         return request
     }
@@ -46,7 +46,13 @@ extension Reminder: CoreDataConvertible {
     }
     
     func update(managedObject: ReminderItem, in context: NSManagedObjectContext) {
-        //appContext.coreDateManager2.query(ReminderItem.Type, predicate: T##NSPredicate?)
-    }
+        managedObject.id = self.id
+        managedObject.name = self.name
+        managedObject.isDone = self.isDone
+        managedObject.periodicity = Int16(self.periodicity?.rawValue ?? -1)
+        managedObject.timeDate = self.timeDate
+        managedObject.isTimeSet = self.isTimeSet
+        managedObject.notes = self.notes
+        managedObject.updatedAt = self.updatedAt    }
     
 }

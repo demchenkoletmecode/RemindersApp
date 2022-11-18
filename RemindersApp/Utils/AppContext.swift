@@ -16,9 +16,7 @@ class AppContext {
     
     lazy var firebaseDatabase = ReminderService()
     
-    lazy var coreDateManager = CoreDataManager()
-    
-    lazy var coreDateManager2 = CoreDataStorageContext()
+    lazy var coreDataStorage = CoreDataStorage<Reminder>()
     
     lazy var notificationManager = NotificationService()
 

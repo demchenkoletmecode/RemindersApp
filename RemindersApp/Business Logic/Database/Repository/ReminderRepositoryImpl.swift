@@ -27,6 +27,11 @@ extension ReminderRepositoryImpl: ReminderRepository {
         completion(storage.query(predicate: nil))
     }
     
+    func getReminder(id: String, completion: (Result<[Reminder], Error>) -> Void) {
+        let predicate = NSPredicate(format: "id = %@", id as String)
+        completion(storage.query(predicate: predicate))
+    }
+    
     func updateReminder(object: Reminder, completion: (Error?) -> Void) {
         completion(storage.save(object: object))
     }
@@ -36,7 +41,7 @@ extension ReminderRepositoryImpl: ReminderRepository {
     }
     
     func deleteReminder(object: Reminder, completion: (Error?) -> Void) {
-        
+        completion(storage.delete(object: object))
     }
     
 }

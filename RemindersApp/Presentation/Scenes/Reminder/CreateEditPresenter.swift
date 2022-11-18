@@ -30,19 +30,21 @@ class CreateEditPresenter {
     private var reminder: Reminder?
     private var fullDate: Date?
     private let calendar = Calendar.current
-    private let coreDataManager = appContext.coreDateManager
     private let reminderService: ReminderService
     private let notificationManager = appContext.notificationManager
-    private let storage: ReminderRepositoryImpl<CoreDataStorageContext<Reminder>>
+    private let repository: ReminderRepository
     var periodList = Periodicity.allCases.map {
         $0.displayValue
     }
     
-    init(view: CreateEditProtocol, reminderService: ReminderService, id: String?, storage: any StorageContext) {
+    init(view: CreateEditProtocol,
+         reminderService: ReminderService,
+         id: String?,
+         repository: ReminderRepository) {
         self.view = view
         self.reminderService = reminderService
         self.reminderId = id
-        self.storage = storage
+        self.repository = repository
     }
     
     func isEditReminder() -> Bool {
@@ -83,9 +85,12 @@ class CreateEditPresenter {
                                             periodicity: periodicity.toPeriodicity,
                                             notes: notes,
                                             updatedAt: Date())
-                storage.save(object: reminderItem)
-                //reminderItem.update(managedObject: reminderItem.toManagedObject(from: T##NSManagedObjectContext), in: T##NSManagedObjectContext)
-                coreDataManager.editReminder(id: reminderId, reminder: reminderItem)
+     
+                repository.updateReminder(object: reminderItem, completion: { error in
+                    if let error = error {
+                        print("An error occurred with updating reminder: \(error.localizedDescription)")
+                    }
+                })
                 notificationManager.editNotification(reminder: reminderItem)
             } else {
                 let newReminder = Reminder(name: name,
@@ -95,9 +100,11 @@ class CreateEditPresenter {
                                            periodicity: periodicity.toPeriodicity,
                                            notes: notes,
                                            updatedAt: Date())
-                //storage.save(object: reminderItem.toManagedObject(from: NSManagedObjectContext))
-                //newReminder.saveEntity(in: appContext.coreDateManager2.context)
-                coreDataManager.addReminder(reminder: newReminder)
+                repository.createReminder(object: newReminder, completion: { error in
+                    if let error = error {
+                        print("An error occurred with creating reminder: \(error.localizedDescription)")
+                    }
+                })
                 notificationManager.setNotification(reminder: newReminder)
             }
             self.view?.save()
@@ -137,7 +144,14 @@ class CreateEditPresenter {
     
     func getReminder() {
         if let reminderId = reminderId {
-            reminder = coreDataManager.getReminderById(reminderId: reminderId)
+            repository.getReminder(id: reminderId) { result in
+                switch result {
+                case let .success(rems):
+                    self.reminder = rems.first
+                case let .failure(error):
+                    print("An error occurred with getting local reminder: \(error.localizedDescription)")
+                }
+            }
             view?.showReminder(reminder: reminder)
         }
     }

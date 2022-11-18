@@ -12,6 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     var pendingNotification: UNNotificationResponse?
+    let coreData = appContext.coreDataStorage
 
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
@@ -31,7 +32,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func openTheDesiredController(isLater: Bool, isAuthorized: Bool) {
         if isLater || isAuthorized {
             let vc = MainViewController(nibName: "MainViewController", bundle: nil)
-            let presenter = MainPresenter(view: vc, reminderService: appContext.firebaseDatabase)
+            let storage = ReminderRepositoryImpl(storage: coreData)
+            let presenter = MainPresenter(view: vc, reminderService: appContext.firebaseDatabase, storage: storage)
             vc.presenter = presenter
             let navController = UINavigationController(rootViewController: vc)
             window?.rootViewController = navController
@@ -100,7 +102,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
 
         // Save changes in the application's managed object context when the application transitions to the background.
-        appContext.coreDateManager.saveContext()
+        coreData.saveContext()
     }
 
 }
