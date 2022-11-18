@@ -34,14 +34,7 @@ extension Reminder: CoreDataConvertible {
     
     func toManagedObject(from context: NSManagedObjectContext) -> ReminderItem? {
         let reminderItem = ReminderItem(context: context)
-        reminderItem.id = self.id
-        reminderItem.name = self.name
-        reminderItem.isDone = self.isDone
-        reminderItem.periodicity = Int16(self.periodicity?.rawValue ?? -1)
-        reminderItem.timeDate = self.timeDate
-        reminderItem.isTimeSet = self.isTimeSet
-        reminderItem.notes = self.notes
-        reminderItem.updatedAt = self.updatedAt
+        update(managedObject: reminderItem, in: context)
         return reminderItem
     }
     
@@ -53,6 +46,7 @@ extension Reminder: CoreDataConvertible {
         managedObject.timeDate = self.timeDate
         managedObject.isTimeSet = self.isTimeSet
         managedObject.notes = self.notes
-        managedObject.updatedAt = self.updatedAt    }
+        managedObject.updatedAt = self.updatedAt
+    }
     
 }

@@ -253,7 +253,6 @@
 			children = (
 				5568851928EFFB83004F211E /* User.swift */,
 				55EFAA5028F40EA3004171F0 /* Reminder.swift */,
-				770056DE29224C1900FF4B6D /* Reminder+CoreDataConvertible.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -429,6 +428,7 @@
 		77CF2AC8290168BE00A8BA92 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				770056DE29224C1900FF4B6D /* Reminder+CoreDataConvertible.swift */,
 				775571802902E4DD0085A8A4 /* ReminderItem+CoreDataProperties.swift */,
 				7755717F2902E4DC0085A8A4 /* ReminderItem+CoreDataClass.swift */,
 				770056DC2922479E00FF4B6D /* Reminderitem+ModelConvertible.swift */,

@@ -45,7 +45,6 @@ where T: CoreDataConvertible, T.CoreDataType.ModelType == T {
     }
     
     func save(object: T) -> Error? {
-        let context = persistentContainer.viewContext
         do {
             try object.saveEntity(in: context)
             saveContext()
@@ -57,10 +56,9 @@ where T: CoreDataConvertible, T.CoreDataType.ModelType == T {
     }
     
     func delete(object: T) -> Error? {
-        let entity = object.uid
-        let context = persistentContainer.viewContext
+        let entityId = object.uid
         let fetchRequest: NSFetchRequest<T.CoreDataType> = T.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "id = %@", entity)
+        fetchRequest.predicate = NSPredicate(format: "id = %@", entityId)
         do {
             if let result = (try context.fetch(fetchRequest).first) {
                 context.delete(result)
@@ -74,11 +72,10 @@ where T: CoreDataConvertible, T.CoreDataType.ModelType == T {
     }
     
     func query(predicate: NSPredicate?) -> Result<[T], Error> {
-        var objects = [T.CoreDataType]()
         do {
             let fetchRequest: NSFetchRequest<T.CoreDataType> = T.fetchRequest()
             fetchRequest.predicate = predicate
-            objects = try context.fetch(fetchRequest) as [T.CoreDataType]
+            let objects = try context.fetch(fetchRequest) as [T.CoreDataType]
             let reminderObjects = objects.map {
                 $0.toModel()
             }

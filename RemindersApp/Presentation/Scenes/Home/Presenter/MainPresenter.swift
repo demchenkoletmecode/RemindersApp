@@ -27,11 +27,11 @@ class MainPresenter {
     private var dataSource = [SectionReminders]()
     private let reminderService: ReminderService
     private let notificationManager = appContext.notificationManager
-    private let storage: ReminderRepositoryImpl<CoreDataStorage<Reminder>>
+    private let storage: ReminderRepository
     
     init(view: MainViewProtocol,
          reminderService: ReminderService,
-         storage: ReminderRepositoryImpl<CoreDataStorage<Reminder>>) {
+         storage: ReminderRepository) {
         self.view = view
         self.reminderService = reminderService
         self.storage = storage
@@ -168,7 +168,6 @@ class MainPresenter {
     
     private func changeReminderAccomplishment(_ reminder: Reminder) -> Reminder {
         var reminderItem = reminder
-        let newReminder: Reminder
         var date = reminderItem.timeDate
         let updatedAt = Date()
         var isEdit = false
@@ -176,25 +175,16 @@ class MainPresenter {
             date = reminderItem.timeDate?.addPeriodDate(index: period.rawValue)
             isEdit = true
         }
-        
+        reminderItem.timeDate = date
         if isEdit {
             reminderItem.isDone = false
+            appContext.notificationManager.editNotification(reminder: reminderItem)
         } else {
             reminderItem.isDone.toggle()
             appContext.notificationManager.removeNotification(reminderId: reminderItem.id)
         }
-        newReminder = Reminder(id: reminderItem.id,
-                               name: reminderItem.name,
-                               isDone: reminderItem.isDone,
-                               timeDate: date,
-                               isTimeSet: reminderItem.isTimeSet,
-                               periodicity: reminderItem.periodicity,
-                               notes: reminderItem.notes,
-                               updatedAt: updatedAt)
-        if isEdit {
-            appContext.notificationManager.editNotification(reminder: newReminder)
-        }
-        return newReminder
+  
+        return reminderItem
     }
     
 }
